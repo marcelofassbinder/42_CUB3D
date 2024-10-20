@@ -4,7 +4,7 @@ MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -
 LIBFT_LIB = include/libft/libft.a
 LIBFT_DIR = include/libft
 CC = cc 
-C_FLAGS = -Wall -Werror -Wextra
+C_FLAGS = -Wall -Werror -Wextra -g
 NAME = cub3d
 
 all : $(NAME)
