@@ -6,20 +6,25 @@ int main(void)
 	char **test_map_array = ft_split(test_map, '\n');
 	t_cub_data *cub = ft_calloc(sizeof(t_cub_data), 1);
 
+	int i = 0;
 	cub->mlx_ptr = mlx_init();
 	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	
+	cub->img = ft_calloc(sizeof(t_image), 1);
+	cub->img->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
+	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel, &cub->img->line_len, &cub->img->endian);
+
 	cub->player_pos_X = 5.2;
 	cub->player_pos_Y = 2.7;
 	
 	//printf("%s", test_map);
 	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
-	cub->player_dir->x = 0;
-	cub->player_dir->y = -1;
+	cub->player_dir->x = 1;
+	cub->player_dir->y = 0;
 
 	cub->plane = ft_calloc(sizeof(t_vector), 1);
-	cub->plane->x = 1;
-	cub->plane->y = 0;
+	cub->plane->x = 0;
+	cub->plane->y = 1;
 
 	if (cub->player_char == 'N') 
 	{
@@ -74,10 +79,10 @@ int main(void)
 		ray_dir.x = cub->player_dir->x + cub->plane->x * camera_x; // define o valor de x no vetor de direcao de cada raio
 		ray_dir.y = cub->player_dir->y + cub->plane->y * camera_x; // define o valor de y no vetor de direcao cada raio
 		//printf("cam_x = %f\n", camera_x);
-		printf("\n****** RAIO %i ******\n", x);
+		/* printf("\n****** RAIO %i ******\n", x);
 		printf("%i", x);
 		printf("ray_x = %f\n", ray_dir.x);
-		printf("ray_y = %f\n", ray_dir.y);
+		printf("ray_y = %f\n", ray_dir.y); */
 		mapX = (int)cub->player_pos_X;
 		mapY = (int)cub->player_pos_Y;
 
@@ -91,8 +96,8 @@ int main(void)
 		else
 			deltaY = sqrt(1 + pow((ray_dir.x/ray_dir.y), 2)); // ditance traveled to walk 1 unit in Y axis;
 			//deltaY = fabs(1 / ray_dir.y);
-		printf("deltaX = %f\n", deltaX);
-		printf("deltaY = %f\n", deltaY);
+		/* printf("deltaX = %f\n", deltaX);
+		printf("deltaY = %f\n", deltaY); */
 		if (ray_dir.x < 0) 
 		{
 			stepX = -1; // the next step will be to the left;
@@ -139,9 +144,9 @@ int main(void)
 				mapY += stepY;
 				side_colision = 0;
 			}
-			printf("new sideX = %f\n", sideX);
+			/* printf("new sideX = %f\n", sideX);
 			printf("new sideY = %f\n", sideY);
-			printf("side colision = %i\n", side_colision);
+			printf("side colision = %i\n", side_colision); */
 			if (test_map_array[mapY][mapX] == '1')
 				break ;			
 		}
@@ -153,14 +158,14 @@ int main(void)
 
 		if (side_colision == 1){
 			wall_distance = (mapX - cub->player_pos_X + (1 - stepX) / 2) / ray_dir.x;
-			printf("\nstepX = %i\n", stepX);
-			printf("\nray_dir_X = %f\n", ray_dir.x);
-		}
+			/* printf("\nstepX = %i\n", stepX);
+			printf("\nray_dir_X = %f\n", ray_dir.x); */
 			//wall_distance = sideX - deltaX;
+		}
 		else {
 			wall_distance = (mapY - cub->player_pos_Y + (1 - stepY) / 2) / ray_dir.y;
-			printf("\nstepY = %i\n", stepY);
-			printf("\nray_dir_Y = %f\n", ray_dir.y);
+			/* printf("\nstepY = %i\n", stepY);
+			printf("\nray_dir_Y = %f\n", ray_dir.y); */
 			//wall_distance = sideY - deltaY;
 		}
 		line_height = (int) (HEIGHT / wall_distance);
@@ -171,16 +176,28 @@ int main(void)
 		pixel_draw_end = (HEIGHT / 2) + (line_height / 2);
 		if (pixel_draw_end >= HEIGHT)
 			pixel_draw_end = HEIGHT - 1;
-		printf("wall distance = %f\n", wall_distance);
+		/* printf("wall distance = %f\n", wall_distance);
 		printf("pixel start = %i\n", pixel_draw_start);
-		printf("pixel end = %i\n", pixel_draw_end);
-
+		printf("pixel end = %i\n", pixel_draw_end); */
+		int floor = HEIGHT;
+		int ceiling = 0;
+		while (floor >= pixel_draw_start) {
+			my_mlx_pixel_put(cub->img, x, floor, 0xB9BEB9);
+			floor --;
+		}
+		while (ceiling <= pixel_draw_end) {
+			my_mlx_pixel_put(cub->img, x, ceiling, 0x009FDA);
+			ceiling++;
+		}
 		while(pixel_draw_end >= pixel_draw_start) {
-			mlx_pixel_put(cub->mlx_ptr, cub->mlx_window, x, pixel_draw_start, 0x0000FF00);
+			if (side_colision == 1)
+				my_mlx_pixel_put(cub->img, x, pixel_draw_start, 0x009F00);
+			else
+				my_mlx_pixel_put(cub->img, x, pixel_draw_start, 0x00C700);
+			//mlx_pixel_put(cub->mlx_ptr, cub->mlx_window, x, pixel_draw_start, 0x0000FF00);
 			pixel_draw_start++;
 		}
 	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->img->img, 0, 0);
 	mlx_loop(cub->mlx_ptr);
-
-
 }
