@@ -1,5 +1,5 @@
-SRC = src/main.c
-OBJ = src/main.o
+SRC = src/main.c src/utils.c
+OBJ = src/main.o src/utils.o
 MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -lXext -lX11 -lm -lz
 LIBFT_LIB = include/libft/libft.a
 LIBFT_DIR = include/libft
