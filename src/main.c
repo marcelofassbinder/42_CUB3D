@@ -19,12 +19,12 @@ int main(void)
 	
 	//printf("%s", test_map);
 	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
-	cub->player_dir->x = 1;
-	cub->player_dir->y = 0;
+	cub->player_dir->x = 0;
+	cub->player_dir->y = -1;
 
 	cub->plane = ft_calloc(sizeof(t_vector), 1);
-	cub->plane->x = 0;
-	cub->plane->y = 1;
+	cub->plane->x = 1;
+	cub->plane->y = 0;
 
 	if (cub->player_char == 'N') 
 	{
@@ -72,7 +72,6 @@ int main(void)
 	int side_colision;
 
 	int x = -1;
-
 	while (++x < WIDTH)
 	{
 		camera_x = 2 * (x / (double)WIDTH) - 1; // camera_x varia de -1 a 1
@@ -83,7 +82,7 @@ int main(void)
 		printf("%i", x);
 		printf("ray_x = %f\n", ray_dir.x);
 		printf("ray_y = %f\n", ray_dir.y); */
-		mapX = (int)cub->player_pos_X;
+		mapX = (int)cub->player_pos_X; // define o quadrado do mapa onde o player esta
 		mapY = (int)cub->player_pos_Y;
 
 		if (ray_dir.x == 0)
@@ -101,12 +100,12 @@ int main(void)
 		if (ray_dir.x < 0) 
 		{
 			stepX = -1; // the next step will be to the left;
-			sideX = (cub->player_pos_X - mapX) * deltaX; // calculate the distance from the player position until the first intersection in X axis;
+			sideX = (cub->player_pos_X - mapX) * deltaX; // calculate the distance from the player position until the first intersection in X axis to the left;
 		}
 		else
 		{
 			stepX = 1; // the next step will be to the right;
-			sideX = (mapX + 1 - cub->player_pos_X) * deltaX;
+			sideX = (mapX + 1 - cub->player_pos_X) * deltaX; //calculate the distance from the player position until the first intersection in X axis to the right;
 			/* printf("entrou e o result eh %f\n", sideX);
 			printf("entrou e o mapx eh %d\n", mapX);
 			printf("entrou e o PLAYER_x eh %f\n", cub->player_pos_X);
@@ -115,12 +114,12 @@ int main(void)
 		if (ray_dir.y < 0) 
 		{
 			stepY = -1; // the next step will be up;
-			sideY = (cub->player_pos_Y - mapY) * deltaY; // calculate the distance from the player position until the first intersection in Y axis;
+			sideY = (cub->player_pos_Y - mapY) * deltaY; // calculate the distance from the player position until the first intersection in Y axis up;
 		}
 		else
 		{
 			stepY = 1; // the next step will be down;
-			sideY = (mapY + 1 - cub->player_pos_Y) * deltaY;
+			sideY = (mapY + 1 - cub->player_pos_Y) * deltaY;// calculate the distance from the player position until the first intersection in Y axis down;
 		}
 		/* printf("deltaX = %f\n", deltaX);
 		printf("playerPosX = %f\n", cub->player_pos_X);
@@ -136,13 +135,13 @@ int main(void)
 			{
 				sideX += deltaX;
 				mapX += stepX;
-				side_colision = 1;
+				side_colision = 1; // cruza linha verical
 			}
 			else
 			{
 				sideY += deltaY;
 				mapY += stepY;
-				side_colision = 0;
+				side_colision = 0; //cruza linha horizontal
 			}
 			/* printf("new sideX = %f\n", sideX);
 			printf("new sideY = %f\n", sideY);
