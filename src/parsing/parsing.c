@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/28 14:20:00 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:25:11 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parsing(t_cub_data *cub, char *argv)
 		return ;//msg de erro?
 	//pegar texturas e cores
 	init_texture_color(cub);
-	//analisar se sao validas
+	//analisar se sao validas (F e C tem que ser numero e < 256 (??))
 	//extrair o mapa do arquivo
 	//analisar se o mapa e valido
 	//dar free da matrix cub->map->file
@@ -48,38 +48,51 @@ void	parsing(t_cub_data *cub, char *argv)
 
 void	init_texture_color(t_cub_data *cub)
 {
-	
+	int		i;
+	char	**file;
+
+	file = cub->map->file;
+	i = 0;
+	while (file[i])
+	{
+		if (ft_strstr(file[i], "NO ") && !cub->map->north)
+			cub->map->north = get_info(file[i], "NO ");
+		else if (ft_strstr(file[i], "SO ") && !cub->map->south)
+			cub->map->south = get_info(file[i], "SO ");
+		else if (ft_strstr(file[i], "EA ") && !cub->map->east)
+			cub->map->east = get_info(file[i], "EA ");
+		else if (ft_strstr(file[i], "WE ") && !cub->map->west)
+			cub->map->west = get_info(file[i], "WE ");
+		else if (ft_strstr(file[i], "F ") && !cub->map->floor)
+			cub->map->floor = get_info(file[i], "F ");
+		else if (ft_strstr(file[i], "C ") && !cub->map->ceiling)
+			cub->map->ceiling = get_info(file[i], "C ");
+		i++;
+	}
+	return ;
+	//se tiver a info mais de uma vez, retorna erro
 }
 
-/* int	parse_file(t_gm *game, int argc, char **argv)
+char	*get_info(char *file, char *str)
 {
-	char	**cub;
+	char	*info;
+	int		size;
 
-	cub = get_mapfile_info(game, argv[1]);
-	replace_tabs_to_space(cub);
-	get_texture_and_color(game, cub);
-	if (!is_texture_and_color_valid(game, cub)
-		|| !is_openble_file(game->map->ntex, NULL, 4)
-		|| !is_openble_file(game->map->stex, NULL, 4)
-		|| !is_openble_file(game->map->etex, NULL, 4)
-		|| !is_openble_file(game->map->wtex, NULL, 4))
-		return (ft_free_matriz(cub), EXIT_FAILURE);
-	extract_map(game, cub);
-	if (!is_map_valid(game))
-		return (ft_free_matriz(cub), EXIT_FAILURE);
-	ft_free_matriz(cub);
-	(void)argc;
-	return (EXIT_SUCCESS);
-} */
+	printf("string-> %s\n", ft_strstr(file, str));
+	size = ft_strlen(ft_strstr(file, str));
+	printf("size-> %i\n", size);
+	return (NULL);
+}
+
 
 char	**get_matrix_from_file(t_cub_data *cub, char *file)
 {
-	char **map;
+	char **matriz;
 	char *line;
 	int i;
 
-	map = ft_calloc(sizeof(char *), count_lines(file) + 1);
-	if (!map)
+	matriz = ft_calloc(sizeof(char *), count_lines(file) + 1);
+	if (!matriz)
 		return (NULL);
 	line = NULL;
 	i = 0;
@@ -88,11 +101,11 @@ char	**get_matrix_from_file(t_cub_data *cub, char *file)
 		line = get_next_line(cub->map->fd);
 		if (!line)
 			break ;
-		map[i++] = ft_strdup(line);
+		matriz[i++] = ft_strdup(line);
 		free(line);
 	}
 	close(cub->map->fd);
-	return (map);
+	return (matriz);
 }
 
 

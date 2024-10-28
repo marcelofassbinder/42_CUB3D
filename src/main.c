@@ -1,10 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
+/*   Updated: 2024/10/28 16:15:51 by ismirand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
+	int fd;
+	t_cub_data *cub;
+
+	//init everything 
+	cub = ft_calloc(sizeof(t_cub_data), 1);
+	cub->map = ft_calloc(sizeof(t_map), 1);
+	cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
+	if (fd > 0)
+	{
+		free(cub->map);
+		free(cub);
+		return (printf("ERROR!\nfd < 0!\n"));
+	}
+	//ate aqui pra init
+	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
+	{
+		parsing(cub, argv[1]);
+	}
+	else
+		return (printf("ERROR!\nINVALID INPUT!\n"));
 	char test_map[100] = "1111111111\n1111100001\n10000N0001\n1111111111\n";
 	char **test_map_array = ft_split(test_map, '\n');
-	t_cub_data *cub = ft_calloc(sizeof(t_cub_data), 1);
 
 	int i = 0;
 	cub->mlx_ptr = mlx_init();
