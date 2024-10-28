@@ -32,6 +32,12 @@ typedef struct	s_map {
 	char		**file;
 	char 		**map_array;
 	int			fd;
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	char		*ceiling;
+	char		*floor;
 }				t_map;
 
 typedef struct	s_cub_data {
@@ -50,12 +56,15 @@ typedef struct	s_cub_data {
 
 //utils.c
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
+char	*ft_strstr(char *str, char *to_find);
 
 //parsing/parsing.c
 int		find_extension(char *map, char *ext);
 void	parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
+void	init_texture_color(t_cub_data *cub);
+char	*get_info(char *file, char *str);
 
 //parsing/map.c
 
