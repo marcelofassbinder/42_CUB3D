@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/26 15:46:27 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:20:00 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@ void	parsing(t_cub_data *cub, char *argv)
 	cub->map->file = get_matrix_from_file(cub, argv);
 	if (!cub->map->file)//precisa dessa checagem?
 		return ;//msg de erro?
-	//limpar tabs e espaços (transformar tudo em um so espaço)
 	//pegar texturas e cores
+	init_texture_color(cub);
 	//analisar se sao validas
 	//extrair o mapa do arquivo
 	//analisar se o mapa e valido
 	//dar free da matrix cub->map->file
 	//lembrar de dar free da matriz cub->map->map_array
 	return ;
+}
+
+void	init_texture_color(t_cub_data *cub)
+{
+	
 }
 
 /* int	parse_file(t_gm *game, int argc, char **argv)
