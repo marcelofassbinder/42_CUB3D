@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 09:50:04 by aconceic          #+#    #+#             */
-/*   Updated: 2024/01/29 13:40:45 by aconceic         ###   ########.fr       */
+/*   Created: 2023/11/06 09:49:08 by ismirand          #+#    #+#             */
+/*   Updated: 2024/10/28 14:14:46 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "get_next_line.h"
 
