@@ -1,25 +1,16 @@
 #ifndef CUB_H
 #define CUB_H
 
-<<<<<<< HEAD
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
+# include "gnl/get_next_line.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
-=======
-#include "minilibx-linux/mlx.h"
-#include "gnl/get_next_line.h"
-#include "libft/libft.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>//open
-#include <stdbool.h>
->>>>>>> 65384a0edf65525998c17f43c381e258b8cffbca
 
 #define WIDTH 840
 #define HEIGHT 620
@@ -102,7 +93,7 @@ void	draw_pixels_in_image(t_ray *ray);
 void	ray_casting(t_cub_data *cub, char **test_map_array);
 
 //utils.c
-void my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 char	*ft_strstr(char *str, char *to_find);
 
 //parsing/parsing.c
