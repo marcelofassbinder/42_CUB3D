@@ -1,6 +1,7 @@
 #ifndef CUB_H
 #define CUB_H
 
+<<<<<<< HEAD
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
 # include <math.h>
@@ -9,6 +10,16 @@
 # include <stdbool.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
+=======
+#include "minilibx-linux/mlx.h"
+#include "gnl/get_next_line.h"
+#include "libft/libft.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>//open
+#include <stdbool.h>
+>>>>>>> 65384a0edf65525998c17f43c381e258b8cffbca
 
 #define WIDTH 840
 #define HEIGHT 620
@@ -55,8 +66,9 @@ typedef struct	s_image {
 }				t_image;
 
 typedef struct	s_map {
-
+	char		**file;
 	char 		**map_array;
+	int			fd;
 }				t_map;
 
 typedef struct	s_cub_data {
@@ -74,7 +86,6 @@ typedef struct	s_cub_data {
 	
 }				t_cub_data;
 
-void		my_mlx_pixel_put(t_image *img, int x, int y, int color);
 t_cub_data	*init_cub_struct(char **test);
 void		define_player_vectors(t_cub_data *cub);
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id);
@@ -84,5 +95,15 @@ void	calculate_wall_distance(t_ray *ray);
 void	draw_pixels_in_image(t_ray *ray);
 void	ray_casting(t_cub_data *cub, char **test_map_array);
 
+//utils.c
+void my_mlx_pixel_put(t_image *img, int x, int y, int color);
+
+//parsing/parsing.c
+int		find_extension(char *map, char *ext);
+void	parsing(t_cub_data *cub, char *argv);
+char	**get_matrix_from_file(t_cub_data *cub, char *file);
+int		count_lines(char *file);
+
+//parsing/map.c
 
 #endif
