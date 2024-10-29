@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/28 14:20:00 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:02:22 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parsing(t_cub_data *cub, char *argv)
 	if (!cub->map->file)//precisa dessa checagem?
 		return ;//msg de erro?
 	//pegar texturas e cores
-	init_texture_color(cub);
+	//init_texture_color(cub);
 	//analisar se sao validas
 	//extrair o mapa do arquivo
 	//analisar se o mapa e valido
@@ -46,10 +46,10 @@ void	parsing(t_cub_data *cub, char *argv)
 	return ;
 }
 
-void	init_texture_color(t_cub_data *cub)
+/* void	init_texture_color(t_cub_data *cub)
 {
 	
-}
+} */
 
 /* int	parse_file(t_gm *game, int argc, char **argv)
 {
