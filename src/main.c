@@ -45,6 +45,7 @@ t_cub_data *init_cub_struct(char **test)
 	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
 	cub->plane = ft_calloc(sizeof(t_vector), 1);
 	cub->player_char = 'N'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
+	cub->player_angle_rad = 0;
 	define_player_vectors(cub);
 	return (cub);
 }
@@ -80,35 +81,43 @@ void	draw_pixels_in_image(t_ray *ray)
 
 void	rotate_player(int key, t_cub_data *cub)
 {
-	static int l = 1;
+	static int mult = 0;
 
 	if (key == ARROW_RIGHT || key == ARROW_LEFT)
 	{
 		if (key == ARROW_RIGHT)
-			l++;
+			mult++;
 		else
-			l--;
-		cub->player_dir->x = sin(l * PI/24);
-		cub->player_dir->y = - cos(l * PI/24);
-		cub->plane->x = cos(l * PI/24);
-		cub->plane->y = sin(l * PI/24);
+			mult--;
+			if (mult < 0)
+				mult += 48;
+		if (mult == 48)
+			mult = 0;
+		cub->player_angle_rad = mult * (PI/24);
+		cub->player_dir->x = sin(cub->player_angle_rad);
+		cub->player_dir->y = - cos(cub->player_angle_rad);
+		cub->plane->x = cos(cub->player_angle_rad);
+		cub->plane->y = sin(cub->player_angle_rad);
+		printf("mult = %i\n", mult);
+		ray_casting(cub, cub->test_map_array);
 	}
-	ray_casting(cub, cub->test_map_array);
 }
 
 int	handle_input(int key, t_cub_data *cub)
 {
+	int mult;
+
 	if (key == ESC)
 		exit(0);
 		//close_window()
-	move_player(key, cub);
 	rotate_player(key, cub);
+	move_player(key, cub);
 	return (1);
 }
 
 int main(void)
 {
-	char test_map[100] = "1111111111\n1111100001\n10000N0001\n1111111111\n";
+	char test_map[100] = "1111111111\n1111100001\n10000N0001\n1000010001\n100010001\n100000001\n1111111111\n";
 	char **test_map_array = ft_split(test_map, '\n');
 	t_cub_data *cub;
 	

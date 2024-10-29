@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/10/28 18:00:13 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:57:17 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ray_casting(t_cub_data *cub, char **test_map_array)
 {
+	printf("RAY\n");
 	int ray_id = -1;
 	while (++ray_id < WIDTH)
 	{
