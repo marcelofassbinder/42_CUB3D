@@ -1,8 +1,8 @@
 #ifndef CUB_H
 #define CUB_H
 
-<<<<<<< HEAD
 # include "minilibx-linux/mlx.h"
+# include "gnl/get_next_line.h"
 # include "libft/libft.h"
 # include <math.h>
 # include <stdio.h>
@@ -10,25 +10,25 @@
 # include <stdbool.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
-=======
-#include "minilibx-linux/mlx.h"
-#include "gnl/get_next_line.h"
-#include "libft/libft.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>//open
-#include <stdbool.h>
->>>>>>> 65384a0edf65525998c17f43c381e258b8cffbca
+# include <fcntl.h>//open
 
 #define WIDTH 840
 #define HEIGHT 620
 
+// KEY DEFINES
 #define KEY_W XK_w
 #define KEY_A XK_a
 #define KEY_S XK_s
 #define KEY_D XK_d
+#define ARROW_LEFT XK_Left
+#define ARROW_RIGHT XK_Right
 #define ESC XK_Escape
+
+#define WALL '1'
+#define MOVE_SPEED 0.1111111
+#define ROTATION_SPEED 0.25
+
+#define PI 3.14159265358979323846
 
 typedef struct	s_vector {
 
@@ -94,6 +94,13 @@ void	increment_to_next_intersection(t_ray *ray);
 void	calculate_wall_distance(t_ray *ray);
 void	draw_pixels_in_image(t_ray *ray);
 void	ray_casting(t_cub_data *cub, char **test_map_array);
+
+//move_player.c
+void	move_player(int key, t_cub_data *cub);
+int		move_player_up(t_cub_data *cub);
+int		move_player_down(t_cub_data *cub);
+int		move_player_left(t_cub_data *cub);
+int		move_player_right(t_cub_data *cub);
 
 //utils.c
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);

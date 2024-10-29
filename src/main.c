@@ -44,7 +44,7 @@ t_cub_data *init_cub_struct(char **test)
 		&cub->img->line_len, &cub->img->endian);
 	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
 	cub->plane = ft_calloc(sizeof(t_vector), 1);
-	cub->player_char = 'W'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
+	cub->player_char = 'N'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
 	define_player_vectors(cub);
 	return (cub);
 }
@@ -68,7 +68,8 @@ void	draw_pixels_in_image(t_ray *ray)
 		my_mlx_pixel_put(ray->cub->img, ray->id, floor, 0xB9BEB9);
 	while (++ceiling <= pix_end)
 		my_mlx_pixel_put(ray->cub->img, ray->id, ceiling, 0x009FDA);
-	while(pix_end >= pix_start) {
+	while(pix_end >= pix_start)
+	{
 		if (ray->side_colision == 1)
 			my_mlx_pixel_put(ray->cub->img, ray->id, pix_start, 0x009F00);
 		else
@@ -77,32 +78,31 @@ void	draw_pixels_in_image(t_ray *ray)
 	}
 }
 
-void	move_player(int key, t_cub_data *cub)
+void	rotate_player(int key, t_cub_data *cub)
 {
-	if (key == KEY_W)
+	static int l = 1;
+
+	if (key == ARROW_RIGHT || key == ARROW_LEFT)
 	{
-		if (cub->player_char == 'N')
-			cub->player_pos_Y -= 0.1;
-		else if (cub->player_char == 'S')
-			cub->player_pos_Y += 0.1;
-		else if (cub->player_char == 'E')
-			cub->player_pos_X += 0.1;
-		else if (cub->player_char == 'W')
-			cub->player_pos_X -= 0.1;
-		if (cub->test_map_array[(int)cub->player_pos_Y][(int)cub->player_pos_X] == '1')
-			return ;
-		ray_casting(cub, cub->test_map_array);
+		if (key == ARROW_RIGHT)
+			l++;
+		else
+			l--;
+		cub->player_dir->x = sin(l * PI/24);
+		cub->player_dir->y = - cos(l * PI/24);
+		cub->plane->x = cos(l * PI/24);
+		cub->plane->y = sin(l * PI/24);
 	}
+	ray_casting(cub, cub->test_map_array);
 }
 
 int	handle_input(int key, t_cub_data *cub)
 {
-	//printf("\nthe key %i has been pressed\n", key);
 	if (key == ESC)
 		exit(0);
 		//close_window()
 	move_player(key, cub);
-	//rotate_player(key, cub);
+	rotate_player(key, cub);
 	return (1);
 }
 
