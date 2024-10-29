@@ -80,6 +80,7 @@ typedef struct	s_cub_data {
 	char		player_char;
 	double		player_pos_X;
 	double		player_pos_Y;
+	double		player_angle_rad;
 	t_vector	*player_dir;
 	t_vector	*plane;
 	t_map		*map;
