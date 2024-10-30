@@ -12,8 +12,8 @@
 # include <X11/keysymdef.h>
 # include <fcntl.h>//open
 
-#define WIDTH 840
-#define HEIGHT 620
+#define WIDTH 1920
+#define HEIGHT 1040
 
 // KEY DEFINES
 #define KEY_W XK_w
@@ -30,16 +30,17 @@
 
 #define PI 3.14159265358979323846
 
-typedef struct	s_vector {
+typedef struct	s_coordinate {
 
 	double x;
 	double y;
-}				t_vector;
+
+}				t_coordinate;
 
 typedef struct	s_ray {
 
 	struct s_cub_data *cub;
-	t_vector	direction;
+	t_coordinate	direction;
 	double		camera_x;
 	double 		delta_x;
 	double 		delta_y;
@@ -63,29 +64,31 @@ typedef struct	s_image {
 	int			bits_per_pixel;
 	int 		line_len;
 	int 		endian;
+
 }				t_image;
 
 typedef struct	s_map {
+	
 	char		**file;
 	char 		**map_array;
 	int			fd;
+
 }				t_map;
 
-typedef struct	s_cub_data {
+typedef struct		s_cub_data {
+
+	char			**test_map_array; // remover apos o parsing
+	void			*mlx_ptr;
+	void			*mlx_window;
+	t_image 		*img;
+	char			player_char;
+	t_coordinate	*player_position;
+	double			player_angle_rad;
+	t_coordinate	*player_dir;
+	t_coordinate	*plane;
+	t_map			*map;
 	
-	char		**test_map_array; // remover apos o parsing
-	void		*mlx_ptr;
-	void		*mlx_window;
-	t_image 	*img;
-	char		player_char;
-	double		player_pos_X;
-	double		player_pos_Y;
-	double		player_angle_rad;
-	t_vector	*player_dir;
-	t_vector	*plane;
-	t_map		*map;
-	
-}				t_cub_data;
+}					t_cub_data;
 
 t_cub_data	*init_cub_struct(char **test);
 void		define_player_vectors(t_cub_data *cub);
@@ -98,10 +101,13 @@ void	ray_casting(t_cub_data *cub, char **test_map_array);
 
 //move_player.c
 void	move_player(int key, t_cub_data *cub);
-int		move_player_up(t_cub_data *cub);
-int		move_player_down(t_cub_data *cub);
-int		move_player_left(t_cub_data *cub);
-int		move_player_right(t_cub_data *cub);
+void	move_player_up(t_cub_data *cub, int quadrant);
+void	move_player_down(t_cub_data *cub, int quadrant);
+void	move_player_left(t_cub_data *cub, int quadrant);
+void	move_player_right(t_cub_data *cub, int quadrant);
+
+int check_quadrant(double player_angle);
+void change_player_position(t_coordinate *new_pos, t_cub_data *cub);
 
 //utils.c
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);

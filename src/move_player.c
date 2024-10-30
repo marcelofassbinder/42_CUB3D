@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/10/29 19:59:04 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:37:23 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,217 +14,160 @@
 
 void	move_player(int key, t_cub_data *cub)
 {
-	/* if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
-	{
-		if (!check_quadrant(cub))	
-			return ;
-		ray_casting(cub, cub->test_map_array);
-	} */
+	int quadrant;
+	
+	quadrant = check_quadrant(cub->player_angle_rad);
 	if (key == KEY_W)
-	{
-		if (!move_player_up(cub))
-			return ;
-	}
+		return (move_player_up(cub, quadrant));
 	else if (key == KEY_A)
-	{
-		if (!move_player_left(cub))
-			return ;
-	}
+		return (move_player_left(cub, quadrant));
 	else if (key == KEY_S)
-	{
-		if (!move_player_down(cub))
-			return ;
-	}
+		return (move_player_down(cub, quadrant));
 	else if (key == KEY_D)
-	{
-		if (!move_player_right(cub))
-			return ;
-	}
-	ray_casting(cub, cub->test_map_array);
+		return (move_player_right(cub, quadrant));
 }
 
-/* double	move_in_x(t_cub_data *cub, double angle, int quadrant)
+int check_quadrant(double player_angle)
 {
-	if (quadrant == 2 || quadrant == 3)
-		return () 
-}
-
-int check_quadrant(t_cub_data *cub)
-{
-	double angle;
-	double new_pos_X;
-	double new_pos_Y;
-
-	if (cub->player_angle_rad >= 0 && cub->player_angle_rad < PI/2)
-		angle = cub->player_angle_rad;
-	else if (cub->player_angle_rad >= PI/2 && cub->player_angle_rad < PI)
-		angle = cub->player_angle_rad - PI / 2;
-	else if (cub->player_angle_rad >= PI && cub->player_angle_rad < 3 * PI / 2)
-		angle = (3 * PI / 2) - cub->player_angle_rad;
-	else if (cub->player_angle_rad >= 3 * PI / 2 && cub->player_angle_rad < 2 * PI)
-		angle = (2 * PI) - cub->player_angle_rad;
-	new_pos_X += MOVE_SPEED * sin(cub->player_angle_rad);
-	new_pos_Y -= MOVE_SPEED * cos(cub->player_angle_rad);
-} */
-
-int	move_player_up(t_cub_data *cub)
-{
-	double 	new_pos_X;
-	double 	new_pos_Y;
-	char	new_map_position;
-
-	new_pos_X = cub->player_pos_X;
-	new_pos_Y = cub->player_pos_Y;
-	printf("player angle = %f\n", cub->player_angle_rad);
-	if (cub->player_angle_rad >= 0 && cub->player_angle_rad < PI/2)
-	{
-		new_pos_X += MOVE_SPEED * sin(cub->player_angle_rad);
-		new_pos_Y -= MOVE_SPEED * cos(cub->player_angle_rad);
-	}
-	if (cub->player_angle_rad >= PI/2 && cub->player_angle_rad < PI)
-	{
-		new_pos_X += MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
-		new_pos_Y += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
-	}
-	if (cub->player_angle_rad >= PI && cub->player_angle_rad < 3 * PI / 2)
-	{
-		new_pos_X -= MOVE_SPEED * cos((3 * PI / 2) - cub->player_angle_rad);
-		new_pos_Y += MOVE_SPEED * sin((3 * PI / 2) - cub->player_angle_rad);
-	}
-	if (cub->player_angle_rad >= 3 * PI / 2 && cub->player_angle_rad < 2 * PI)
-	{
-		new_pos_X -= MOVE_SPEED * sin((2 * PI) - cub->player_angle_rad);
-		new_pos_Y -= MOVE_SPEED * cos((2 * PI) - cub->player_angle_rad);
-	}
-	new_map_position = cub->test_map_array[(int)new_pos_Y][(int)new_pos_X];
-	if (new_map_position && new_map_position != WALL)
-	{
-		cub->player_pos_Y = new_pos_Y;
-		cub->player_pos_X = new_pos_X;
+	if (player_angle >= 0 && player_angle < PI/2)
 		return (1);
-	}
-	return (0);
+	else if (player_angle >= PI/2 && player_angle < PI)
+		return (2);
+	else if (player_angle >= PI && player_angle < 3 * PI / 2)
+		return (3);
+	else
+		return (4);
 }
 
-int	move_player_down(t_cub_data *cub)
+void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
 {
-	double 	new_pos_X;
-	double 	new_pos_Y;
-	char	new_map_position;
+	char possible_new_pos;
+	char possible_new_pos_X;
+	char possible_new_pos_Y;
 
-	new_pos_X = cub->player_pos_X;
-	new_pos_Y = cub->player_pos_Y;
-	printf("player angle = %f\n", cub->player_angle_rad);
-	if (cub->player_angle_rad >= 0 && cub->player_angle_rad < PI/2)
+	possible_new_pos = cub->test_map_array[(int)new_pos->y][(int)new_pos->x];
+	possible_new_pos_X = cub->test_map_array[(int)cub->player_position->y][(int)new_pos->x];
+	possible_new_pos_X = cub->test_map_array[(int)new_pos->y][(int)cub->player_position->x];
+	if (possible_new_pos && possible_new_pos != WALL 
+		&& possible_new_pos_X != WALL && possible_new_pos_Y != WALL)
 	{
-		new_pos_X -= MOVE_SPEED * sin(cub->player_angle_rad);
-		new_pos_Y += MOVE_SPEED * cos(cub->player_angle_rad);
+		cub->player_position->x = new_pos->x;
+		cub->player_position->y = new_pos->y;
+		ray_casting(cub, cub->test_map_array);
 	}
-	if (cub->player_angle_rad >= PI/2 && cub->player_angle_rad < PI)
+}
+void	move_player_up(t_cub_data *cub, int quadrant)
+{
+	t_coordinate	new_pos;
+
+	new_pos.x = cub->player_position->x;
+	new_pos.y = cub->player_position->y;
+	if (quadrant == 1)
 	{
-		new_pos_X -= MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
-		new_pos_Y -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
+		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad);
+		new_pos.y -= MOVE_SPEED * cos(cub->player_angle_rad);
 	}
-	if (cub->player_angle_rad >= PI && cub->player_angle_rad < 3 * PI / 2)
+	if (quadrant == 2)
 	{
-		new_pos_X += MOVE_SPEED * cos((3 * PI / 2) - cub->player_angle_rad);
-		new_pos_Y -= MOVE_SPEED * sin((3 * PI / 2) - cub->player_angle_rad);
+		new_pos.x += MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
+		new_pos.y += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
 	}
-	if (cub->player_angle_rad >= 3 * PI / 2 && cub->player_angle_rad < 2 * PI)
+	if (quadrant == 3)
 	{
-		new_pos_X += MOVE_SPEED * sin((2 * PI) - cub->player_angle_rad);
-		new_pos_Y += MOVE_SPEED * cos((2 * PI) - cub->player_angle_rad);
+		new_pos.x -= MOVE_SPEED * cos((3 * PI / 2) - cub->player_angle_rad);
+		new_pos.y += MOVE_SPEED * sin((3 * PI / 2) - cub->player_angle_rad);
 	}
-	new_map_position = cub->test_map_array[(int)new_pos_Y][(int)new_pos_X];
-	if (new_map_position && new_map_position != WALL)
+	if (quadrant == 4)
 	{
-		cub->player_pos_Y = new_pos_Y;
-		cub->player_pos_X = new_pos_X;
-		return (1);
+		new_pos.x -= MOVE_SPEED * sin((2 * PI) - cub->player_angle_rad);
+		new_pos.y -= MOVE_SPEED * cos((2 * PI) - cub->player_angle_rad);
 	}
-	return (0);
+	return (change_player_position(&new_pos, cub));
 }
 
-int	move_player_left(t_cub_data *cub)
+void	move_player_down(t_cub_data *cub, int quadrant)
 {
-	double 	new_pos_X;
-	double 	new_pos_Y;
-	char	new_map_position;
+	t_coordinate	new_pos;
 
-	new_pos_X = cub->player_pos_X;
-	new_pos_Y = cub->player_pos_Y;
-	if (cub->player_angle_rad >= 0 && cub->player_angle_rad < PI / 2)
+	new_pos.x = cub->player_position->x;
+	new_pos.y = cub->player_position->y;
+	if (quadrant == 1)
 	{
-		printf("1o QUADRANTE\n");
-		new_pos_X -= MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
-		new_pos_Y -= MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
+		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad);
+		new_pos.y += MOVE_SPEED * cos(cub->player_angle_rad);
 	}
-	if (cub->player_angle_rad >= PI/2 && cub->player_angle_rad < PI)
+	if (quadrant == 2)
 	{
-		printf("2o QUADRANTE\n");
-		new_pos_X += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
-		new_pos_Y -= MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
+		new_pos.x -= MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
+		new_pos.y -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
 	}
-	if (cub->player_angle_rad >= PI && cub->player_angle_rad < 3 * PI / 2)
+	if (quadrant == 3)
 	{
-		printf("3o QUADRANTE\n");
-		new_pos_X -= MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
-		new_pos_Y -= MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
+		new_pos.x += MOVE_SPEED * cos((3 * PI / 2) - cub->player_angle_rad);
+		new_pos.y -= MOVE_SPEED * sin((3 * PI / 2) - cub->player_angle_rad);
 	}
-	if (cub->player_angle_rad >= 3 * PI / 2 && cub->player_angle_rad < 2 * PI)
+	if (quadrant == 4)
 	{
-		printf("4o QUADRANTE\n");
-		new_pos_X -= MOVE_SPEED * sin(cub->player_angle_rad - (3 * PI / 2));
-		new_pos_Y += MOVE_SPEED * cos(cub->player_angle_rad - (3 * PI / 2));
+		new_pos.x += MOVE_SPEED * sin((2 * PI) - cub->player_angle_rad);
+		new_pos.y += MOVE_SPEED * cos((2 * PI) - cub->player_angle_rad);
 	}
-	new_map_position = cub->test_map_array[(int)new_pos_Y][(int)new_pos_X];
-	if (new_map_position && new_map_position != WALL)
-	{
-		cub->player_pos_Y = new_pos_Y;
-		cub->player_pos_X = new_pos_X;
-		return (1);
-	}
-	return (0);
+	return (change_player_position(&new_pos, cub));
 }
 
-int	move_player_right(t_cub_data *cub)
+void	move_player_left(t_cub_data *cub, int quadrant)
 {
-	double 	new_pos_X;
-	double 	new_pos_Y;
-	char	new_map_position;
+	t_coordinate	new_pos;
 
-	new_pos_X = cub->player_pos_X;
-	new_pos_Y = cub->player_pos_Y;
-	if (cub->player_angle_rad >= 0 && cub->player_angle_rad < PI / 2)
+	new_pos.x = cub->player_position->x;
+	new_pos.y = cub->player_position->y;
+	if (quadrant == 1)
 	{
-		printf("1o QUADRANTE\n");
-		new_pos_X += MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
-		new_pos_Y += MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
+		new_pos.x -= MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
+		new_pos.y -= MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
 	}
-	if (cub->player_angle_rad >= PI/2 && cub->player_angle_rad < PI)
+	if (quadrant == 2)
 	{
-		printf("2o QUADRANTE\n");
-		new_pos_X -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
-		new_pos_Y += MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
+		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
+		new_pos.y -= MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
 	}
-	if (cub->player_angle_rad >= PI && cub->player_angle_rad < 3 * PI / 2)
+	if (quadrant == 3)
 	{
-		printf("3o QUADRANTE\n");
-		new_pos_X += MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
-		new_pos_Y += MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
+		new_pos.x -= MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
+		new_pos.y -= MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
 	}
-	if (cub->player_angle_rad >= 3 * PI / 2 && cub->player_angle_rad < 2 * PI)
+	if (quadrant == 4)
 	{
-		printf("4o QUADRANTE\n");
-		new_pos_X += MOVE_SPEED * sin(cub->player_angle_rad - (3 * PI / 2));
-		new_pos_Y -= MOVE_SPEED * cos(cub->player_angle_rad - (3 * PI / 2));
+		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad - (3 * PI / 2));
+		new_pos.y += MOVE_SPEED * cos(cub->player_angle_rad - (3 * PI / 2));
 	}
-	new_map_position = cub->test_map_array[(int)new_pos_Y][(int)new_pos_X];
-	if (new_map_position && new_map_position != WALL)
+	return (change_player_position(&new_pos, cub));
+}
+
+void	move_player_right(t_cub_data *cub, int quadrant)
+{
+	t_coordinate	new_pos;
+
+	new_pos.x = cub->player_position->x;
+	new_pos.y = cub->player_position->y;
+	if (quadrant == 1)
 	{
-		cub->player_pos_Y = new_pos_Y;
-		cub->player_pos_X = new_pos_X;
-		return (1);
+		new_pos.x += MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
+		new_pos.y += MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
 	}
-	return (0);
+	if (quadrant == 2)
+	{
+		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
+		new_pos.y += MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
+	}
+	if (quadrant == 3)
+	{
+		new_pos.x += MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
+		new_pos.y += MOVE_SPEED * cos(PI / 2 - cub->player_angle_rad);
+	}
+	if (quadrant == 4)
+	{
+		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad - (3 * PI / 2));
+		new_pos.y -= MOVE_SPEED * cos(cub->player_angle_rad - (3 * PI / 2));
+	}
+	return (change_player_position(&new_pos, cub));
 }
