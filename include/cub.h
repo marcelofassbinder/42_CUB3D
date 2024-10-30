@@ -98,11 +98,12 @@ char	*ft_strstr(char *str, char *to_find);
 
 //parsing/parsing.c
 int		find_extension(char *map, char *ext);
-void	parsing(t_cub_data *cub, char *argv);
+int		parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
-void	init_texture_color(t_cub_data *cub);
-char	*get_info(char *file, char *str);
+int		init_texture_color(t_cub_data *cub);
+char	*get_info(char *file, int flag);
+int		is_valid_textures(t_cub_data *cub);
 
 //parsing/map.c
 
