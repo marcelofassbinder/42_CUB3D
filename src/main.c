@@ -42,8 +42,9 @@ t_cub_data *init_cub_struct(char **test)
 	cub->img->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 		&cub->img->line_len, &cub->img->endian);
-	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
-	cub->plane = ft_calloc(sizeof(t_vector), 1);
+	cub->player_position = ft_calloc(sizeof(t_coordinate), 1);
+	cub->player_dir = ft_calloc(sizeof(t_coordinate), 1);
+	cub->plane = ft_calloc(sizeof(t_coordinate), 1);
 	cub->player_char = 'N'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
 	cub->player_angle_rad = 0;
 	define_player_vectors(cub);
@@ -83,24 +84,21 @@ void	rotate_player(int key, t_cub_data *cub)
 {
 	static int mult = 0;
 
-	if (key == ARROW_RIGHT || key == ARROW_LEFT)
-	{
-		if (key == ARROW_RIGHT)
-			mult++;
-		else
-			mult--;
-			if (mult < 0)
-				mult += 48;
-		if (mult == 48)
-			mult = 0;
-		cub->player_angle_rad = mult * (PI/24);
-		cub->player_dir->x = sin(cub->player_angle_rad);
-		cub->player_dir->y = - cos(cub->player_angle_rad);
-		cub->plane->x = cos(cub->player_angle_rad);
-		cub->plane->y = sin(cub->player_angle_rad);
-		printf("mult = %i\n", mult);
-		ray_casting(cub, cub->test_map_array);
-	}
+	if (key == ARROW_RIGHT)
+		mult++;
+	else if (key == ARROW_LEFT)
+		mult--;
+	if (mult < 0)
+		mult += 48;
+	if (mult == 48)
+		mult = 0;
+	cub->player_angle_rad = mult * (PI/24);
+	cub->player_dir->x = sin(cub->player_angle_rad);
+	cub->player_dir->y = - cos(cub->player_angle_rad);
+	cub->plane->x = cos(cub->player_angle_rad);
+	cub->plane->y = sin(cub->player_angle_rad);
+	ray_casting(cub, cub->test_map_array);
+	
 }
 
 int	handle_input(int key, t_cub_data *cub)
@@ -110,8 +108,10 @@ int	handle_input(int key, t_cub_data *cub)
 	if (key == ESC)
 		exit(0);
 		//close_window()
-	rotate_player(key, cub);
-	move_player(key, cub);
+	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
+		move_player(key, cub);
+	if (key == ARROW_LEFT || key == ARROW_RIGHT)
+		rotate_player(key, cub);
 	return (1);
 }
 
@@ -123,11 +123,11 @@ int main(void)
 	
 	cub = init_cub_struct(test_map_array);
 	
-	cub->player_pos_X = 5.2;
-	cub->player_pos_Y = 2.7;
+	cub->player_position->x = 5.2;
+	cub->player_position->y = 2.7;
 	
 	ray_casting(cub, test_map_array);
-
+	//mlx_xpm_file_to_image = // colocar imagem de inicio 
 	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
 	mlx_loop(cub->mlx_ptr);
 }
