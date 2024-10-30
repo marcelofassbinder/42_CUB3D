@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/28 16:53:22 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:56:13 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ int main(int argc, char **argv)
 	//ate aqui pra checagem de input
 	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
 	{
-		parsing(cub, argv[1]);
+		if (parsing(cub, argv[1]))
+			return (printf("Erro no parsing\n"));
 		cub->player_pos_X = 5.2;
 		cub->player_pos_Y = 2.7;
 		
