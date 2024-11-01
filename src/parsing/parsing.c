@@ -6,12 +6,13 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/30 13:30:01 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:31:21 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
+//encontrar o .cub no final do nome do arquivo
 int	find_extension(char *map, char *ext)
 {
 	int	i;
@@ -39,63 +40,13 @@ int	parsing(t_cub_data *cub, char *argv)
 	init_texture_color(cub);
 	if (!is_valid_textures(cub))
 		return (printf("Error!\nInvalid texture\n"));
+	//varificar se tem alguma linha escrita a mais
 	//analisar se sao validas (F e C tem que ser numero e < 256 (??))
 	//extrair o mapa do arquivo
 	//analisar se o mapa e valido
 	//dar free da matrix cub->map->file
 	//lembrar de dar free da matriz cub->map->map_array
 	return (0);
-}
-
-int	is_valid_textures(t_cub_data *cub)
-{
-	int	fd;
-	
-	//procurar se tem alguma duplicada
-	if (!cub->map->north || !cub->map->south || !cub->map->east
-		|| !cub->map->west)
-	{
-		printf("Error!\nMissing texture\n");
-		return (false);
-	}
-	fd = open(cub->map->north, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	fd = open(cub->map->south, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	fd = open(cub->map->east, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	fd = open(cub->map->west, O_RDONLY);
-	if (fd < 0)
-		return (false);
-	return (true);
-}
-
-int	init_texture_color(t_cub_data *cub)
-{
-	int		i;
-	char	**file;
-
-	file = cub->map->file;
-	i = -1;
-	while (file[++i])
-	{
-		if (ft_strstr(file[i], "NO ") && !cub->map->north)
-			cub->map->north = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "SO ") && !cub->map->south)
-			cub->map->south = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "EA ") && !cub->map->east)
-			cub->map->east = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "WE ") && !cub->map->west)
-			cub->map->west = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "F ") && !cub->map->floor)
-			cub->map->floor = get_info(file[i], 1);
-		else if (ft_strstr(file[i], "C ") && !cub->map->ceiling)
-			cub->map->ceiling = get_info(file[i], 1);
-	}
-	return (EXIT_SUCCESS);
 }
 
 char	*get_info(char *file, int flag)
