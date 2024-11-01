@@ -101,9 +101,12 @@ int		find_extension(char *map, char *ext);
 int		parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
-int		init_texture_color(t_cub_data *cub);
 char	*get_info(char *file, int flag);
+
+//parsing/texture_color.c
+int		init_texture_color(t_cub_data *cub);
 int		is_valid_textures(t_cub_data *cub);
+int		duplicate_texture(t_cub_data *cub);
 
 //parsing/map.c
 
