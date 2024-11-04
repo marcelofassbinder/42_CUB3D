@@ -12,8 +12,8 @@
 # include <X11/keysymdef.h>
 # include <fcntl.h>//open
 
-#define WIDTH 1920
-#define HEIGHT 1040
+#define WIDTH 1240
+#define HEIGHT 840
 
 // KEY DEFINES
 #define KEY_W XK_w
@@ -80,24 +80,25 @@ typedef struct		s_cub_data {
 	char			**test_map_array; // remover apos o parsing
 	void			*mlx_ptr;
 	void			*mlx_window;
-	t_image 		*img;
 	char			player_char;
 	t_coordinate	*player_position;
 	double			player_angle_rad;
 	t_coordinate	*player_dir;
 	t_coordinate	*plane;
 	t_map			*map;
+	t_image 		*image;
+	int 			rotation;
 	
 }					t_cub_data;
 
-t_cub_data	*init_cub_struct(char **test);
+t_cub_data	*init_cub_struct();
 void		define_player_vectors(t_cub_data *cub);
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id);
 void	calculate_deltas(t_ray *ray);
 void	increment_to_next_intersection(t_ray *ray);
 void	calculate_wall_distance(t_ray *ray);
-void	draw_pixels_in_image(t_ray *ray);
-void	ray_casting(t_cub_data *cub, char **test_map_array);
+void	draw_pixels_in_image(t_ray *ray, t_image *image);
+int		ray_casting(t_cub_data *cub);
 
 //move_player.c
 void	move_player(int key, t_cub_data *cub);

@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/10/30 18:37:23 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:06:27 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
 	{
 		cub->player_position->x = new_pos->x;
 		cub->player_position->y = new_pos->y;
-		ray_casting(cub, cub->test_map_array);
 	}
 }
 void	move_player_up(t_cub_data *cub, int quadrant)

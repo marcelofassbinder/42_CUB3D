@@ -6,15 +6,14 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/10/30 18:36:34 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:03:26 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-void	ray_casting(t_cub_data *cub, char **test_map_array)
+int	ray_casting(t_cub_data *cub/* , char **test_map_array */)
 {
-	printf("RAY\n");
 	int ray_id = -1;
 	while (++ray_id < WIDTH)
 	{
@@ -24,13 +23,16 @@ void	ray_casting(t_cub_data *cub, char **test_map_array)
 		while (42) 
 		{
 			increment_to_next_intersection(ray);
-			if (test_map_array[ray->map_y][ray->map_x] == WALL)
+			if (cub->test_map_array[ray->map_y][ray->map_x] == WALL)
 				break ;
 		}
 		calculate_wall_distance(ray);
-		draw_pixels_in_image(ray);
+		draw_pixels_in_image(ray, cub->image);
+		free(ray);
 	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->img->img, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image->img, 0, 0);
+	return (1);
+	//mlx_destroy_image(cub->mlx_ptr, cub->image->img);
 }
 
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id)
