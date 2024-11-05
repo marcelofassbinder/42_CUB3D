@@ -10,7 +10,7 @@ LIBFT_DIR = include/libft
 GNL_LIB = include/gnl/gnl.a
 GNL_DIR = include/gnl
 MLX_LIB = include/minilibx-linux
-CC = cc 
+CC = cc
 C_FLAGS = -Wall -Werror -Wextra -g
 NAME = cub3d
 

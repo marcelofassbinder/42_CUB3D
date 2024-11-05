@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 20:12:22 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:43:36 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	parsing(t_cub_data *cub, char *argv)
 	cub->map->map_array = extract_map(cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
 	if (!cub->map->map_array)
 		return (printf("Error\nInvalid character in map\n"));
-	if (find_player_position(cub))// || !closed_by_walls(cub->map->map_array))
+	if (find_player_position(cub) || !closed_by_walls(cub->map->map_array))
 		return (printf("Error\nInvalid map\n"));
 	//analisar se o mapa e valido
 		//ponto de inicio duplicado

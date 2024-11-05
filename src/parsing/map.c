@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 20:11:32 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:50:47 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,48 +102,47 @@ int	closed_by_walls(char **map)
 		while (map[y][++x])
 		{
 			//ver primeiro se a primeira e a ultima linha sao 1
-			if (find_wall(map, y, x))
-				return (false);
+			if (map[y][x] == ' ' || map[y][x] == '\t')
+				if (find_wall(map, y, x))
+					return (false);
 			//ver a primeira e a ultima coluna
 				//se for espaco ou tab, procurar pelo 1
+			if (y == 0 || !map[y + 1][0])
+				if (map[y][x] == '0')
+					return (printf("Error\nMap not closed by walls\n"), false);
 			//se a posicao de cima ou de baixo foi espaço ou tab,
 			//subir ou descer ate achar o 1
 		}
+		printf("y -> %i linha -> %s\n", y, map[y]);
 	}
 	return (true);
 }
 
 int	find_wall(char **map, int y, int x)
 {
-	//se o y for 0, procura pra baixo (soma y)
+	//pode ter espaço no meio do mapa??
 	if (y == 0)
 	{
-		if (map[y][x] == '0')
-			return (printf("Error\nMap not closed by walls\n"));
-		if (map[y][x] == ' ' || map[y][x] == '\t')
+		while (map[y][x])
 		{
-			while (map[++y][x])
-			{
-				if (map[y][x] == '0')
-					return (printf("Error\nMap not closed by walls\n"));
-				if (map[y][x] == '1')
-					return (EXIT_SUCCESS);
-			}
+			if (map[y][x] == '0')
+				return (printf("Error\nMap not closed by walls\n"));
+			if (map[y][x] == '1')
+				return (EXIT_SUCCESS);
+			//if (map[y][x] == ' ' || map[y][x] == '\t')
+			y++;
 		}
 	}
 	if (!map[y + 1][0])
 	{
-		if (map[y][x] == '0')
-			return (printf("Error\nMap not closed by walls\n"));
-		if (map[y][x] == ' ' || map[y][x] == '\t')
+		while (map[y][x])
 		{
-			while (map[--y][x])
-			{
-				if (map[y][x] == '0')
-					return (printf("Error\nMap not closed by walls\n"));
-				if (map[y][x] == '1')
-					return (EXIT_SUCCESS);
-			}
+			if (map[y][x] == '0')
+				return (printf("Error\nMap not closed by walls\n"));
+			if (map[y][x] == '1')
+				return (EXIT_SUCCESS);
+			//if (map[y][x] == ' ' || map[y][x] == '\t')
+			y--;
 		}
 	}
 	return (EXIT_SUCCESS);
