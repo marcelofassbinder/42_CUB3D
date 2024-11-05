@@ -65,7 +65,11 @@ typedef struct	s_map {
 	char		*east;
 	char		*west;
 	char		*ceiling;
+	int			c_rgb[3];
+	int			c_hex;
 	char		*floor;
+	int			f_rgb[3];
+	int			f_hex;
 }				t_map;
 
 typedef struct	s_cub_data {
@@ -101,13 +105,25 @@ int		find_extension(char *map, char *ext);
 int		parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
-char	*get_info(char *file, int flag);
 
-//parsing/texture_color.c
+//parsing/texture.c
 int		init_texture_color(t_cub_data *cub);
+char	*get_info(char *file, int flag);
 int		is_valid_textures(t_cub_data *cub);
-int		duplicate_texture(t_cub_data *cub);
+int		duplicate_texture_or_color(t_cub_data *cub);
+int		is_valid_colors(t_cub_data *cub);
+
+//parsing/color.c
+int		has_three_numbers(char *str);
+int		ft_isdigit_space_tab(int c);
+void	save_rgb(t_cub_data *cub);
+int		rgb_to_hex(int rgb[3]);
 
 //parsing/map.c
+char	**extract_map(char **file, int i);
+int		map_size_valid_char(char **file, int i);
+
+//frees.c
+void	free_matriz(char **str);
 
 #endif

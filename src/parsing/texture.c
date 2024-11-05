@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_color.c                                    :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/30 15:31:24 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:59:30 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,34 @@ int	init_texture_color(t_cub_data *cub)
 			cub->map->floor = get_info(file[i], 1);
 		else if (ft_strstr(file[i], "C ") && !cub->map->ceiling)
 			cub->map->ceiling = get_info(file[i], 1);
+		if (cub->map->north && cub->map->south && cub->map->east
+			&& cub->map->west && cub->map->floor && cub->map->ceiling)
+			return (++i);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
+}
+
+char	*get_info(char *file, int flag)
+{
+	int		i;
+	char	*buf;
+	
+	i = 0;
+	while (file[i] == ' ' || file[i] == '\t')
+		i++;
+	//tem que analisar os casos de como pode vir escrito
+	i += flag;
+	buf = ft_strtrim(&file[i], " \n\t");
+	return (buf);
 }
 
 int	is_valid_textures(t_cub_data *cub)
 {
 	int	fd;
 	
-	if (duplicate_texture(cub))
+	if (duplicate_texture_or_color(cub))
 	{
-		printf("Error!\nDuplicate texture\n");
+		printf("Error!\nDuplicate texture or color\n");
 		return (false);
 	}
 	if (!cub->map->north || !cub->map->south || !cub->map->east
@@ -64,7 +81,7 @@ int	is_valid_textures(t_cub_data *cub)
 	return (true);
 }
 
-int	duplicate_texture(t_cub_data *cub)
+int	duplicate_texture_or_color(t_cub_data *cub)
 {
 	char	**file;
 	int		i;
@@ -90,4 +107,25 @@ int	duplicate_texture(t_cub_data *cub)
 		}
 	}
 	return (false);
+}
+
+int	is_valid_colors(t_cub_data *cub)
+{
+	int	i;
+
+	i = -1;
+	if (!cub->map->ceiling || !cub->map->floor)
+		return (printf("Error!\nMissing color\n"), false);
+	if (!has_three_numbers(cub->map->ceiling)
+		|| !has_three_numbers(cub->map->floor))
+		return (printf("Error!\nInvalid color\n"), false);
+	save_rgb(cub);
+	while (++i <= 2)
+		if (cub->map->c_rgb[i] > 255 || cub->map->f_rgb[i] > 255)
+			return (printf("Error!\nNumber > 255\n"), false);
+	cub->map->c_hex = rgb_to_hex(cub->map->c_rgb);
+	//printf("c_hex -> %x\n", cub->map->c_hex);
+	cub->map->f_hex = rgb_to_hex(cub->map->f_rgb);
+	//printf("f_hex -> %x\n", cub->map->f_hex);
+	return (true);
 }
