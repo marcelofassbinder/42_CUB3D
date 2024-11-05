@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/30 12:56:13 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:39:41 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ t_cub_data *init_cub_struct(char **test)
 		&cub->img->line_len, &cub->img->endian);
 	cub->player_dir = ft_calloc(sizeof(t_vector), 1);
 	cub->plane = ft_calloc(sizeof(t_vector), 1);
-	cub->player_char = 'W'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
-	define_player_vectors(cub);
+	//cub->player_char = 'W';
+	//define_player_vectors(cub);
 	return (cub);
 }
 
@@ -139,10 +139,11 @@ int main(int argc, char **argv)
 	{
 		if (parsing(cub, argv[1]))
 			return (printf("Erro no parsing\n"));
-		cub->player_pos_X = 5.2;
-		cub->player_pos_Y = 2.7;
+		define_player_vectors(cub);
+		//cub->player_pos_X = 5.2;
+		//cub->player_pos_Y = 2.7;
 		
-		ray_casting(cub, test_map_array);
+		ray_casting(cub, cub->map->map_array);
 	
 		mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
 		mlx_loop(cub->mlx_ptr);

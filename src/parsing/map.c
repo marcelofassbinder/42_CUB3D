@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 16:54:31 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:11:32 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,92 @@ int	map_size_valid_char(char **file, int i)
 		}
 	}
 	return (i - save_start - 1);
+}
+
+int	find_player_position(t_cub_data *cub)
+{
+	char	**map;
+	int 	y;
+	int 	x;
+
+	map = cub->map->map_array;
+	y = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == 'N' || map[y][x] == 'S'
+				|| map[y][x] == 'E' || map[y][x] == 'W')
+			{
+				if (cub->player_char)
+					return (printf("Error\nDuplicate player position\n"));
+				cub->player_char = map[y][x];
+				cub->player_pos_X = x;
+				cub->player_pos_Y = y;
+			}
+		}
+	}
+	if (!cub->player_char)
+		return (printf("Error\nNo player position\n"));
+	return (EXIT_SUCCESS);
+}
+
+int	closed_by_walls(char **map)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			//ver primeiro se a primeira e a ultima linha sao 1
+			if (find_wall(map, y, x))
+				return (false);
+			//ver a primeira e a ultima coluna
+				//se for espaco ou tab, procurar pelo 1
+			//se a posicao de cima ou de baixo foi espaço ou tab,
+			//subir ou descer ate achar o 1
+		}
+	}
+	return (true);
+}
+
+int	find_wall(char **map, int y, int x)
+{
+	//se o y for 0, procura pra baixo (soma y)
+	if (y == 0)
+	{
+		if (map[y][x] == '0')
+			return (printf("Error\nMap not closed by walls\n"));
+		if (map[y][x] == ' ' || map[y][x] == '\t')
+		{
+			while (map[++y][x])
+			{
+				if (map[y][x] == '0')
+					return (printf("Error\nMap not closed by walls\n"));
+				if (map[y][x] == '1')
+					return (EXIT_SUCCESS);
+			}
+		}
+	}
+	if (!map[y + 1][0])
+	{
+		if (map[y][x] == '0')
+			return (printf("Error\nMap not closed by walls\n"));
+		if (map[y][x] == ' ' || map[y][x] == '\t')
+		{
+			while (map[--y][x])
+			{
+				if (map[y][x] == '0')
+					return (printf("Error\nMap not closed by walls\n"));
+				if (map[y][x] == '1')
+					return (EXIT_SUCCESS);
+			}
+		}
+	}
+	return (EXIT_SUCCESS);
 }
