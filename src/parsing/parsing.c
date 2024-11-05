@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/30 15:31:21 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:54:58 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,30 @@ int	find_extension(char *map, char *ext)
 
 int	parsing(t_cub_data *cub, char *argv)
 {
+	int	end_infos;
+	
 	if (!cub)
 		return (1);
 	cub->map->file = get_matrix_from_file(cub, argv);
 	if (!cub->map->file)//precisa dessa checagem?
 		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro
-	init_texture_color(cub);
+	end_infos = init_texture_color(cub);
 	if (!is_valid_textures(cub))
 		return (printf("Error!\nInvalid texture\n"));
 	//varificar se tem alguma linha escrita a mais
-	//analisar se sao validas (F e C tem que ser numero e < 256 (??))
+	if (!is_valid_colors(cub))
+		return (printf("Error!\nInvalid color\n"));
 	//extrair o mapa do arquivo
+	cub->map->map_array = extract_map(cub->map->file, end_infos);
+	if (!cub->map->map_array)
+		return (printf("Error\nInvalid character in map\n"));
 	//analisar se o mapa e valido
+		//ponto de inicio duplicado
+		//nao fechado por parede
 	//dar free da matrix cub->map->file
 	//lembrar de dar free da matriz cub->map->map_array
 	return (0);
 }
-
-char	*get_info(char *file, int flag)
-{
-	int		i;
-	char	*buf;
-	
-	i = 0;
-	while (file[i] == ' ' || file[i] == '\t')
-		i++;
-	//tem que analisar os casos de como pode vir escrito
-	i += flag;
-	buf = ft_strtrim(&file[i], " \n\t");
-	return (buf);
-}
-
 
 char	**get_matrix_from_file(t_cub_data *cub, char *file)
 {

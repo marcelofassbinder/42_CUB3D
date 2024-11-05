@@ -4,7 +4,7 @@ NO      ./textures/wolfstein/bluestone.xpm
 SO 		./textures/wolfstein/colorstone.xpm
 WE ./textures/wolfstein/greystone.xpm
 
-F        220,  100,0
+F        255	 ,  100,0
 
 EA     		    	  ./textures/wolfstein/mossy.xpm
 C 225,30,0
