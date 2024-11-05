@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/10/27 20:57:44 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:39:58 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-void	ray_casting(t_cub_data *cub, char **test_map_array)
+void	ray_casting(t_cub_data *cub, char **map)
 {
 	int ray_id = -1;
 	while (++ray_id < WIDTH)
@@ -23,7 +23,7 @@ void	ray_casting(t_cub_data *cub, char **test_map_array)
 		while (42) 
 		{
 			increment_to_next_intersection(ray);
-			if (test_map_array[ray->map_y][ray->map_x] == '1')
+			if (map[ray->map_y][ray->map_x] == '1')
 				break ;
 		}
 		calculate_wall_distance(ray);

@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 16:54:58 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:12:22 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	parsing(t_cub_data *cub, char *argv)
 	int	end_infos;
 	
 	if (!cub)
-		return (1);
+		return (EXIT_FAILURE);
 	cub->map->file = get_matrix_from_file(cub, argv);
 	if (!cub->map->file)//precisa dessa checagem?
-		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro
+		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees
 	end_infos = init_texture_color(cub);
 	if (!is_valid_textures(cub))
 		return (printf("Error!\nInvalid texture\n"));
@@ -46,9 +46,11 @@ int	parsing(t_cub_data *cub, char *argv)
 	if (!is_valid_colors(cub))
 		return (printf("Error!\nInvalid color\n"));
 	//extrair o mapa do arquivo
-	cub->map->map_array = extract_map(cub->map->file, end_infos);
+	cub->map->map_array = extract_map(cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
 	if (!cub->map->map_array)
 		return (printf("Error\nInvalid character in map\n"));
+	if (find_player_position(cub))// || !closed_by_walls(cub->map->map_array))
+		return (printf("Error\nInvalid map\n"));
 	//analisar se o mapa e valido
 		//ponto de inicio duplicado
 		//nao fechado por parede

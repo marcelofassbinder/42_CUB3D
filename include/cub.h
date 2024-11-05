@@ -94,7 +94,7 @@ void	calculate_deltas(t_ray *ray);
 void	increment_to_next_intersection(t_ray *ray);
 void	calculate_wall_distance(t_ray *ray);
 void	draw_pixels_in_image(t_ray *ray);
-void	ray_casting(t_cub_data *cub, char **test_map_array);
+void	ray_casting(t_cub_data *cub, char **map);
 
 //utils.c
 void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
@@ -122,6 +122,9 @@ int		rgb_to_hex(int rgb[3]);
 //parsing/map.c
 char	**extract_map(char **file, int i);
 int		map_size_valid_char(char **file, int i);
+int		find_player_position(t_cub_data *cub);
+int		closed_by_walls(char **map);
+int		find_wall(char **map, int y, int x);
 
 //frees.c
 void	free_matriz(char **str);
