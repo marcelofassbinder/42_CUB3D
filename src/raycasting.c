@@ -6,13 +6,13 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/06 17:02:15 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:25:39 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-int	ray_casting(t_cub_data *cub/* , char **test_map_array */)
+int	ray_casting(t_cub_data *cub)
 {
 	int ray_id = -1;
 	while (++ray_id < WIDTH)
@@ -23,7 +23,7 @@ int	ray_casting(t_cub_data *cub/* , char **test_map_array */)
 		while (42) 
 		{
 			increment_to_next_intersection(ray);
-			if (cub->test_map_array[ray->map_y][ray->map_x] == WALL)
+			if (cub->map->map_array[ray->map_y][ray->map_x] == WALL)
 				break ;
 		}
 		calculate_wall_distance(ray);

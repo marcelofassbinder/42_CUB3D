@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
+/*   Updated: 2024/11/06 18:06:28 by mfassbin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub.h"
 
 void	draw_pixels_in_image(t_ray *ray, t_image *image)
@@ -60,7 +72,7 @@ int	handle_input(int key, t_cub_data *cub)
 	return (1);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	char test_map[100] = "1111111111\n1111100001\n10000N0001\n1000010001\n100010001\n100000001\n1111111111\n";
 	char **test_map_array = ft_split(test_map, '\n');
@@ -71,9 +83,28 @@ int main(void)
 	cub->player_position->x = 5.2;
 	cub->player_position->y = 2.7;
 	
-	//ray_casting(cub, test_map_array);
 	//mlx_xpm_file_to_image = // colocar imagem de inicio 
+	
+	/* cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
+	if (cub->map->fd < 0)
+	{
+		free(cub->map);
+		free(cub);
+		return (printf("ERROR!\nfd < 0!\n"));
+	}
+	//ate aqui pra checagem de input
+	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
+	{
+		if (parsing(cub, argv[1]))
+			return (printf("Erro no parsing\n"));
+		//cub->player_pos_X = 5.2;
+		//cub->player_pos_Y = 2.7;
+
+	}
+	else
+		return (printf("ERROR!\nINVALID INPUT!\n")); */
 	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting, cub);
 	mlx_loop(cub->mlx_ptr);
+
 }

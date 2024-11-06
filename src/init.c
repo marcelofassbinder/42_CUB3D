@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/06 17:05:48 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:04:24 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ t_cub_data *init_cub_struct(void)
 	cub = ft_calloc(sizeof(t_cub_data), 1);
 	if (!cub)
 		return (NULL);
-	cub->test_map_array = test_map_array; // remover
+	//cub->test_map_array = test_map_array; // remover
+	cub->map = ft_calloc(sizeof(t_map), 1);
+	cub->map->map_array = test_map_array;
 	cub->mlx_ptr = mlx_init();
 	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	cub->player_position = ft_calloc(sizeof(t_coordinate), 1);

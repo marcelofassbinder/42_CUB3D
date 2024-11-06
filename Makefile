@@ -1,14 +1,16 @@
-SRC = src/main.c src/utils.c src/raycasting.c src/move_player.c src/init.c src/parsing/parsing.c\
-		src/parsing/map.c
-OBJ = src/main.o src/utils.o src/raycasting.o src/move_player.o src/init.o src/parsing/parsing.o\
-		src/parsing/map.o
+SRC = src/main.c src/utils.c src/raycasting.c src/init.c src/move_player.c src/parsing/parsing.c\
+		src/parsing/map.c src/parsing/texture.c src/frees.c\
+		src/parsing/color.c
+OBJ = src/main.o src/utils.o src/raycasting.o src/init.o src/move_player.o src/parsing/parsing.o\
+		src/parsing/map.o src/parsing/texture.o src/frees.o\
+		src/parsing/color.o
 MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -lXext -lX11 -lm -lz
 LIBFT_LIB = include/libft/libft.a
 LIBFT_DIR = include/libft
 GNL_LIB = include/gnl/gnl.a
 GNL_DIR = include/gnl
 MLX_LIB = include/minilibx-linux
-CC = cc 
+CC = cc
 C_FLAGS = -Wall -Werror -Wextra -g
 NAME = cub3d
 
