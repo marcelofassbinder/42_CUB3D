@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 15:59:30 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:40:28 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ int	is_valid_colors(t_cub_data *cub)
 			return (printf("Error!\nNumber > 255\n"), false);
 	cub->map->c_hex = rgb_to_hex(cub->map->c_rgb);
 	//printf("c_hex -> %x\n", cub->map->c_hex);
+	//printf("c_hex -> %i\n", cub->map->c_hex);
 	cub->map->f_hex = rgb_to_hex(cub->map->f_rgb);
 	//printf("f_hex -> %x\n", cub->map->f_hex);
+	//printf("f_hex -> %i\n", cub->map->f_hex);
 	return (true);
 }

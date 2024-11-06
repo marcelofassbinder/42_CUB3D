@@ -73,6 +73,7 @@ typedef struct	s_map {
 	char		**file;
 	char 		**map_array;
 	int			fd;
+	int			map_height;
 	char		*north;
 	char		*south;
 	char		*east;
@@ -113,6 +114,8 @@ typedef struct		s_cub_data {
 t_cub_data	*init_cub_struct();
 void		define_player_vectors(t_cub_data *cub);
 void		define_initial_rotation(t_cub_data *cub);
+void		define_textures(t_cub_data *cub);
+
 
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id);
 void	calculate_deltas(t_ray *ray);
@@ -155,11 +158,12 @@ void	save_rgb(t_cub_data *cub);
 int		rgb_to_hex(int rgb[3]);
 
 //parsing/map.c
-char	**extract_map(char **file, int i);
+char	**extract_map(t_cub_data *cub, char **file, int y);
+int		empty_line(char *line);
 int		map_size_valid_char(char **file, int i);
 int		find_player_position(t_cub_data *cub);
-int		closed_by_walls(char **map);
-int		find_wall(char **map, int y, int x);
+int		closed_by_walls(t_cub_data *cub, char **map);
+int		find_wall(t_cub_data *cub, char **map, int y, int x);
 
 //frees.c
 void	free_matriz(char **str);
