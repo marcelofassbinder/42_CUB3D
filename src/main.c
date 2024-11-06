@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 18:06:28 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:20:42 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int main(int argc, char **argv)
 	
 	cub = init_cub_struct();
 	
-	cub->player_position->x = 5.2;
-	cub->player_position->y = 2.7;
+	/* cub->player_position->x = 5.2;
+	cub->player_position->y = 2.7; */
 	
 	//mlx_xpm_file_to_image = // colocar imagem de inicio 
 	
-	/* cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
+	cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
 	if (cub->map->fd < 0)
 	{
 		free(cub->map);
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 
 	}
 	else
-		return (printf("ERROR!\nINVALID INPUT!\n")); */
+		return (printf("ERROR!\nINVALID INPUT!\n"));
 	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting, cub);
 	mlx_loop(cub->mlx_ptr);

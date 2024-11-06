@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 18:02:02 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:17:18 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,19 @@ int	parsing(t_cub_data *cub, char *argv)
 	if (!is_valid_colors(cub))
 		return (printf("Error!\nInvalid color\n"));
 	//extrair o mapa do arquivo
-	cub->map->map_array = extract_map(cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
+	cub->map->map_array = extract_map(cub, cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
 	if (!cub->map->map_array)
 		return (printf("Error\nInvalid character in map\n"));
-	if (find_player_position(cub) || !closed_by_walls(cub->map->map_array))
+	if (find_player_position(cub) || !closed_by_walls(cub, cub->map->map_array))
 		return (printf("Error\nInvalid map\n"));
 	//analisar se o mapa e valido
 		//ponto de inicio duplicado
 		//nao fechado por parede
 	//dar free da matrix cub->map->file
 	//lembrar de dar free da matriz cub->map->map_array
+	define_player_vectors(cub);
+	define_initial_rotation(cub);
+	define_textures(cub);
 	return (0);
 }
 
