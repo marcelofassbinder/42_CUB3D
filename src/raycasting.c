@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/04 19:03:26 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:02:15 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	ray_casting(t_cub_data *cub/* , char **test_map_array */)
 	return (1);
 	//mlx_destroy_image(cub->mlx_ptr, cub->image->img);
 }
+
+/* void	draw_wall_textures(t_ray *ray, t_image *image, int pix_start, int pix_end)
+{
+	while (pix_end >= pix_start)
+	{
+		
+	}
+} */
 
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id)
 {

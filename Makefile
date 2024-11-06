@@ -1,6 +1,6 @@
-SRC = src/main.c src/utils.c src/raycasting.c src/move_player.c src/parsing/parsing.c\
+SRC = src/main.c src/utils.c src/raycasting.c src/move_player.c src/init.c src/parsing/parsing.c\
 		src/parsing/map.c
-OBJ = src/main.o src/utils.o src/raycasting.o src/move_player.o src/parsing/parsing.o\
+OBJ = src/main.o src/utils.o src/raycasting.o src/move_player.o src/init.o src/parsing/parsing.o\
 		src/parsing/map.o
 MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -lXext -lX11 -lm -lz
 LIBFT_LIB = include/libft/libft.a
