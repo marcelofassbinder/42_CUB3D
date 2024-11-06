@@ -75,6 +75,14 @@ typedef struct	s_map {
 
 }				t_map;
 
+typedef struct s_textures {
+
+	void	*textures_xpm[4];
+	int		textures_height[4];
+	int		textures_width[4];
+
+}				t_textures;
+
 typedef struct		s_cub_data {
 
 	char			**test_map_array; // remover apos o parsing
@@ -87,12 +95,15 @@ typedef struct		s_cub_data {
 	t_coordinate	*plane;
 	t_map			*map;
 	t_image 		*image;
+	t_textures		*textures;
 	int 			rotation;
 	
 }					t_cub_data;
 
 t_cub_data	*init_cub_struct();
 void		define_player_vectors(t_cub_data *cub);
+void		define_initial_rotation(t_cub_data *cub);
+
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id);
 void	calculate_deltas(t_ray *ray);
 void	increment_to_next_intersection(t_ray *ray);
