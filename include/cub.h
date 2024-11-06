@@ -4,6 +4,7 @@
 # include "minilibx-linux/mlx.h"
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
+# include "gnl/get_next_line.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -72,7 +73,16 @@ typedef struct	s_map {
 	char		**file;
 	char 		**map_array;
 	int			fd;
-
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	char		*ceiling;
+	int			c_rgb[3];
+	int			c_hex;
+	char		*floor;
+	int			f_rgb[3];
+	int			f_hex;
 }				t_map;
 
 typedef struct s_textures {
@@ -122,14 +132,36 @@ int check_quadrant(double player_angle);
 void change_player_position(t_coordinate *new_pos, t_cub_data *cub);
 
 //utils.c
-void my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+char	*ft_strstr(char *str, char *to_find);
 
 //parsing/parsing.c
 int		find_extension(char *map, char *ext);
-void	parsing(t_cub_data *cub, char *argv);
+int		parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
 
+//parsing/texture.c
+int		init_texture_color(t_cub_data *cub);
+char	*get_info(char *file, int flag);
+int		is_valid_textures(t_cub_data *cub);
+int		duplicate_texture_or_color(t_cub_data *cub);
+int		is_valid_colors(t_cub_data *cub);
+
+//parsing/color.c
+int		has_three_numbers(char *str);
+int		ft_isdigit_space_tab(int c);
+void	save_rgb(t_cub_data *cub);
+int		rgb_to_hex(int rgb[3]);
+
 //parsing/map.c
+char	**extract_map(char **file, int i);
+int		map_size_valid_char(char **file, int i);
+int		find_player_position(t_cub_data *cub);
+int		closed_by_walls(char **map);
+int		find_wall(char **map, int y, int x);
+
+//frees.c
+void	free_matriz(char **str);
 
 #endif

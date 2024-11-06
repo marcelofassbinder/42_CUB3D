@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/04 19:06:27 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:13:45 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
 	char possible_new_pos_X;
 	char possible_new_pos_Y;
 
-	possible_new_pos = cub->test_map_array[(int)new_pos->y][(int)new_pos->x];
-	possible_new_pos_X = cub->test_map_array[(int)cub->player_position->y][(int)new_pos->x];
-	possible_new_pos_X = cub->test_map_array[(int)new_pos->y][(int)cub->player_position->x];
+	possible_new_pos = cub->map->map_array[(int)new_pos->y][(int)new_pos->x];
+	possible_new_pos_X = cub->map->map_array[(int)cub->player_position->y][(int)new_pos->x];
+	possible_new_pos_X = cub->map->map_array[(int)new_pos->y][(int)cub->player_position->x];
 	if (possible_new_pos && possible_new_pos != WALL 
 		&& possible_new_pos_X != WALL && possible_new_pos_Y != WALL)
 	{
