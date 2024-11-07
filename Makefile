@@ -1,16 +1,16 @@
 SRC = src/main.c src/utils.c src/raycasting.c src/init.c src/move_player.c src/parsing/parsing.c\
 		src/parsing/map.c src/parsing/texture.c src/frees.c\
-		src/parsing/color.c
+		src/parsing/color.c src/parsing/map_walls.c
 OBJ = src/main.o src/utils.o src/raycasting.o src/init.o src/move_player.o src/parsing/parsing.o\
 		src/parsing/map.o src/parsing/texture.o src/frees.o\
-		src/parsing/color.o
+		src/parsing/color.o src/parsing/map_walls.o
 MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -lXext -lX11 -lm -lz
 LIBFT_LIB = include/libft/libft.a
 LIBFT_DIR = include/libft
 GNL_LIB = include/gnl/gnl.a
 GNL_DIR = include/gnl
 MLX_LIB = include/minilibx-linux
-CC = cc
+CC = cc -g
 C_FLAGS = -Wall -Werror -Wextra -g
 NAME = cub3d
 
@@ -21,7 +21,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT_LIB) $(GNL_LIB)
 	make -C $(MLX_LIB)
-	$(CC) $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_FLAGS) $(C_FLAGS) -o $(NAME)
+	$(CC) $(C_FLAGS) $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_FLAGS) -o $(NAME)
 
 $(LIBFT_LIB) : $(LIBFT_DIR)
 	make -C $(LIBFT_DIR)

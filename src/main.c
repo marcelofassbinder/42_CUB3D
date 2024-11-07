@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/07 19:47:53 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:56:48 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int main(int argc, char **argv)
 	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
 	{
 		if (parsing(cub, argv[1]))
-			return (printf("Erro no parsing\n"));
+			return (EXIT_FAILURE);//free_parsing(cub));
 		//cub->player_pos_X = 5.2;
 		//cub->player_pos_Y = 2.7;
 
@@ -106,3 +106,4 @@ int main(int argc, char **argv)
 	mlx_loop(cub->mlx_ptr);
 
 }
+
