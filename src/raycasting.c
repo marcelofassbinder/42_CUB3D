@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/06 17:25:39 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:00:44 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ray_casting(t_cub_data *cub)
 		t_ray *ray;
 
 		ray = calculate_ray(cub, ray_id);
-		while (42) 
+		while (42)
 		{
 			increment_to_next_intersection(ray);
 			if (cub->map->map_array[ray->map_y][ray->map_x] == WALL)
@@ -28,6 +28,7 @@ int	ray_casting(t_cub_data *cub)
 		}
 		calculate_wall_distance(ray);
 		draw_pixels_in_image(ray, cub->image);
+		texture_calculations(cub, ray, 0);
 		free(ray);
 	}
 	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image->img, 0, 0);
@@ -35,13 +36,34 @@ int	ray_casting(t_cub_data *cub)
 	//mlx_destroy_image(cub->mlx_ptr, cub->image->img);
 }
 
-/* void	draw_wall_textures(t_ray *ray, t_image *image, int pix_start, int pix_end)
+void	texture_calculations(t_cub_data *cub, t_ray *ray, int tex_index /* , int pix_start, int pix_end */)
 {
-	while (pix_end >= pix_start)
+	double wall_x; // the exact point that wall was hit
+	double step; // how much to increase in y axis inside the texture, every iteration of the loop 
+	double	tex_pos;
+	int			tex_x; // the x coordinate in the texture
+	double		tex_y; // the y coordinate in the texture
+	int			tex_color;
+	
+	if (ray->side_colision)
+		wall_x = cub->player_position->y + (ray->wall_distance * ray->direction.y);
+	else
+		wall_x = cub->player_position->x + (ray->wall_distance * ray->direction.x);
+	wall_x -= floor(wall_x);
+	tex_x = (int) (wall_x * cub->textures->textures_width[tex_index]);
+	if ((ray->side_colision && ray->direction.x > 0) || (ray->side_colision == 0 && ray->direction.y < 0))
+		tex_x = cub->textures->textures_width[tex_index] - tex_x - 1;
+	step = 1.0 * cub->textures->textures_height[tex_index] / ray->line_height;
+	tex_pos = (ray->pix_start - HEIGHT / 2 + ray->line_height / 2) * step;
+	while(ray->pix_end >= ray->pix_start)
 	{
-		
+		tex_y = (int) tex_pos;
+		tex_color = get_color_from_pixel(&cub->textures->images[tex_index], tex_x, tex_y);
+		my_mlx_pixel_put(cub->image, ray->id, ray->pix_start, tex_color);
+		tex_pos += step;
+		ray->pix_start++;
 	}
-} */
+}
 
 t_ray	*calculate_ray(t_cub_data * cub, int ray_id)
 {

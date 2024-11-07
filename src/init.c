@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/06 18:46:18 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:24:56 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,21 @@ void	define_textures(t_cub_data *cub)
 
 	textures = ft_calloc(sizeof(t_textures), 1);
 	
-
-
+	textures->images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->map->north, &textures->textures_width[0], &textures->textures_height[0]);
+	textures->images[0].addr = mlx_get_data_addr(textures->images[0].img, 
+		&textures->images[0].bits_per_pixel, &textures->images[0].line_len, &textures->images[0].endian);
+	textures->images[1].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->map->east, &textures->textures_width[1], &textures->textures_height[1]);
+	textures->images[1].addr = mlx_get_data_addr(textures->images[1].img, 
+		&textures->images[1].bits_per_pixel, &textures->images[1].line_len, &textures->images[1].endian);
+	textures->images[2].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->map->south, &textures->textures_width[2], &textures->textures_height[2]);
+	textures->images[2].addr = mlx_get_data_addr(textures->images[2].img,
+		&textures->images[2].bits_per_pixel, &textures->images[2].line_len, &textures->images[2].endian);
+	textures->images[3].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->map->north, &textures->textures_width[3], &textures->textures_height[3]);
+	textures->images[3].addr = mlx_get_data_addr(textures->images[3].img, 
+		&textures->images[3].bits_per_pixel, &textures->images[3].line_len, &textures->images[3].endian);
 	cub->textures = textures;
 }
