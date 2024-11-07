@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 18:20:42 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:47:53 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 void	draw_pixels_in_image(t_ray *ray, t_image *image)
 {
-	int pix_start;
-	int pix_end;
 	int floor;
 	int ceiling;
 
-	pix_start = (HEIGHT / 2) - (ray->line_height / 2);
-	if (pix_start < 0)
-		pix_start = 0;
-	pix_end = (HEIGHT / 2) + (ray->line_height / 2);
-	if (pix_end >= HEIGHT)
-		pix_end = HEIGHT - 1;
+	ray->pix_start = (HEIGHT / 2) - (ray->line_height / 2);
+	if (ray->pix_start < 0)
+		ray->pix_start = 0;
+	ray->pix_end = (HEIGHT / 2) + (ray->line_height / 2);
+	if (ray->pix_end >= HEIGHT)
+		ray->pix_end = HEIGHT - 1;
 	floor = HEIGHT + 1;
 	ceiling = -1;
-	while (--floor >= pix_start)
+	while (--floor >= ray->pix_start)
 		my_mlx_pixel_put(image, ray->id, floor, 0xB9BEB9);
-	while (++ceiling <= pix_end)
+	while (++ceiling <= ray->pix_end)
 		my_mlx_pixel_put(image, ray->id, ceiling, 0x009FDA);
-	while(pix_end >= pix_start)
+	/* while(ray->pix_end >= ray->pix_start)
 	{
 		if (ray->side_colision == 1)
-			my_mlx_pixel_put(image, ray->id, pix_start, 0x009F00);
+			my_mlx_pixel_put(image, ray->id, ray->pix_start, 0x009F00);
 		else
-			my_mlx_pixel_put(image, ray->id, pix_start, 0x00C700);
-		pix_start++;
-	}
+			my_mlx_pixel_put(image, ray->id, ray->pix_start, 0x00C700);
+		ray->pix_start++;
+	} */
 	//draw_wall_textures(t_ray *ray, t_image *image, int pix_start, int pix_end);
 }
 

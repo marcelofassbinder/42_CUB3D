@@ -49,6 +49,8 @@ typedef struct	s_ray {
 	double 		side_y;
 	double		wall_distance;
 	int 		id;
+	int			pix_start;
+	int			pix_end;
 	int 		map_x;
 	int 		map_y;
 	int 		step_x;
@@ -88,7 +90,7 @@ typedef struct	s_map {
 
 typedef struct s_textures {
 
-	void	*textures_xpm[4];
+	t_image	images[4];
 	int		textures_height[4];
 	int		textures_width[4];
 
@@ -123,6 +125,8 @@ void	increment_to_next_intersection(t_ray *ray);
 void	calculate_wall_distance(t_ray *ray);
 void	draw_pixels_in_image(t_ray *ray, t_image *image);
 int		ray_casting(t_cub_data *cub);
+void	texture_calculations(t_cub_data *cub, t_ray *ray, int tex_index /* , int pix_start, int pix_end */);
+
 
 //move_player.c
 void	move_player(int key, t_cub_data *cub);
@@ -136,6 +140,7 @@ void change_player_position(t_coordinate *new_pos, t_cub_data *cub);
 
 //utils.c
 void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+unsigned int get_color_from_pixel(t_image *img, int x, int y);
 char	*ft_strstr(char *str, char *to_find);
 
 //parsing/parsing.c
