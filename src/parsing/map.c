@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 20:44:40 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:45:30 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 
 	size = map_size_valid_char(file, y);
 	if (!size)
-		return (NULL);
+		return (printf("Error\nInvalid character in map\n"), NULL);
 	cub->map->map_height = size;
-	map = ft_calloc(sizeof(char **), size);
+	map = ft_calloc(sizeof(char **), size + 1);
 	size = 0;
 	while (empty_line(file[y]))
 		y++;
@@ -34,13 +34,12 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 		y++;
 		//printf("%s\n", map[size - 1]);
 	}
-	x = 0;
+/* 	x = 0;
 	while (map[x])
 	{
 		printf("%s\n", map[x]);
 		x++;
-	}
-	printf("chega aqui\n");
+	} */
 	return (map);
 }
 
@@ -89,10 +88,10 @@ int	find_player_position(t_cub_data *cub)
 
 	map = cub->map->map_array;
 	y = -1;
-	while (map[++y])
+	while (++y < cub->map->map_height)
 	{
 		x = -1;
-		while (map[y][++x])
+		while (++x < ft_strlen(map[y]))
 		{
 			if (map[y][x] == 'N' || map[y][x] == 'S'
 				|| map[y][x] == 'E' || map[y][x] == 'W')
@@ -108,59 +107,4 @@ int	find_player_position(t_cub_data *cub)
 	if (!cub->player_char)
 		return (printf("Error\nNo player position\n"));
 	return (EXIT_SUCCESS);
-}
-
-int	closed_by_walls(t_cub_data *cub, char **map)
-{
-	int	y;
-	int	x;
-
-	y = -1;
-	while (map[++y])
-	{
-		x = -1;
-		while (map[y][++x])
-		{
-			//ver primeiro se a primeira e a ultima linha sao 1
-			if (map[y][x] == ' ' || map[y][x] == '\t')
-				if (!find_wall(cub, map, y, x))
-					return (false);
-			//ver a primeira e a ultima coluna
-				//se for espaco ou tab, procurar pelo 1
-/* 			if (y == 0 || !map[y + 1][0])
-				if (map[y][x] == '0')
-					return (printf("Error\nMap not closed by walls\n"), false); */
-			//se a posicao de cima ou de baixo foi espaço ou tab,
-			//subir ou descer ate achar o 1
-		}
-		printf("y -> %i linha -> %s\n", y, map[y]);
-	}
-	return (true);	
-}
-
-int find_wall(t_cub_data *cub, char **map, int y, int x)
-{
-	int initial_y;
-
-	initial_y = y;
-	while (y < cub->map->map_height && map[y][x])
-	{
-		if (map[y][x] == ' ' || map[y][x] == '\t')
-			y++;
-		else if (map[y][x] == '1')
-			break;
-		else
-			return (printf("Error\nMap not closed by walls\n"), false);
-	}
-	y = initial_y;
-	while (y >= 0 && map[y][x])
-	{
-		if (map[y][x] == ' ' || map[y][x] == '\t')
-			y--;
-		else if (map[y][x] == '1')
-			return (true);
-		else
-			return (printf("Error\nMap not closed by walls\n"), false);
-	}
-	return (true);
 }
