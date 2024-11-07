@@ -162,10 +162,14 @@ char	**extract_map(t_cub_data *cub, char **file, int y);
 int		empty_line(char *line);
 int		map_size_valid_char(char **file, int i);
 int		find_player_position(t_cub_data *cub);
+
+//parsing/map_walls.c
 int		closed_by_walls(t_cub_data *cub, char **map);
-int		find_wall(t_cub_data *cub, char **map, int y, int x);
+int		find_wall_horizontaly(t_cub_data *cub, char **map, int y, int x);
+int		find_wall_up_down(t_cub_data *cub, char **map, int y, int x);
 
 //frees.c
 void	free_matriz(char **str);
+int		free_parsing(t_cub_data *cub);
 
 #endif
