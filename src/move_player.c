@@ -6,13 +6,13 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/06 18:13:45 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:42:56 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-void	move_player(int key, t_cub_data *cub)
+void	move_player(int key, t_cub *cub)
 {
 	int quadrant;
 	
@@ -39,7 +39,7 @@ int check_quadrant(double player_angle)
 		return (4);
 }
 
-void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
+void change_player_position(t_coordinate *new_pos, t_cub *cub)
 {
 	char possible_new_pos;
 	char possible_new_pos_X;
@@ -47,7 +47,7 @@ void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
 
 	possible_new_pos = cub->map->map_array[(int)new_pos->y][(int)new_pos->x];
 	possible_new_pos_X = cub->map->map_array[(int)cub->player_position->y][(int)new_pos->x];
-	possible_new_pos_X = cub->map->map_array[(int)new_pos->y][(int)cub->player_position->x];
+	possible_new_pos_Y = cub->map->map_array[(int)new_pos->y][(int)cub->player_position->x];
 	if (possible_new_pos && possible_new_pos != WALL 
 		&& possible_new_pos_X != WALL && possible_new_pos_Y != WALL)
 	{
@@ -55,7 +55,7 @@ void change_player_position(t_coordinate *new_pos, t_cub_data *cub)
 		cub->player_position->y = new_pos->y;
 	}
 }
-void	move_player_up(t_cub_data *cub, int quadrant)
+void	move_player_up(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
@@ -84,7 +84,7 @@ void	move_player_up(t_cub_data *cub, int quadrant)
 	return (change_player_position(&new_pos, cub));
 }
 
-void	move_player_down(t_cub_data *cub, int quadrant)
+void	move_player_down(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
@@ -113,7 +113,7 @@ void	move_player_down(t_cub_data *cub, int quadrant)
 	return (change_player_position(&new_pos, cub));
 }
 
-void	move_player_left(t_cub_data *cub, int quadrant)
+void	move_player_left(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
@@ -142,7 +142,7 @@ void	move_player_left(t_cub_data *cub, int quadrant)
 	return (change_player_position(&new_pos, cub));
 }
 
-void	move_player_right(t_cub_data *cub, int quadrant)
+void	move_player_right(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 

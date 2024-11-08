@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:07:20 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/05 15:34:18 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:35:10 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_isdigit_space_tab(int c)
 	return (2048);
 }
 
-void	save_rgb(t_cub_data *cub)
+void	save_rgb(t_cub *cub)
 {
 	char **buf;
 

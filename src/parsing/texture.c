@@ -6,13 +6,13 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 20:40:28 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:47:03 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-int	init_texture_color(t_cub_data *cub)
+int	init_texture_color(t_cub *cub)
 {
 	int		i;
 	char	**file;
@@ -21,20 +21,21 @@ int	init_texture_color(t_cub_data *cub)
 	i = -1;
 	while (file[++i])
 	{
-		if (ft_strstr(file[i], "NO ") && !cub->map->north)
-			cub->map->north = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "SO ") && !cub->map->south)
-			cub->map->south = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "EA ") && !cub->map->east)
-			cub->map->east = get_info(file[i], 2);
-		else if (ft_strstr(file[i], "WE ") && !cub->map->west)
-			cub->map->west = get_info(file[i], 2);
+		if (ft_strstr(file[i], "NO ") && !cub->textures->files[0])
+			cub->textures->files[0] = get_info(file[i], 2);
+		else if (ft_strstr(file[i], "EA ") && !cub->textures->files[1])
+			cub->textures->files[1] = get_info(file[i], 2);
+		else if (ft_strstr(file[i], "SO ") && !cub->textures->files[2])
+			cub->textures->files[2] = get_info(file[i], 2);
+		else if (ft_strstr(file[i], "WE ") && !cub->textures->files[3])
+			cub->textures->files[3] = get_info(file[i], 2);
 		else if (ft_strstr(file[i], "F ") && !cub->map->floor)
 			cub->map->floor = get_info(file[i], 1);
 		else if (ft_strstr(file[i], "C ") && !cub->map->ceiling)
 			cub->map->ceiling = get_info(file[i], 1);
-		if (cub->map->north && cub->map->south && cub->map->east
-			&& cub->map->west && cub->map->floor && cub->map->ceiling)
+		if (cub->textures->files[0] && cub->textures->files[1] &&
+				cub->textures->files[2] && cub->textures->files[3] &&
+					cub->map->floor && cub->map->ceiling)
 			return (++i);
 	}
 	return (0);
@@ -54,7 +55,7 @@ char	*get_info(char *file, int flag)
 	return (buf);
 }
 
-int	is_valid_textures(t_cub_data *cub)
+int	is_valid_textures(t_cub *cub)
 {
 	int	fd;
 	
@@ -63,25 +64,25 @@ int	is_valid_textures(t_cub_data *cub)
 		printf("Error!\nDuplicate texture or color\n");
 		return (false);
 	}
-	if (!cub->map->north || !cub->map->south || !cub->map->east
-		|| !cub->map->west)
+	if (!cub->textures->files[0] || !cub->textures->files[1]
+		|| !cub->textures->files[2] || !cub->textures->files[3])
 		return (printf("Error!\nMissing texture\n"), false);
-	fd = open(cub->map->north, O_RDONLY);
+	fd = open(cub->textures->files[0], O_RDONLY);
 	if (fd < 0)
 		return (false);
-	fd = open(cub->map->south, O_RDONLY);
+	fd = open(cub->textures->files[1], O_RDONLY);
 	if (fd < 0)
 		return (false);
-	fd = open(cub->map->east, O_RDONLY);
+	fd = open(cub->textures->files[2], O_RDONLY);
 	if (fd < 0)
 		return (false);
-	fd = open(cub->map->west, O_RDONLY);
+	fd = open(cub->textures->files[3], O_RDONLY);
 	if (fd < 0)
 		return (false);
 	return (true);
 }
 
-int	duplicate_texture_or_color(t_cub_data *cub)
+int	duplicate_texture_or_color(t_cub *cub)
 {
 	char	**file;
 	int		i;
@@ -109,7 +110,7 @@ int	duplicate_texture_or_color(t_cub_data *cub)
 	return (false);
 }
 
-int	is_valid_colors(t_cub_data *cub)
+int	is_valid_colors(t_cub *cub)
 {
 	int	i;
 

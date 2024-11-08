@@ -6,13 +6,13 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/07 19:47:53 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:42:26 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-void	draw_pixels_in_image(t_ray *ray, t_image *image)
+void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 {
 	int floor;
 	int ceiling;
@@ -25,22 +25,13 @@ void	draw_pixels_in_image(t_ray *ray, t_image *image)
 		ray->pix_end = HEIGHT - 1;
 	floor = HEIGHT + 1;
 	ceiling = -1;
-	while (--floor >= ray->pix_start)
-		my_mlx_pixel_put(image, ray->id, floor, 0xB9BEB9);
 	while (++ceiling <= ray->pix_end)
-		my_mlx_pixel_put(image, ray->id, ceiling, 0x009FDA);
-	/* while(ray->pix_end >= ray->pix_start)
-	{
-		if (ray->side_colision == 1)
-			my_mlx_pixel_put(image, ray->id, ray->pix_start, 0x009F00);
-		else
-			my_mlx_pixel_put(image, ray->id, ray->pix_start, 0x00C700);
-		ray->pix_start++;
-	} */
-	//draw_wall_textures(t_ray *ray, t_image *image, int pix_start, int pix_end);
+		my_mlx_pixel_put(cub->image, ray->id, ceiling,cub->map->c_hex);
+	while (--floor >= ray->pix_start)
+		my_mlx_pixel_put(cub->image, ray->id, floor, cub->map->f_hex);
 }
 
-void	rotate_player(int key, t_cub_data *cub)
+void	rotate_player(int key, t_cub *cub)
 {
 	if (key == ARROW_RIGHT)
 		cub->rotation++;
@@ -58,10 +49,13 @@ void	rotate_player(int key, t_cub_data *cub)
 	
 }
 
-int	handle_input(int key, t_cub_data *cub)
+int	handle_input(int key, t_cub *cub)
 {
 	if (key == ESC)
+	{
+		free_all_allocated_memory(cub);
 		exit(0);
+	}
 		//close_window()
 	else if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
 		move_player(key, cub);
@@ -72,9 +66,7 @@ int	handle_input(int key, t_cub_data *cub)
 
 int main(int argc, char **argv)
 {
-	char test_map[100] = "1111111111\n1111100001\n10000N0001\n1000010001\n100010001\n100000001\n1111111111\n";
-	char **test_map_array = ft_split(test_map, '\n');
-	t_cub_data *cub;
+	t_cub *cub;
 	
 	cub = init_cub_struct();
 	
