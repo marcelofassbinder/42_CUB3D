@@ -6,24 +6,21 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/07 17:24:56 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:46:30 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-t_cub_data *init_cub_struct(void)
+t_cub *init_cub_struct(void)
 {
-	t_cub_data *cub;
-	/* char test_map[100] = "1111111111\n1111100001\n10000N0001\n1000010001\n100010001\n100000001\n1111111111\n";
-	char **test_map_array = ft_split(test_map, '\n'); */
+	t_cub *cub;
 
-	cub = ft_calloc(sizeof(t_cub_data), 1);
+	cub = ft_calloc(sizeof(t_cub), 1);
 	if (!cub)
 		return (NULL);
-	//cub->test_map_array = test_map_array; // remover
 	cub->map = ft_calloc(sizeof(t_map), 1);
-	//cub->map->map_array = test_map_array;
+	cub->map->cub = cub;
 	cub->mlx_ptr = mlx_init();
 	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	cub->player_position = ft_calloc(sizeof(t_coordinate), 1);
@@ -33,14 +30,11 @@ t_cub_data *init_cub_struct(void)
 	cub->image->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
 	cub->image->addr = mlx_get_data_addr(cub->image->img, &cub->image->bits_per_pixel,
 		&cub->image->line_len, &cub->image->endian);
-	//cub->player_char = 'S'; // ALTERAR PARA DEFINIR AUTOMATICAMENTE APOS O PARSER
-	/* define_player_vectors(cub);
-	define_initial_rotation(cub); */
-
+	cub->textures = ft_calloc(sizeof(t_text), 1);
 	return (cub);
 }
 
-void	define_initial_rotation(t_cub_data *cub)
+void	define_initial_rotation(t_cub *cub)
 {
 	if (cub->player_char == 'N')
 	{
@@ -64,7 +58,7 @@ void	define_initial_rotation(t_cub_data *cub)
 	}
 }
 
-void	define_player_vectors(t_cub_data *cub)
+void	define_player_vectors(t_cub *cub)
 {
 	if (cub->player_char == 'N' || cub->player_char == 'S')
 	{
@@ -92,27 +86,27 @@ void	define_player_vectors(t_cub_data *cub)
 	}
 }
 
-void	define_textures(t_cub_data *cub)
+void	define_textures(t_cub *cub)
 {
-	t_textures *textures;
+	t_text *t;
 
-	textures = ft_calloc(sizeof(t_textures), 1);
+	t = cub->textures;
 	
-	textures->images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
-		cub->map->north, &textures->textures_width[0], &textures->textures_height[0]);
-	textures->images[0].addr = mlx_get_data_addr(textures->images[0].img, 
-		&textures->images[0].bits_per_pixel, &textures->images[0].line_len, &textures->images[0].endian);
-	textures->images[1].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
-		cub->map->east, &textures->textures_width[1], &textures->textures_height[1]);
-	textures->images[1].addr = mlx_get_data_addr(textures->images[1].img, 
-		&textures->images[1].bits_per_pixel, &textures->images[1].line_len, &textures->images[1].endian);
-	textures->images[2].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
-		cub->map->south, &textures->textures_width[2], &textures->textures_height[2]);
-	textures->images[2].addr = mlx_get_data_addr(textures->images[2].img,
-		&textures->images[2].bits_per_pixel, &textures->images[2].line_len, &textures->images[2].endian);
-	textures->images[3].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
-		cub->map->north, &textures->textures_width[3], &textures->textures_height[3]);
-	textures->images[3].addr = mlx_get_data_addr(textures->images[3].img, 
-		&textures->images[3].bits_per_pixel, &textures->images[3].line_len, &textures->images[3].endian);
-	cub->textures = textures;
+	t->images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->textures->files[0], &t->text_w[0], &t->text_h[0]);
+	t->images[0].addr = mlx_get_data_addr(t->images[0].img, 
+		&t->images[0].bits_per_pixel, &t->images[0].line_len, &t->images[0].endian);
+	t->images[1].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->textures->files[1], &t->text_w[1], &t->text_h[1]);
+	t->images[1].addr = mlx_get_data_addr(t->images[1].img, 
+		&t->images[1].bits_per_pixel, &t->images[1].line_len, &t->images[1].endian);
+	t->images[2].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->textures->files[2], &t->text_w[2], &t->text_h[2]);
+	t->images[2].addr = mlx_get_data_addr(t->images[2].img,
+		&t->images[2].bits_per_pixel, &t->images[2].line_len, &t->images[2].endian);
+	t->images[3].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+		cub->textures->files[3], &t->text_w[3], &t->text_h[3]);
+	t->images[3].addr = mlx_get_data_addr(t->images[3].img, 
+		&t->images[3].bits_per_pixel, &t->images[3].line_len, &t->images[3].endian);
+	//cub->textures = t;
 }

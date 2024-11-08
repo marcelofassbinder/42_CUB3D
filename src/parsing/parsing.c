@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 19:17:18 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:35:10 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	find_extension(char *map, char *ext)
 	return (false);
 }
 
-int	parsing(t_cub_data *cub, char *argv)
+int	parsing(t_cub *cub, char *argv)
 {
 	int	end_infos;
 	
@@ -62,7 +62,7 @@ int	parsing(t_cub_data *cub, char *argv)
 	return (0);
 }
 
-char	**get_matrix_from_file(t_cub_data *cub, char *file)
+char	**get_matrix_from_file(t_cub *cub, char *file)
 {
 	char **matriz;
 	char *line;

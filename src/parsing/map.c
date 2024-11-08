@@ -6,16 +6,15 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/06 20:44:40 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:43:17 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-char	**extract_map(t_cub_data *cub, char **file, int y)
+char	**extract_map(t_cub *cub, char **file, int y)
 {
 	char	**map;
-	int		x;
 	int		size;
 
 	size = map_size_valid_char(file, y);
@@ -34,13 +33,6 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 		y++;
 		//printf("%s\n", map[size - 1]);
 	}
-	x = 0;
-	while (map[x])
-	{
-		printf("%s\n", map[x]);
-		x++;
-	}
-	printf("chega aqui\n");
 	return (map);
 }
 
@@ -81,7 +73,7 @@ int	map_size_valid_char(char **file, int i)
 	return (i - save_start - 1);
 }
 
-int	find_player_position(t_cub_data *cub)
+int	find_player_position(t_cub *cub)
 {
 	char	**map;
 	int 	y;
@@ -110,7 +102,7 @@ int	find_player_position(t_cub_data *cub)
 	return (EXIT_SUCCESS);
 }
 
-int	closed_by_walls(t_cub_data *cub, char **map)
+int	closed_by_walls(t_cub *cub, char **map)
 {
 	int	y;
 	int	x;
@@ -133,12 +125,11 @@ int	closed_by_walls(t_cub_data *cub, char **map)
 			//se a posicao de cima ou de baixo foi espaço ou tab,
 			//subir ou descer ate achar o 1
 		}
-		printf("y -> %i linha -> %s\n", y, map[y]);
 	}
 	return (true);	
 }
 
-int find_wall(t_cub_data *cub, char **map, int y, int x)
+int find_wall(t_cub *cub, char **map, int y, int x)
 {
 	int initial_y;
 

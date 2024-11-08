@@ -17,11 +17,11 @@ NAME = cub3d
 all : $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(C_FLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ) $(LIBFT_LIB) $(GNL_LIB)
 	make -C $(MLX_LIB)
-	$(CC) $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_FLAGS) $(C_FLAGS) -o $(NAME)
+	$(CC) $(C_FLAGS) $(OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_FLAGS)  -o $(NAME)
 
 $(LIBFT_LIB) : $(LIBFT_DIR)
 	make -C $(LIBFT_DIR)
