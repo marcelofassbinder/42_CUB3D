@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/08 16:35:10 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:47:09 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,21 @@ int	parsing(t_cub *cub, char *argv)
 		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees
 	end_infos = init_texture_color(cub);
 	if (!is_valid_textures(cub))
-		return (printf("Error!\nInvalid texture\n"));
+		return (EXIT_FAILURE);//printf("Error!\nInvalid texture\n"));
 	//varificar se tem alguma linha escrita a mais
 	if (!is_valid_colors(cub))
 		return (printf("Error!\nInvalid color\n"));
-	//extrair o mapa do arquivo
 	cub->map->map_array = extract_map(cub, cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
 	if (!cub->map->map_array)
-		return (printf("Error\nInvalid character in map\n"));
+		return (EXIT_FAILURE);//printf("Error\nInvalid character in map\n"));
 	if (find_player_position(cub) || !closed_by_walls(cub, cub->map->map_array))
-		return (printf("Error\nInvalid map\n"));
-	//analisar se o mapa e valido
-		//ponto de inicio duplicado
-		//nao fechado por parede
+		return (EXIT_FAILURE);//printf("Error\nInvalid map\n"));
 	//dar free da matrix cub->map->file
 	//lembrar de dar free da matriz cub->map->map_array
 	define_player_vectors(cub);
 	define_initial_rotation(cub);
 	define_textures(cub);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 char	**get_matrix_from_file(t_cub *cub, char *file)

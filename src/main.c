@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/08 17:42:26 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:00:04 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 	floor = HEIGHT + 1;
 	ceiling = -1;
 	while (++ceiling <= ray->pix_end)
-		my_mlx_pixel_put(cub->image, ray->id, ceiling,cub->map->c_hex);
+		my_mlx_pixel_put(cub->image, ray->id, ceiling, cub->map->c_hex);
 	while (--floor >= ray->pix_start)
 		my_mlx_pixel_put(cub->image, ray->id, floor, cub->map->f_hex);
 }
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
 	{
 		if (parsing(cub, argv[1]))
-			return (printf("Erro no parsing\n"));
+			return (EXIT_FAILURE);//free_parsing(cub));
 		//cub->player_pos_X = 5.2;
 		//cub->player_pos_Y = 2.7;
 
@@ -98,3 +98,4 @@ int main(int argc, char **argv)
 	mlx_loop(cub->mlx_ptr);
 
 }
+

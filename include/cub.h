@@ -166,12 +166,17 @@ int		map_size_valid_char(char **file, int i);
 int		find_player_position(t_cub *cub);
 int		closed_by_walls(t_cub *cub, char **map);
 int		find_wall(t_cub *cub, char **map, int y, int x);
+int		find_player_position(t_cub *cub);
+
+//parsing/map_walls.c
+int		closed_by_walls(t_cub *cub, char **map);
+int		find_wall_horizontaly(char **map, int y, int x);
+int		find_wall_up_down(t_cub *cub, char **map, int y, int x);
 
 //frees.c
 void	free_matriz(char **str);
 void	free_all_allocated_memory(t_cub *cub);
 void	free_textures(t_cub *cub);
 void	free_image_struct(t_cub *cub, t_image *image);
-
 
 #endif
