@@ -24,6 +24,7 @@
 #define ARROW_LEFT XK_Left
 #define ARROW_RIGHT XK_Right
 #define ESC XK_Escape
+#define SPACE XK_space
 
 #define WALL '1'
 #define MOVE_SPEED 0.1111111
@@ -67,6 +68,8 @@ typedef struct			s_image {
 	int					bits_per_pixel;
 	int 				line_len;
 	int 				endian;
+	int 				width;
+	int 				height;
 
 }						t_image;
 
@@ -107,6 +110,7 @@ typedef struct			s_cub {
 	t_image 			*image;
 	t_text				*textures;
 	int 				rotation;
+	bool				start_game;
 	
 }						t_cub;
 
@@ -132,13 +136,18 @@ void	move_player_down(t_cub *cub, int quadrant);
 void	move_player_left(t_cub *cub, int quadrant);
 void	move_player_right(t_cub *cub, int quadrant);
 
+void	rotate_player(int key, t_cub *cub);
 int check_quadrant(double player_angle);
 void change_player_position(t_coordinate *new_pos, t_cub *cub);
 
 //utils.c
+int	handle_input(int key, t_cub *cub);
 void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 unsigned int get_color_from_pixel(t_image *img, int x, int y);
 char	*ft_strstr(char *str, char *to_find);
+void	initial_image(t_cub *cub);
+void resize_image(t_image *src, t_image *dst, int new_width, int new_height);
+
 
 //parsing/parsing.c
 int		find_extension(char *map, char *ext);
@@ -177,6 +186,5 @@ int		find_wall_up_down(t_cub *cub, char **map, int y, int x);
 void	free_matriz(char **str);
 void	free_all_allocated_memory(t_cub *cub);
 void	free_textures(t_cub *cub);
-void	free_image_struct(t_cub *cub, t_image *image);
 
 #endif

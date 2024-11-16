@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/16 22:10:21 by mfassbin         ###   ########.fr       */
+/*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
+/*   Updated: 2024/11/16 22:11:11 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "../include/cub_bonus.h"
 
 int main(int argc, char **argv)
 {
@@ -18,8 +18,6 @@ int main(int argc, char **argv)
 	
 	cub = init_cub_struct();
 	initial_image(cub);
-	
-	//mlx_xpm_file_to_image = // colocar imagem de inicio 
 	cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
 	if (cub->map->fd < 0)
 	{
@@ -39,8 +37,6 @@ int main(int argc, char **argv)
 	else
 		return (printf("ERROR!\nINVALID INPUT!\n"));
 	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
-	mlx_loop_hook(cub->mlx_ptr, &ray_casting, cub);
+	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_loop(cub->mlx_ptr);
-
 }
-
