@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/08 17:46:30 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/16 22:07:07 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_cub *init_cub_struct(void)
 	cub->image->addr = mlx_get_data_addr(cub->image->img, &cub->image->bits_per_pixel,
 		&cub->image->line_len, &cub->image->endian);
 	cub->textures = ft_calloc(sizeof(t_text), 1);
+	cub->start_game = false;
 	return (cub);
 }
 
@@ -108,5 +109,4 @@ void	define_textures(t_cub *cub)
 		cub->textures->files[3], &t->text_w[3], &t->text_h[3]);
 	t->images[3].addr = mlx_get_data_addr(t->images[3].img, 
 		&t->images[3].bits_per_pixel, &t->images[3].line_len, &t->images[3].endian);
-	//cub->textures = t;
 }
