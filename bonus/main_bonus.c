@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/16 22:11:11 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:08:31 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 	t_cub *cub;
 	
 	cub = init_cub_struct();
-	initial_image(cub);
 	cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
 	if (cub->map->fd < 0)
 	{
@@ -30,9 +29,9 @@ int main(int argc, char **argv)
 	{
 		if (parsing(cub, argv[1]))
 			return (EXIT_FAILURE);//free_parsing(cub));
-		//cub->player_pos_X = 5.2;
-		//cub->player_pos_Y = 2.7;
-
+		init_window(cub);
+		define_textures(cub);
+		render_initial_image(cub);
 	}
 	else
 		return (printf("ERROR!\nINVALID INPUT!\n"));

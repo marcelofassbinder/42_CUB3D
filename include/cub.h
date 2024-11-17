@@ -108,13 +108,16 @@ typedef struct			s_cub {
 	t_coordinate		*plane;
 	t_map				*map;
 	t_image 			*image;
+	t_image 			*initial;
 	t_text				*textures;
 	int 				rotation;
 	bool				start_game;
+	int					minmap_square;
 	
 }						t_cub;
 
 t_cub		*init_cub_struct();
+void		init_window(t_cub *cub);
 void		define_player_vectors(t_cub *cub);
 void		define_initial_rotation(t_cub *cub);
 void		define_textures(t_cub *cub);
@@ -145,7 +148,7 @@ int	handle_input(int key, t_cub *cub);
 void 	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 unsigned int get_color_from_pixel(t_image *img, int x, int y);
 char	*ft_strstr(char *str, char *to_find);
-void	initial_image(t_cub *cub);
+void	render_initial_image(t_cub *cub);
 void resize_image(t_image *src, t_image *dst, int new_width, int new_height);
 
 
@@ -183,8 +186,13 @@ int		find_wall_horizontaly(char **map, int y, int x);
 int		find_wall_up_down(t_cub *cub, char **map, int y, int x);
 
 //frees.c
-void	free_matriz(char **str);
+void	free_matrix(char **str);
 void	free_all_allocated_memory(t_cub *cub);
+void	panic(t_cub *cub);
+void	free_map_struct(t_map *map);
 void	free_textures(t_cub *cub);
+void	error_message(char *str);
+void	free_image_struct(t_cub *cub, t_image *image);
+
 
 #endif

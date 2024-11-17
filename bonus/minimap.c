@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/16 22:18:16 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:16:16 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	minimap(t_cub *cub)
 	int x;
 	int y;
 
+	cub->minmap_square = WIDTH / 125;
 	y = 0;
 	while(y < cub->map->map_height)
 	{
@@ -68,12 +69,12 @@ void	render_element_minimap(t_cub *cub, int x, int y, int color)
 	int w;
 	
 	h = 0;
-	while(h < MINMAP_SQUARE)
+	while(h < cub->minmap_square)
 	{
 		w = 0;
-		while (w < MINMAP_SQUARE)
+		while (w < cub->minmap_square)
 		{
-			my_mlx_pixel_put(cub->image, w + (x * MINMAP_SQUARE), h + (y * MINMAP_SQUARE),  color);
+			my_mlx_pixel_put(cub->image, w + (x * cub->minmap_square), h + (y * cub->minmap_square),  color);
 			w++;
 		}
 		h++;
@@ -83,13 +84,13 @@ void	render_element_minimap(t_cub *cub, int x, int y, int color)
 void	render_player_minimap(t_cub *cub)
 {
 	t_coordinate player_minimap;
-	int sphere_ray;
+	double sphere_ray;
 	int x;
 	int y;
 
-	player_minimap.x = cub->player_position->x * MINMAP_SQUARE;
-	player_minimap.y = cub->player_position->y * MINMAP_SQUARE;
-	sphere_ray = 4;
+	player_minimap.x = cub->player_position->x * cub->minmap_square;
+	player_minimap.y = cub->player_position->y * cub->minmap_square;
+	sphere_ray = cub->minmap_square / 3;
 	x = -sphere_ray;
 	while (x <= sphere_ray)
 	{
@@ -97,7 +98,7 @@ void	render_player_minimap(t_cub *cub)
 		while (y <= sphere_ray)
 		{
 			if (x * x + y * y <= sphere_ray * sphere_ray)
-				my_mlx_pixel_put(cub->image, player_minimap.x + x, player_minimap.y + y, 0xFF0000);
+				my_mlx_pixel_put(cub->image, player_minimap.x + x, player_minimap.y + y, 0x032DFD);
 			y++;
 		}
 		x++;
