@@ -1,9 +1,9 @@
-NO      ./textures/ismirand.xpm
+NO      ./textures/gremio.xpm
 
-SO 		./textures/south_tex.xpm
-WE 		./textures/west_tex.xpm
+SO 		./textures/gremio.xpm
+WE 		./textures/gremio.xpm
 
-EA     ./textures/east_tex.xpm
+EA     ./textures/gremio.xpm
 
 
 F       0,0,0

@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/09 15:47:09 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:41:59 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	parsing(t_cub *cub, char *argv)
 	//lembrar de dar free da matriz cub->map->map_array
 	define_player_vectors(cub);
 	define_initial_rotation(cub);
-	define_textures(cub);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/16 22:07:07 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:10:41 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,34 @@
 t_cub *init_cub_struct(void)
 {
 	t_cub *cub;
-
 	cub = ft_calloc(sizeof(t_cub), 1);
-	if (!cub)
-		return (NULL);
 	cub->map = ft_calloc(sizeof(t_map), 1);
-	cub->map->cub = cub;
-	cub->mlx_ptr = mlx_init();
-	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	cub->player_position = ft_calloc(sizeof(t_coordinate), 1);
 	cub->player_dir = ft_calloc(sizeof(t_coordinate), 1);
 	cub->plane = ft_calloc(sizeof(t_coordinate), 1);
-	cub->image = ft_calloc(sizeof(t_image), 1);
-	cub->image->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
-	cub->image->addr = mlx_get_data_addr(cub->image->img, &cub->image->bits_per_pixel,
-		&cub->image->line_len, &cub->image->endian);
 	cub->textures = ft_calloc(sizeof(t_text), 1);
+	if (!cub || !cub->map || !cub->player_position || !cub->player_dir ||
+		!cub->plane || !cub->textures)
+		return (error_message("Malloc failed in cub struct!"), panic(cub) , NULL);
+	cub->map->cub = cub;
 	cub->start_game = false;
 	return (cub);
+}
+
+void	init_window(t_cub *cub)
+{
+	cub->mlx_ptr = mlx_init();
+	if (!cub->mlx_ptr)
+		return(error_message("MLX connection failed!"), panic(cub));
+	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
+	if (!cub->mlx_window)
+		return(error_message("MLX window creation failed!"), panic(cub));
+	cub->image = ft_calloc(sizeof(t_image), 1);
+	cub->image->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
+	if (!cub->image || !cub->image->img)
+		return(error_message("Image creation failed!"), panic(cub));
+	cub->image->addr = mlx_get_data_addr(cub->image->img, &cub->image->bits_per_pixel,
+		&cub->image->line_len, &cub->image->endian);
 }
 
 void	define_initial_rotation(t_cub *cub)
@@ -92,8 +102,7 @@ void	define_textures(t_cub *cub)
 	t_text *t;
 
 	t = cub->textures;
-	
-	t->images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, 
+	t->images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr,
 		cub->textures->files[0], &t->text_w[0], &t->text_h[0]);
 	t->images[0].addr = mlx_get_data_addr(t->images[0].img, 
 		&t->images[0].bits_per_pixel, &t->images[0].line_len, &t->images[0].endian);
