@@ -1,14 +1,14 @@
-NO      ./textures/ismirand.xpm
+NO      ./textures/wood.xpm
 
-SO 		./textures/south_tex.xpm
-WE 		./textures/west_tex.xpm
+SO 		./textures/bluewall.xpm
+WE 		./textures/pinkwall.xpm
 
-EA     ./textures/east_tex.xpm
+EA     ./textures/greenwall.xpm
 
 
-F       0,0,0
+F       178, 178, 178
 
-C 		0,0,153
+C 		102, 178, 255
 
 
         1111111111111111111111111
@@ -22,7 +22,7 @@ C 		0,0,153
 11000000110101011100000000011  11111
 10000000000000000000000000001 
 10000000000000001101010010001
-11000001110101011111011110E1111
+11000001110101011111011110N1111
 11110111 1110101 101111010001
 11111111 1111111 11111111111
 1111111

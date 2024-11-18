@@ -7,8 +7,11 @@
 
 int		minimap(t_cub *cub);
 int		ray_casting_bonus(t_cub *cub);
-void	render_element_minimap(t_cub *cub, int x, int y, int color);
-void	render_player_minimap(t_cub *cub);
+void	draw_element_minimap(t_cub *cub, int x, int y, int color);
+void	draw_player_minimap(t_cub *cub);
+void	draw_rays_minimap(t_cub *cub);
+void	draw_one_ray_minimap(t_cub *cub, t_coordinate *ray_vector);
+
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/16 14:06:36 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:36:11 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	move_player_up(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
-	new_pos.x = cub->player_position->x;
-	new_pos.y = cub->player_position->y;
+	new_pos.x = cub->player_position.x;
+	new_pos.y = cub->player_position.y;
 	if (quadrant == 1)
 	{
 		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad);
@@ -60,8 +60,8 @@ void	move_player_down(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
-	new_pos.x = cub->player_position->x;
-	new_pos.y = cub->player_position->y;
+	new_pos.x = cub->player_position.x;
+	new_pos.y = cub->player_position.y;
 	if (quadrant == 1)
 	{
 		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad);
@@ -89,8 +89,8 @@ void	move_player_left(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
-	new_pos.x = cub->player_position->x;
-	new_pos.y = cub->player_position->y;
+	new_pos.x = cub->player_position.x;
+	new_pos.y = cub->player_position.y;
 	if (quadrant == 1)
 	{
 		new_pos.x -= MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
@@ -118,8 +118,8 @@ void	move_player_right(t_cub *cub, int quadrant)
 {
 	t_coordinate	new_pos;
 
-	new_pos.x = cub->player_position->x;
-	new_pos.y = cub->player_position->y;
+	new_pos.x = cub->player_position.x;
+	new_pos.y = cub->player_position.y;
 	if (quadrant == 1)
 	{
 		new_pos.x += MOVE_SPEED * sin(PI / 2 - cub->player_angle_rad);
