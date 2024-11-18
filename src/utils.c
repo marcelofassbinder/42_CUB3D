@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/17 17:03:43 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:30:27 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int	handle_input(int key, t_cub *cub)
 {
 	if (!cub->start_game && key == SPACE)
-	{
-		printf("entrou\n");
 		cub->start_game = true;
-	}
 	if (key == ESC)
 	{
 		panic(cub);
@@ -46,10 +43,9 @@ unsigned int get_color_from_pixel(t_image *img, int x, int y)
 {
 	char	*dst;
 	int 	offset;
-	
 	offset = (y * img->line_len + x * (img->bits_per_pixel / 8));
 	dst = img->addr + offset;
-	return(*(unsigned int*)dst);
+	return(*(unsigned int *)dst);
 }
 
 
@@ -106,23 +102,21 @@ void resize_image(t_image *src, t_image *dst, int new_width, int new_height)
 
 void render_initial_image(t_cub *cub)
 {
-    t_image *initial;
-    t_image *resized;
+    t_image initial;
+    t_image resized;
 
-    initial = ft_calloc(sizeof(t_image), 1);
-    initial->img = mlx_xpm_file_to_image(cub->mlx_ptr, "./textures/initial.xpm", &initial->width, &initial->height);
-    if (!initial || !initial->img)
-        return (error_message("Malloc failed in initial image!"), panic(cub));
-    initial->addr = mlx_get_data_addr(initial->img, &initial->bits_per_pixel, &initial->line_len, &initial->endian);
-    resized = ft_calloc(sizeof(t_image), 1);
-    resized->img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
-    if (!resized || !resized->img)
-        return (error_message("Malloc failed in initial image!"), panic(cub));
-    resized->addr = mlx_get_data_addr(resized->img, &resized->bits_per_pixel, &resized->line_len, &resized->endian);
-    resized->width = WIDTH;
-    resized->height = HEIGHT;
-    resize_image(initial, resized, WIDTH, HEIGHT);
-    mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, resized->img, 0, 0);
-    free_image_struct(cub, initial);
+    initial.img = mlx_xpm_file_to_image(cub->mlx_ptr, "./textures/initial.xpm", &initial.width, &initial.height);
+    if (!initial.img)
+		return (error_message("Malloc failed in initial image!"), panic(cub));
+	initial.addr = mlx_get_data_addr(initial.img, &initial.bits_per_pixel, &initial.line_len, &initial.endian);
+  	resized.img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
+    if (!resized.img)
+		return (error_message("Malloc failed in initial image!"), panic(cub));
+	resized.addr = mlx_get_data_addr(resized.img, &resized.bits_per_pixel, &resized.line_len, &resized.endian);
+	resized.width = WIDTH;
+	resized.height = HEIGHT;
+    resize_image(&initial, &resized, WIDTH, HEIGHT);
+    mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window,resized.img, 0, 0);
+	mlx_destroy_image(cub->mlx_ptr, initial.img);
 	cub->initial = resized;
 }

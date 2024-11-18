@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/17 17:08:31 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:31:16 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ int main(int argc, char **argv)
 	t_cub *cub;
 	
 	cub = init_cub_struct();
-	cub->map->fd = open(argv[1], O_RDONLY);//fecha no parsing
-	if (cub->map->fd < 0)
+	cub->map.fd = open(argv[1], O_RDONLY);//fecha no parsing
+	if (cub->map.fd < 0)
 	{
-		free(cub->map);
 		free(cub);
 		return (printf("ERROR!\nfd < 0!\n"));
 	}
 	//ate aqui pra checagem de input
-	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map->fd > 0)
+	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map.fd > 0)
 	{
 		if (parsing(cub, argv[1]))
 			return (EXIT_FAILURE);//free_parsing(cub));

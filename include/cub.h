@@ -92,8 +92,6 @@ typedef struct 			s_text {
 
 	char 				*files[4];
 	t_image				images[4];
-	int					text_h[4];
-	int					text_w[4];
 
 }						t_text;
 
@@ -102,17 +100,17 @@ typedef struct			s_cub {
 	void				*mlx_ptr;
 	void				*mlx_window;
 	char				player_char;
-	t_coordinate		*player_position;
 	double				player_angle_rad;
-	t_coordinate		*player_dir;
-	t_coordinate		*plane;
-	t_map				*map;
-	t_image 			*image;
-	t_image 			*initial;
-	t_text				*textures;
+	t_coordinate		player_position;
+	t_coordinate		player_dir;
+	t_coordinate		plane;
+	t_map				map;
+	t_image 			image;
+	t_image 			initial;
+	t_text				textures;
 	int 				rotation;
-	bool				start_game;
 	int					minmap_square;
+	bool				start_game;
 	
 }						t_cub;
 

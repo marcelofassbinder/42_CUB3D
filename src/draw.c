@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:02:49 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/16 14:06:36 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:45:59 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 	floor = HEIGHT + 1;
 	ceiling = -1;
 	while (++ceiling <= ray->pix_end)
-		my_mlx_pixel_put(cub->image, ray->id, ceiling, cub->map->c_hex);
+		my_mlx_pixel_put(&cub->image, ray->id, ceiling, cub->map.c_hex);
 	while (--floor >= ray->pix_start)
-		my_mlx_pixel_put(cub->image, ray->id, floor, cub->map->f_hex);
+		my_mlx_pixel_put(&cub->image, ray->id, floor, cub->map.f_hex);
 }
 
 int	define_texture_orientation(t_ray *ray)
@@ -60,19 +60,19 @@ void	draw_textures(t_cub *cub, t_ray *ray)
 	
 	tex_index = define_texture_orientation(ray);
 	if (ray->side_colision)
-		wall_x = cub->player_position->y + (ray->wall_distance * ray->direction.y);
+		wall_x = cub->player_position.y + (ray->wall_distance * ray->direction.y);
 	else
-		wall_x = cub->player_position->x + (ray->wall_distance * ray->direction.x);
+		wall_x = cub->player_position.x + (ray->wall_distance * ray->direction.x);
 	wall_x -= floor(wall_x);
-	tex_x = (int) (wall_x * cub->textures->text_w[tex_index]);
+	tex_x = (int) (wall_x * cub->textures.images[tex_index].width);
 	if ((ray->side_colision && ray->direction.x < 0) || (ray->side_colision == 0 && ray->direction.y > 0))
-		tex_x = cub->textures->text_w[tex_index] - tex_x - 1;
-	step = 1.0 * cub->textures->text_h[tex_index] / ray->line_height;
+		tex_x = cub->textures.images[tex_index].width - tex_x - 1;
+	step = 1.0 * cub->textures.images[tex_index].height / ray->line_height;
 	tex_y = (ray->pix_start - HEIGHT / 2 + ray->line_height / 2) * step;
 	while(ray->pix_start < ray->pix_end)
 	{
-		tex_color = get_color_from_pixel(&cub->textures->images[tex_index], tex_x, (int)tex_y);
-		my_mlx_pixel_put(cub->image, ray->id, ray->pix_start, tex_color);
+		tex_color = get_color_from_pixel(&cub->textures.images[tex_index], tex_x, (int)tex_y);
+		my_mlx_pixel_put(&cub->image, ray->id, ray->pix_start, tex_color);
 		tex_y += step;
 		ray->pix_start++;
 	}

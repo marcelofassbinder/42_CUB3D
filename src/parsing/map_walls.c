@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:14:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/09 16:38:13 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:46:08 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ int	closed_by_walls(t_cub *cub, char **map)
 					|| !find_wall_horizontaly(map, y, x))
 					return (false);
 			}
-			else if ((y == 0 || y == cub->map->map_height - 1)
+			else if ((y == 0 || y == cub->map.map_height - 1)
 				&& (map[y][x] != '1' && map[y][x] != ' ' && map[y][x] != '\t'))
 				return (printf("Error\nMap not closed by walls\n"), false);
 			else if ((x == 0 || x == ft_strlen(map[y]) - 1)
 				&& (map[y][x] != '1' && map[y][x] != ' ' && map[y][x] != '\t'))
 				return (printf("Error\nMap not closed by walls\n"), false);
-			//verificar coluna por coluna, se comeca e termina com 1
 		}
 	}
 	return (true);	
@@ -75,7 +74,7 @@ int find_wall_up_down(t_cub *cub, char **map, int y, int x)
 	int initial_y;
 
 	initial_y = y;
-	while (map[y][x] && y < cub->map->map_height)
+	while (map[y][x] && y < cub->map.map_height)
 	{
 		if (map[y][x] == ' ' || map[y][x] == '\t')
 			y++;

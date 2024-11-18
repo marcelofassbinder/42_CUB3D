@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:07:20 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/17 18:11:20 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:44:09 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	save_rgb(t_cub *cub)
 {
 	char **buf;
 
-	buf = ft_split(cub->map->ceiling, ',');
-	cub->map->c_rgb[0] = ft_atoi(buf[0]);
-	cub->map->c_rgb[1] = ft_atoi(buf[1]);
-	cub->map->c_rgb[2] = ft_atoi(buf[2]);
+	buf = ft_split(cub->map.ceiling, ',');
+	cub->map.c_rgb[0] = ft_atoi(buf[0]);
+	cub->map.c_rgb[1] = ft_atoi(buf[1]);
+	cub->map.c_rgb[2] = ft_atoi(buf[2]);
 	free_matrix(buf);
-	buf = ft_split(cub->map->floor, ',');
-	cub->map->f_rgb[0] = ft_atoi(buf[0]);
-	cub->map->f_rgb[1] = ft_atoi(buf[1]);
-	cub->map->f_rgb[2] = ft_atoi(buf[2]);
-	//printf("rgb -> %i %i %i\n", cub->map->c_rgb[0], cub->map->c_rgb[1], cub->map->c_rgb[2]);
+	buf = ft_split(cub->map.floor, ',');
+	cub->map.f_rgb[0] = ft_atoi(buf[0]);
+	cub->map.f_rgb[1] = ft_atoi(buf[1]);
+	cub->map.f_rgb[2] = ft_atoi(buf[2]);
+	//printf("rgb -> %i %i %i\n", cub->map.c_rgb[0], cub->map.c_rgb[1], cub->map.c_rgb[2]);
 	free_matrix(buf);
 }
 
