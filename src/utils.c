@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/18 17:30:27 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:36:52 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	handle_input(int key, t_cub *cub)
 		panic(cub);
 		exit(0);
 	}
-		//close_window()
 	else if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
 		move_player(key, cub);
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT)
