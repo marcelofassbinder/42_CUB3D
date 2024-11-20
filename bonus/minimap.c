@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/19 17:43:11 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:01:33 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ray_casting_bonus(t_cub *cub)
 {
-	if (!cub->start_game || cub->shot)
+	if (!cub->start_game)
 		return (0);
 	int ray_id = -1;
 	while (++ray_id < WIDTH)
@@ -34,20 +34,54 @@ int	ray_casting_bonus(t_cub *cub)
 		free(ray);
 	}
 	minimap(cub);
-	draw_gun(cub, &cub->gun.images[0]);
+	if (cub->shot)
+		shot(cub);
+	else
+		draw_gun(cub, &cub->gun.images[0]);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image.img, 0, 0);
 	return (1);
 }
 
 void	shot(t_cub *cub)
 {
-	int i;
+	//int i;
+	long j;
 
-	cub->shot = true;
-	i = 0;
-	while (++i < 5)
+/* 	i = 0;
+	while (++i < 6)
 	{
-		draw_gun(cub, &cub->gun.images[3]);
+		printf("CLICK\n");
+		printf("i = %i\n", i);
+		j = 0; */
+	j = 0;
+	while (j < 10000)
+	{
+		while (j <= 2000)
+		{
+			draw_gun(cub, &cub->gun.images[1]);
+			j++;
+		}
+		while (j <= 4000)
+		{
+			draw_gun(cub, &cub->gun.images[2]);
+			j++;
+		}
+		while (j <= 6000)
+		{
+			draw_gun(cub, &cub->gun.images[3]);
+			j++;
+		}
+		while (j <= 8000)
+		{
+			draw_gun(cub, &cub->gun.images[4]);
+			j++;
+		}
+		while (j <= 10000)
+		{
+			draw_gun(cub, &cub->gun.images[4]);
+			j++;
+		}
+		j++;
 	}
 	cub->shot = false;
 }
@@ -182,6 +216,6 @@ void	draw_one_ray_minimap(t_cub *cub, t_coordinate *ray_vector)
 		if (cub->map.map_array[(int)ray.y][(int)ray.x] != '0' && cub->map.map_array[(int)ray.y][(int)ray.x] != cub->player_char)
 			break ;
 		my_mlx_pixel_put(&cub->image, (ray.x * cub->minmap_square), (ray.y) * cub->minmap_square, 0xFFFF66);
-		i+= 0.1;
+		i+= 0.2;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/19 17:37:31 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:40:33 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ int	handle_mouse(int key, int x, int y, t_cub *cub)
 	(void) y;
 	if (key == 1)
 	{
-		shot(cub);
+		cub->shot = true;
 	}
 	return (1);
 }
 
 void	init_gun(t_cub *cub)
 {
-	cub->gun.images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, "./textures/gun.xpm", &cub->gun.images[0].width, &cub->gun.images[0].height);
+	cub->gun.images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr,
+		"./textures/gun.xpm", &cub->gun.images[0].width, &cub->gun.images[0].height);
 	cub->gun.images[0].addr = mlx_get_data_addr(cub->gun.images[0].img, &cub->gun.images[0].bits_per_pixel, &cub->gun.images[0].line_len, &cub->gun.images[0].endian);
 	cub->gun.images[1].img = mlx_xpm_file_to_image(cub->mlx_ptr,
 		"./textures/gun1.xpm", &cub->gun.images[1].width,
