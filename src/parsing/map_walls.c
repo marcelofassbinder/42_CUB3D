@@ -6,13 +6,13 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:14:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/09 16:17:30 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:03:21 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-int	closed_by_walls(t_cub_data *cub, char **map)
+int	closed_by_walls(t_cub *cub, char **map)
 {
 	int	y;
 	int	x;
@@ -28,22 +28,21 @@ int	closed_by_walls(t_cub_data *cub, char **map)
 			if (map[y][x] == ' ' || map[y][x] == '\t')
 			{
 				if (!find_wall_up_down(cub, map, y, x)
-					|| !find_wall_horizontaly(cub, map, y, x))
+					|| !find_wall_horizontaly(map, y, x))
 					return (false);
 			}
-			else if ((y == 0 || y == cub->map->map_height - 1)
+			else if ((y == 0 || y == cub->map.map_height - 1)
 				&& (map[y][x] != '1' && map[y][x] != ' ' && map[y][x] != '\t'))
 				return (printf("Error\nMap not closed by walls\n"), false);
 			else if ((x == 0 || x == ft_strlen(map[y]) - 1)
 				&& (map[y][x] != '1' && map[y][x] != ' ' && map[y][x] != '\t'))
 				return (printf("Error\nMap not closed by walls\n"), false);
-			//verificar coluna por coluna, se comeca e termina com 1
 		}
 	}
 	return (true);	
 }
 
-int	find_wall_horizontaly(t_cub_data *cub, char **map, int y, int x)
+int	find_wall_horizontaly(char **map, int y, int x)
 {
 	int initial_x;
 
@@ -70,13 +69,12 @@ int	find_wall_horizontaly(t_cub_data *cub, char **map, int y, int x)
 	return (true);
 }
 
-int find_wall_up_down(t_cub_data *cub, char **map, int y, int x)
+int find_wall_up_down(t_cub *cub, char **map, int y, int x)
 {
 	int initial_y;
 
 	initial_y = y;
-	//check_column(map, y, x);
-	while (y < cub->map->map_height && map[y][x])
+	while (y < cub->map.map_height && map[y][x])
 	{
 		if (map[y][x] == ' ' || map[y][x] == '\t')
 			y++;
