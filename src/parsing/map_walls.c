@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:14:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/07 20:46:22 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:17:30 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int find_wall_up_down(t_cub_data *cub, char **map, int y, int x)
 	int initial_y;
 
 	initial_y = y;
+	//check_column(map, y, x);
 	while (y < cub->map->map_height && map[y][x])
 	{
 		if (map[y][x] == ' ' || map[y][x] == '\t')

@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/07 20:45:30 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:16:46 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 	char	**map;
 	int		x;
 	int		size;
+	int		line_size;
 
 	size = map_size_valid_char(file, y);
 	if (!size)
 		return (printf("Error\nInvalid character in map\n"), NULL);
 	cub->map->map_height = size;
-	map = ft_calloc(sizeof(char **), size + 1);
+	line_size = find_biggest_line(file);
+	map = ft_calloc(sizeof(char *), size + 1);//aqui tava sizeof(char **)
 	size = 0;
 	while (empty_line(file[y]))
 		y++;
@@ -30,7 +32,8 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 	{
 		if (empty_line(file[y])/*  && file[y + 1] && !empty_line(file[y + 1]) */)
 			return (printf("Error\nEmpty line on map\n"), NULL);
-		map[size++] = ft_strtrim(file[y], "\n");
+		map[size] = get_map_line(file[y], line_size);
+		size++;
 		y++;
 		//printf("%s\n", map[size - 1]);
 	}
@@ -41,6 +44,38 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 		x++;
 	} */
 	return (map);
+}
+
+//copies the line from the file to the map, taking out the '\n' in the end and
+//adding spaces as needed to fit the line size
+char *get_map_line(char *file, int size)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = ft_calloc(sizeof(char), size + 1);
+	while (file[i] && file[i] != '\n')
+	{
+		line[i] = file[i];
+		i++;
+	}
+	while (i < size)
+		line[i++] = ' ';
+	return (line);
+}
+
+int	find_biggest_line(char **map)
+{
+	int	i;
+	int	line;
+
+	i = -1;
+	line = 0;
+	while (map[++i])
+		if (ft_strlen(map[i]) > line)
+			line = ft_strlen(map[i]);
+	return (line);
 }
 
 int	empty_line(char *line)
@@ -78,33 +113,4 @@ int	map_size_valid_char(char **file, int i)
 		}
 	}
 	return (i - save_start - 1);
-}
-
-int	find_player_position(t_cub_data *cub)
-{
-	char	**map;
-	int 	y;
-	int 	x;
-
-	map = cub->map->map_array;
-	y = -1;
-	while (++y < cub->map->map_height)
-	{
-		x = -1;
-		while (++x < ft_strlen(map[y]))
-		{
-			if (map[y][x] == 'N' || map[y][x] == 'S'
-				|| map[y][x] == 'E' || map[y][x] == 'W')
-			{
-				if (cub->player_char)
-					return (printf("Error\nDuplicate player position\n"));
-				cub->player_char = map[y][x];
-				cub->player_position->x = x;
-				cub->player_position->y = y;
-			}
-		}
-	}
-	if (!cub->player_char)
-		return (printf("Error\nNo player position\n"));
-	return (EXIT_SUCCESS);
 }
