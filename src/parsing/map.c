@@ -6,25 +6,26 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 14:16:46 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:48:27 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-char	**extract_map(t_cub_data *cub, char **file, int y)
+char	**extract_map(t_cub *cub, char **file, int y)
 {
 	char	**map;
-	int		x;
 	int		size;
 	int		line_size;
 
 	size = map_size_valid_char(file, y);
 	if (!size)
 		return (printf("Error\nInvalid character in map\n"), NULL);
-	cub->map->map_height = size;
+	cub->map.map_height = size;
 	line_size = find_biggest_line(file);
-	map = ft_calloc(sizeof(char *), size + 1);//aqui tava sizeof(char **)
+	map = ft_calloc(sizeof(char *), size + 1);
+	if (!map)
+		return (error_message("Malloc failed in map struct!"), panic(cub), NULL);
 	size = 0;
 	while (empty_line(file[y]))
 		y++;
@@ -37,12 +38,6 @@ char	**extract_map(t_cub_data *cub, char **file, int y)
 		y++;
 		//printf("%s\n", map[size - 1]);
 	}
-/* 	x = 0;
-	while (map[x])
-	{
-		printf("%s\n", map[x]);
-		x++;
-	} */
 	return (map);
 }
 

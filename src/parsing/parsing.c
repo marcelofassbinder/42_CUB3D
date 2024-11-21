@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 14:17:15 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:47:52 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	find_extension(char *map, char *ext)
 	return (false);
 }
 
-int	parsing(t_cub_data *cub, char *argv)
+int	parsing(t_cub *cub, char *argv)
 {
 	int	end_infos;
 	
 	if (!cub)
 		return (EXIT_FAILURE);
-	cub->map->file = get_matrix_from_file(cub, argv);
-	if (!cub->map->file)//precisa dessa checagem?
+	cub->map.file = get_matrix_from_file(cub, argv);
+	if (!cub->map.file)//precisa dessa checagem?
 		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees
 	end_infos = init_texture_color(cub);
 	if (!is_valid_textures(cub))
@@ -45,40 +45,42 @@ int	parsing(t_cub_data *cub, char *argv)
 	//varificar se tem alguma linha escrita a mais
 	if (!is_valid_colors(cub))
 		return (printf("Error!\nInvalid color\n"));
-	cub->map->map_array = extract_map(cub, cub->map->file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
-	if (!cub->map->map_array)
+	cub->map.map_array = extract_map(cub, cub->map.file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
+	if (!cub->map.map_array)
 		return (EXIT_FAILURE);//printf("Error\nInvalid character in map\n"));
-	if (find_player_position(cub) || !closed_by_walls(cub, cub->map->map_array))
+	if (find_player_position(cub) || !closed_by_walls(cub, cub->map.map_array))
 		return (EXIT_FAILURE);//printf("Error\nInvalid map\n"));
-	//dar free da matrix cub->map->file
-	//lembrar de dar free da matriz cub->map->map_array
+	//dar free da matrix cub->map.file
+	//lembrar de dar free da matrix cub->map.map_array
 	define_player_vectors(cub);
 	define_initial_rotation(cub);
-	define_textures(cub);
 	return (EXIT_SUCCESS);
 }
 
-char	**get_matrix_from_file(t_cub_data *cub, char *file)
+char	**get_matrix_from_file(t_cub *cub, char *file)
 {
-	char **matriz;
+	char **matrix;
 	char *line;
 	int i;
 
-	matriz = ft_calloc(sizeof(char *), count_lines(file) + 1);
-	if (!matriz)
-		return (NULL);
+	matrix = ft_calloc(sizeof(char *), count_lines(file) + 1);
+	if (!matrix)
+		return (error_message("Malloc failed in map matrix!"), panic(cub), NULL);
 	line = NULL;
 	i = 0;
 	while (42)
 	{
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(cub->map.fd);
 		if (!line)
 			break ;
-		matriz[i++] = ft_strdup(line);
+		matrix[i] = ft_strdup(line);
+		if (!matrix[i])
+			return((error_message("Malloc failed in map matrix line!"), free(line), free_matrix(matrix), panic(cub), NULL));
 		free(line);
+		i++;
 	}
-	close(cub->map->fd);
-	return (matriz);
+	close(cub->map.fd);
+	return (matrix);
 }
 
 int	count_lines(char *file)
@@ -105,15 +107,15 @@ int	count_lines(char *file)
 	return (counter);
 }
 
-int	find_player_position(t_cub_data *cub)
+int	find_player_position(t_cub *cub)
 {
 	char	**map;
 	int 	y;
 	int 	x;
 
-	map = cub->map->map_array;
+	map = cub->map.map_array;
 	y = -1;
-	while (++y < cub->map->map_height)
+	while (++y < cub->map.map_height)
 	{
 		x = -1;
 		while (++x < ft_strlen(map[y]))
@@ -124,8 +126,8 @@ int	find_player_position(t_cub_data *cub)
 				if (cub->player_char)
 					return (printf("Error\nDuplicate player position\n"));
 				cub->player_char = map[y][x];
-				cub->player_position->x = x;
-				cub->player_position->y = y;
+				cub->player_position.x = x;
+				cub->player_position.y = y;
 			}
 		}
 	}
