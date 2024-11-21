@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/07 20:00:28 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:17:15 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ char	**get_matrix_from_file(t_cub_data *cub, char *file)
 	return (matriz);
 }
 
-
 int	count_lines(char *file)
 {
 	int		counter;
@@ -104,4 +103,33 @@ int	count_lines(char *file)
 	free (line);
 	close (fd);
 	return (counter);
+}
+
+int	find_player_position(t_cub_data *cub)
+{
+	char	**map;
+	int 	y;
+	int 	x;
+
+	map = cub->map->map_array;
+	y = -1;
+	while (++y < cub->map->map_height)
+	{
+		x = -1;
+		while (++x < ft_strlen(map[y]))
+		{
+			if (map[y][x] == 'N' || map[y][x] == 'S'
+				|| map[y][x] == 'E' || map[y][x] == 'W')
+			{
+				if (cub->player_char)
+					return (printf("Error\nDuplicate player position\n"));
+				cub->player_char = map[y][x];
+				cub->player_position->x = x;
+				cub->player_position->y = y;
+			}
+		}
+	}
+	if (!cub->player_char)
+		return (printf("Error\nNo player position\n"));
+	return (EXIT_SUCCESS);
 }

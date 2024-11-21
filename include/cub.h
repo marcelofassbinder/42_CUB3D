@@ -148,6 +148,7 @@ int		find_extension(char *map, char *ext);
 int		parsing(t_cub_data *cub, char *argv);
 char	**get_matrix_from_file(t_cub_data *cub, char *file);
 int		count_lines(char *file);
+int		find_player_position(t_cub_data *cub);
 
 //parsing/texture.c
 int		init_texture_color(t_cub_data *cub);
@@ -164,9 +165,10 @@ int		rgb_to_hex(int rgb[3]);
 
 //parsing/map.c
 char	**extract_map(t_cub_data *cub, char **file, int y);
+char 	*get_map_line(char *file, int size);
+int		find_biggest_line(char **map);
 int		empty_line(char *line);
 int		map_size_valid_char(char **file, int i);
-int		find_player_position(t_cub_data *cub);
 
 //parsing/map_walls.c
 int		closed_by_walls(t_cub_data *cub, char **map);
@@ -175,6 +177,6 @@ int		find_wall_up_down(t_cub_data *cub, char **map, int y, int x);
 
 //frees.c
 void	free_matriz(char **str);
-int		free_parsing(t_cub_data *cub);
+//int		free_parsing(t_cub_data *cub);
 
 #endif
