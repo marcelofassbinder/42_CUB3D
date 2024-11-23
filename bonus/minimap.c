@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 14:57:33 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:09:36 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ t_image *define_gun_sprite(t_cub *cub)
 {
 	t_image	*sprite;
 
-	sprite = &cub->gun.images[0];
+	sprite = &cub->gun[0];
 	if (cub->reload == 50)
-		sprite = &cub->gun.images[cub->shot / 5];
+		sprite = &cub->gun[cub->shot / 5];
 	else if (cub->shot == 0)
-		sprite = &cub->gun.images[cub->reload / 8];
+		sprite = &cub->gun[cub->reload / 8];
 	if (cub->shot != 0)
 		cub->shot ++;
 	if (cub->shot == 25)
