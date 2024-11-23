@@ -95,14 +95,6 @@ typedef struct 			s_text {
 
 }						t_text;
 
-typedef	struct		s_gun {
-
-	t_image			images[15];
-	int				width;
-	int				height;
-
-}					t_gun;
-
 typedef struct			s_cub {
 
 	void				*mlx_ptr;
@@ -115,8 +107,8 @@ typedef struct			s_cub {
 	t_map				map;
 	t_image 			image;
 	t_image 			initial;
+	t_image				gun[15];
 	t_text				textures;
-	t_gun				gun;
 	int 				rotation;
 	int					minmap_square;
 	int					reload;

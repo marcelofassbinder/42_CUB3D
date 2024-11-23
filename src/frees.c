@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:35:17 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/23 14:46:46 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:09:36 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	free_gun(t_cub *cub)
 	i = -1;
 	while (++i < 15)
 	{
-		if (cub->gun.images[i].img)
-			mlx_destroy_image(cub->mlx_ptr, cub->gun.images[i].img);
+		if (cub->gun[i].img)
+			mlx_destroy_image(cub->mlx_ptr, cub->gun[i].img);
 	}
 }
 
