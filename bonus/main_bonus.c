@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 15:09:35 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 16:56:51 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_gun(t_cub *cub)
 	init_image_xpm(cub, &cub->gun[12], "./textures/r8.xpm");
 	init_image_xpm(cub, &cub->gun[13], "./textures/r9.xpm");
 	init_image_xpm(cub, &cub->gun[14], "./textures/r10.xpm");
+	//init_image_xpm(cub, &cub->door[0], "./textures/door.xpm");
 }
 
 int main(int argc, char **argv)
@@ -71,10 +72,10 @@ int main(int argc, char **argv)
 	{
 		if (parsing(cub, argv[1]))
 			return (EXIT_FAILURE);//free_parsing(cub));
-		init_window(cub);
-		define_textures(cub);
+		init_mlx(cub);
+		init_textures(cub);
 		init_gun(cub);
-		render_initial_image(cub);
+		draw_initial_image(cub);
 	}
 	else
 		return (printf("ERROR!\nINVALID INPUT!\n"));

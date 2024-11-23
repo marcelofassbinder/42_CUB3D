@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 14:33:21 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:20:11 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	init_new_image(t_cub *cub, t_image *image, int width, int height)
 	image->height = height;
 }
 
-void render_initial_image(t_cub *cub)
+void draw_initial_image(t_cub *cub)
 {
     t_image resized;
 
