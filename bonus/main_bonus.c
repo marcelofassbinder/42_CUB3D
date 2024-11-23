@@ -6,27 +6,12 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/20 16:40:33 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 14:59:45 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_bonus.h"
 
-/* int	handle_input_bonus(int key, t_cub *cub)
-{
-	if (!cub->start_game && key == SPACE)
-		cub->start_game = true;
-	if (key == ESC)
-	{
-		panic(cub);
-		exit(0);
-	}
-	else if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
-		move_player(key, cub);
-	else if (key == ARROW_LEFT || key == ARROW_RIGHT)
-		rotate_player(key, cub);
-	return (1);
-} */
 
 int	handle_mouse(int key, int x, int y, t_cub *cub)
 {
@@ -34,36 +19,40 @@ int	handle_mouse(int key, int x, int y, t_cub *cub)
 	(void) y;
 	if (key == 1)
 	{
-		cub->shot = true;
+		if (cub->reload == 50 && cub->has_bullet)
+		{
+			cub->shot = 1;
+			cub->has_bullet = false;
+		}
+	}
+	else if (key == 3)
+	{
+		if (cub->shot == 0 && !cub->has_bullet)
+		{
+			cub->reload = 51;
+			cub->has_bullet = true;
+		}
 	}
 	return (1);
 }
 
 void	init_gun(t_cub *cub)
 {
-	cub->gun.images[0].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun.xpm", &cub->gun.images[0].width, &cub->gun.images[0].height);
-	cub->gun.images[0].addr = mlx_get_data_addr(cub->gun.images[0].img, &cub->gun.images[0].bits_per_pixel, &cub->gun.images[0].line_len, &cub->gun.images[0].endian);
-	cub->gun.images[1].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun1.xpm", &cub->gun.images[1].width,
-			&cub->gun.images[1].height);
-	cub->gun.images[1].addr = mlx_get_data_addr(cub->gun.images[1].img, &cub->gun.images[1].bits_per_pixel, &cub->gun.images[1].line_len, &cub->gun.images[1].endian);
-	cub->gun.images[2].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun2.xpm", &cub->gun.images[2].width,
-			&cub->gun.images[2].height);
-	cub->gun.images[2].addr = mlx_get_data_addr(cub->gun.images[2].img, &cub->gun.images[2].bits_per_pixel, &cub->gun.images[2].line_len, &cub->gun.images[2].endian);
-	cub->gun.images[3].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun3.xpm", &cub->gun.images[3].width,
-			&cub->gun.images[3].height);
-	cub->gun.images[3].addr = mlx_get_data_addr(cub->gun.images[3].img, &cub->gun.images[3].bits_per_pixel, &cub->gun.images[3].line_len, &cub->gun.images[3].endian);
-	cub->gun.images[4].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun4.xpm", &cub->gun.images[4].width,
-			&cub->gun.images[4].height);
-	cub->gun.images[4].addr = mlx_get_data_addr(cub->gun.images[4].img, &cub->gun.images[4].bits_per_pixel, &cub->gun.images[4].line_len, &cub->gun.images[4].endian);
-	cub->gun.images[5].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-		"./textures/gun5.xpm", &cub->gun.images[5].width,
-			&cub->gun.images[5].height);
-	cub->gun.images[5].addr = mlx_get_data_addr(cub->gun.images[5].img, &cub->gun.images[5].bits_per_pixel, &cub->gun.images[5].line_len, &cub->gun.images[5].endian);
+	init_image_xpm(cub, &cub->gun.images[0], "./textures/gun1.xpm");
+	init_image_xpm(cub, &cub->gun.images[1], "./textures/gun2.xpm");
+	init_image_xpm(cub, &cub->gun.images[2], "./textures/gun3.xpm");
+	init_image_xpm(cub, &cub->gun.images[3], "./textures/gun4.xpm");
+	init_image_xpm(cub, &cub->gun.images[4], "./textures/gun5.xpm");
+	init_image_xpm(cub, &cub->gun.images[5], "./textures/r1.xpm");
+	init_image_xpm(cub, &cub->gun.images[6], "./textures/r2.xpm");
+	init_image_xpm(cub, &cub->gun.images[7], "./textures/r3.xpm");
+	init_image_xpm(cub, &cub->gun.images[8], "./textures/r4.xpm");
+	init_image_xpm(cub, &cub->gun.images[9], "./textures/r5.xpm");
+	init_image_xpm(cub, &cub->gun.images[10], "./textures/r6.xpm");
+	init_image_xpm(cub, &cub->gun.images[11], "./textures/r7.xpm");
+	init_image_xpm(cub, &cub->gun.images[12], "./textures/r8.xpm");
+	init_image_xpm(cub, &cub->gun.images[13], "./textures/r9.xpm");
+	init_image_xpm(cub, &cub->gun.images[14], "./textures/r10.xpm");
 }
 
 int main(int argc, char **argv)
@@ -93,4 +82,4 @@ int main(int argc, char **argv)
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_mouse_hook(cub->mlx_window, handle_mouse, cub);
 	mlx_loop(cub->mlx_ptr);
-} 
+}

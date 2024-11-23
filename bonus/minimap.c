@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/20 17:01:33 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 14:57:33 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,89 +34,55 @@ int	ray_casting_bonus(t_cub *cub)
 		free(ray);
 	}
 	minimap(cub);
-	if (cub->shot)
-		shot(cub);
-	else
-		draw_gun(cub, &cub->gun.images[0]);
+	draw_gun(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image.img, 0, 0);
 	return (1);
 }
 
-void	shot(t_cub *cub)
+t_image *define_gun_sprite(t_cub *cub)
 {
-	//int i;
-	long j;
+	t_image	*sprite;
 
-/* 	i = 0;
-	while (++i < 6)
-	{
-		printf("CLICK\n");
-		printf("i = %i\n", i);
-		j = 0; */
-	j = 0;
-	while (j < 10000)
-	{
-		while (j <= 2000)
-		{
-			draw_gun(cub, &cub->gun.images[1]);
-			j++;
-		}
-		while (j <= 4000)
-		{
-			draw_gun(cub, &cub->gun.images[2]);
-			j++;
-		}
-		while (j <= 6000)
-		{
-			draw_gun(cub, &cub->gun.images[3]);
-			j++;
-		}
-		while (j <= 8000)
-		{
-			draw_gun(cub, &cub->gun.images[4]);
-			j++;
-		}
-		while (j <= 10000)
-		{
-			draw_gun(cub, &cub->gun.images[4]);
-			j++;
-		}
-		j++;
-	}
-	cub->shot = false;
+	sprite = &cub->gun.images[0];
+	if (cub->reload == 50)
+		sprite = &cub->gun.images[cub->shot / 5];
+	else if (cub->shot == 0)
+		sprite = &cub->gun.images[cub->reload / 8];
+	if (cub->shot != 0)
+		cub->shot ++;
+	if (cub->shot == 25)
+		cub->shot = 0;
+	if (cub->shot == 0 && cub->reload != 50)
+		cub->reload ++;
+	if (cub->reload == 120)
+		cub->reload = 50;
+	return (sprite);
 }
 
-void	draw_gun(t_cub *cub, t_image *gun)
+void	draw_gun(t_cub *cub)
 {
+	t_image *gun_sprite;
 	t_image resized_gun;
-	double	gun_x;
-	double	gun_y;
+	int		gun_x;
+	int		gun_y;
 	int		color;
 	
-	resized_gun.img = mlx_new_image(cub->mlx_ptr, WIDTH / 5, HEIGHT / 2.5);
-	if (!resized_gun.img)
-		return (error_message("XPM to image failed in gun image!"), panic(cub));
-	resized_gun.addr = mlx_get_data_addr(resized_gun.img, &resized_gun.bits_per_pixel, &resized_gun.line_len, &resized_gun.endian);
-	resized_gun.width = WIDTH / 5;
-	resized_gun.height = HEIGHT / 2.5;
-	resize_image(gun, &resized_gun, WIDTH / 5, HEIGHT/ 2.5);
-	gun_x = 0;
-	while (gun_x < resized_gun.width)
+	gun_sprite = define_gun_sprite(cub);
+	init_new_image(cub, &resized_gun, WIDTH / 5, HEIGHT/ 2.5);
+	resize_image(gun_sprite, &resized_gun, WIDTH / 5, HEIGHT/ 2.5);
+	gun_x = -1;
+	while (++gun_x < resized_gun.width)
 	{
-		gun_y = 0;
-		while (gun_y < resized_gun.height)
+		gun_y = -1;
+		while (++gun_y < resized_gun.height)
 		{
-			color = get_color_from_pixel(&resized_gun, (int)gun_x, (int)gun_y);
+			color = get_color_from_pixel(&resized_gun, gun_x, gun_y);
 			if ((color & 0xFF000000) != 0x00000000)
-			{
-				gun_y++;
 				continue ;
-			}
 			my_mlx_pixel_put(&cub->image, WIDTH/2 + gun_x, gun_y + (HEIGHT - HEIGHT / 2.5), color);
-			gun_y++;
 		}
-		gun_x++;
 	}
+	mlx_destroy_image(cub->mlx_ptr, resized_gun.img);
 }
 
 int	minimap(t_cub *cub)
@@ -216,6 +182,6 @@ void	draw_one_ray_minimap(t_cub *cub, t_coordinate *ray_vector)
 		if (cub->map.map_array[(int)ray.y][(int)ray.x] != '0' && cub->map.map_array[(int)ray.y][(int)ray.x] != cub->player_char)
 			break ;
 		my_mlx_pixel_put(&cub->image, (ray.x * cub->minmap_square), (ray.y) * cub->minmap_square, 0xFFFF66);
-		i+= 0.2;
+		i+= 0.1;
 	}
 }

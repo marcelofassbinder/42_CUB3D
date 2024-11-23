@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/20 16:03:12 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 14:57:33 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_cub *init_cub_struct(void)
 		return (error_message("Malloc failed in cub struct!"), panic(cub), NULL);
 	cub->map.cub = cub;
 	cub->start_game = false;
-	cub->shot = false;
+	cub->has_bullet = true;
+	cub->shot = 0;
+	cub->reload = 50;
 	return (cub);
 }
 
