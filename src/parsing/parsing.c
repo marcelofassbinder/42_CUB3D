@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 14:47:52 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:16:31 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	parsing(t_cub *cub, char *argv)
 {
 	int	end_infos;
 	
-	if (!cub)
-		return (EXIT_FAILURE);
 	cub->map.file = get_matrix_from_file(cub, argv);
 	if (!cub->map.file)//precisa dessa checagem?
 		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees

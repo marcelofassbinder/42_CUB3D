@@ -108,6 +108,7 @@ typedef struct			s_cub {
 	t_image 			image;
 	t_image 			initial;
 	t_image				gun[15];
+	//t_image				door[5];
 	t_text				textures;
 	int 				rotation;
 	int					minmap_square;
@@ -120,10 +121,10 @@ typedef struct			s_cub {
 
 //init.c
 t_cub		*init_cub_struct();
-void		init_window(t_cub *cub);
+void		init_mlx(t_cub *cub);
 void		define_initial_rotation(t_cub *cub);
 void		define_player_vectors(t_cub *cub);
-void		define_textures(t_cub *cub);
+void		init_textures(t_cub *cub);
 
 //raycasting.c
 int		ray_casting(t_cub *cub);
@@ -155,7 +156,7 @@ void 		my_mlx_pixel_put(t_image *img, int x, int y, int color);
 unsigned int get_color_from_pixel(t_image *img, int x, int y);
 char		*ft_strstr(char *str, char *to_find);
 void		resize_image(t_image *src, t_image *dst, int new_width, int new_height);
-void		render_initial_image(t_cub *cub);
+void		draw_initial_image(t_cub *cub);
 void		init_image_xpm(t_cub *cub, t_image *i, char *path);
 void		init_new_image(t_cub *cub, t_image *image, int width, int height);
 
