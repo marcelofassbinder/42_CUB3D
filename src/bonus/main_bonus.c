@@ -6,11 +6,11 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 16:57:33 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:18:13 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub_bonus.h"
+#include "../../include/cub_bonus.h"
 
 int main(int argc, char **argv)
 {

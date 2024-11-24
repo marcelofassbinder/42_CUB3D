@@ -6,11 +6,11 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 16:01:56 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:18:16 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub_bonus.h"
+#include "../../include/cub_bonus.h"
 
 int	minimap(t_cub *cub)
 {
