@@ -6,13 +6,13 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 14:47:52 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:11:50 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-//encontrar o .cub no final do nome do arquivo
+//search for ".cub" in the end of the file name
 int	find_extension(char *map, char *ext)
 {
 	int	i;
@@ -30,28 +30,25 @@ int	find_extension(char *map, char *ext)
 	return (false);
 }
 
-int	parsing(t_cub *cub, char *argv)
+int	parsing(t_cub *cub, char *argv)//TESTAR TODOS OS LEAKS
 {
 	int	end_infos;
 	
 	if (!cub)
 		return (EXIT_FAILURE);
 	cub->map.file = get_matrix_from_file(cub, argv);
-	if (!cub->map.file)//precisa dessa checagem?
-		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees
+	if (!cub->map.file)
+		return (error_message("Empty file"), panic(cub), EXIT_FAILURE);//criar funcao para msg de erro e frees
 	end_infos = init_texture_color(cub);
 	if (!is_valid_textures(cub))
-		return (EXIT_FAILURE);//printf("Error!\nInvalid texture\n"));
-	//varificar se tem alguma linha escrita a mais
+		return (panic(cub), EXIT_FAILURE);
 	if (!is_valid_colors(cub))
-		return (printf("Error!\nInvalid color\n"));
-	cub->map.map_array = extract_map(cub, cub->map.file, end_infos);//ERRO: vai aceitar /n la no meio do mapa
+		return (error_message("Invalid color"), panic(cub), EXIT_FAILURE);
+	cub->map.map_array = extract_map(cub, cub->map.file, end_infos);
 	if (!cub->map.map_array)
-		return (EXIT_FAILURE);//printf("Error\nInvalid character in map\n"));
+		return (panic(cub), EXIT_FAILURE);
 	if (find_player_position(cub) || !closed_by_walls(cub, cub->map.map_array))
-		return (EXIT_FAILURE);//printf("Error\nInvalid map\n"));
-	//dar free da matrix cub->map.file
-	//lembrar de dar free da matrix cub->map.map_array
+		return (panic(cub), EXIT_FAILURE);
 	define_player_vectors(cub);
 	define_initial_rotation(cub);
 	return (EXIT_SUCCESS);
