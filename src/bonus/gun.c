@@ -6,11 +6,11 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/24 16:02:55 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:18:09 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub_bonus.h"
+#include "../../include/cub_bonus.h"
 
 int	ray_casting_bonus(t_cub *cub)
 {
