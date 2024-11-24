@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/20 16:03:12 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 16:58:04 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ t_cub *init_cub_struct(void)
 		return (error_message("Malloc failed in cub struct!"), panic(cub), NULL);
 	cub->map.cub = cub;
 	cub->start_game = false;
-	cub->shot = false;
+	cub->has_bullet = true;
+	cub->shot = 0;
+	cub->reload = 50;
 	return (cub);
 }
 
-void	init_window(t_cub *cub)
+void	init_mlx(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
@@ -32,11 +34,7 @@ void	init_window(t_cub *cub)
 	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	if (!cub->mlx_window)
 		return(error_message("MLX window creation failed!"), panic(cub));
-	cub->image.img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
-	if (!cub->image.img)
-		return(error_message("Image creation failed!"), panic(cub));
-	cub->image.addr = mlx_get_data_addr(cub->image.img, &cub->image.bits_per_pixel,
-		&cub->image.line_len, &cub->image.endian);
+	init_new_image(cub, &cub->image, WIDTH, HEIGHT);
 }
 
 void	define_initial_rotation(t_cub *cub)
@@ -91,21 +89,11 @@ void	define_player_vectors(t_cub *cub)
 	}
 }
 
-void	define_textures(t_cub *cub)
+void	init_textures(t_cub *cub)
 {
-	t_text	t;
 	int		i;
 
-	t = cub->textures;
 	i = -1;
 	while (++i < 4)
-	{
-		t.images[i].img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures.files[i], &t.images[i].width, &t.images[i].height);
-		if (!t.images[i].img)
-			return(error_message("XPM to image conversion failed!"), panic(cub));
-		t.images[i].addr = mlx_get_data_addr(t.images[i].img, 
-			&t.images[i].bits_per_pixel, &t.images[i].line_len, &t.images[i].endian);
-	}
-	cub->textures = t;
+		init_image_xpm(cub, &cub->textures.images[i], cub->textures.files[i]);
 }
