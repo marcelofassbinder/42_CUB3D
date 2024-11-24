@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/21 14:59:22 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:20:11 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ unsigned int get_color_from_pixel(t_image *img, int x, int y)
 {
 	char	*dst;
 	int 	offset;
+
 	offset = (y * img->line_len + x * (img->bits_per_pixel / 8));
 	dst = img->addr + offset;
 	return(*(unsigned int *)dst);
@@ -97,24 +98,32 @@ void resize_image(t_image *src, t_image *dst, int new_width, int new_height)
         }
     }
 }
-
-void render_initial_image(t_cub *cub)
+void	init_image_xpm(t_cub *cub, t_image *i, char *path)
 {
-    t_image initial;
+	i->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &i->width, &i->height);
+	if (!i->img)
+		return(error_message("Image creation failed!"), panic(cub));
+	i->addr = mlx_get_data_addr(i->img, &i->bits_per_pixel, &i->line_len, &i->endian);
+}
+
+void	init_new_image(t_cub *cub, t_image *image, int width, int height)
+{
+	image->img = mlx_new_image(cub->mlx_ptr, width, height);
+	if (!image->img)
+		return (error_message("Image creation failed!"), panic(cub));
+	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel, &image->line_len, &image->endian);
+	image->width = width;
+	image->height = height;
+}
+
+void draw_initial_image(t_cub *cub)
+{
     t_image resized;
 
-    initial.img = mlx_xpm_file_to_image(cub->mlx_ptr, "./textures/initial.xpm", &initial.width, &initial.height);
-    if (!initial.img)
-		return (error_message("Malloc failed in initial image!"), panic(cub));
-	initial.addr = mlx_get_data_addr(initial.img, &initial.bits_per_pixel, &initial.line_len, &initial.endian);
-  	resized.img = mlx_new_image(cub->mlx_ptr, WIDTH, HEIGHT);
-    if (!resized.img)
-		return (error_message("Malloc failed in initial image!"), panic(cub));
-	resized.addr = mlx_get_data_addr(resized.img, &resized.bits_per_pixel, &resized.line_len, &resized.endian);
-	resized.width = WIDTH;
-	resized.height = HEIGHT;
-    resize_image(&initial, &resized, WIDTH, HEIGHT);
+	init_image_xpm(cub, &cub->initial, "./textures/initial.xpm");
+  	init_new_image(cub, &resized, WIDTH, HEIGHT);
+    resize_image(&cub->initial, &resized, WIDTH, HEIGHT);
     mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window,resized.img, 0, 0);
-	mlx_destroy_image(cub->mlx_ptr, initial.img);
+	mlx_destroy_image(cub->mlx_ptr, cub->initial.img);
 	cub->initial = resized;
 }

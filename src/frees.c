@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:35:17 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 15:08:32 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:25:39 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ void	free_map_struct(t_map *map)
 	if (map->ceiling)
 		free(map->ceiling);
 }
-
-void	free_image_struct(t_cub *cub, t_image *image)
+void	free_gun(t_cub *cub)
 {
-	if (image->img)
-		mlx_destroy_image(cub->mlx_ptr, image->img);
-	free(image);
+	int i;
+
+	i = -1;
+	while (++i < 15)
+	{
+		if (cub->gun[i].img)
+			mlx_destroy_image(cub->mlx_ptr, cub->gun[i].img);
+	}
 }
 
 void	panic(t_cub *cub)
@@ -47,10 +51,11 @@ void	panic(t_cub *cub)
 		exit(EXIT_FAILURE);
 	free_map_struct(&cub->map);
 	free_textures(cub);
+	free_gun(cub);
 	if (cub->image.img)
 		mlx_destroy_image(cub->mlx_ptr, cub->image.img);
 	if (cub->initial.img)
-		mlx_destroy_image(cub->mlx_ptr, cub->initial.img); 
+		mlx_destroy_image(cub->mlx_ptr, cub->initial.img);
 	if (cub->mlx_window)
 		mlx_destroy_window(cub->mlx_ptr, cub->mlx_window);
 	if (cub->mlx_ptr)

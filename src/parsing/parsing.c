@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/21 15:11:50 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:25:27 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	parsing(t_cub *cub, char *argv)//TESTAR TODOS OS LEAKS
 {
 	int	end_infos;
 	
-	if (!cub)
-		return (EXIT_FAILURE);
 	cub->map.file = get_matrix_from_file(cub, argv);
 	if (!cub->map.file)
 		return (error_message("Empty file"), panic(cub), EXIT_FAILURE);//criar funcao para msg de erro e frees
