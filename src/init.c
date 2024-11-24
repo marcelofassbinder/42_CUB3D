@@ -6,18 +6,19 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 15:44:00 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:03:10 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-t_cub *init_cub_struct(void)
+t_cub	*init_cub_struct(void)
 {
-	t_cub *cub;
+	t_cub	*cub;
+
 	cub = ft_calloc(sizeof(t_cub), 1);
 	if (!cub)
-		return (error_message("Malloc failed in cub struct!"), panic(cub), NULL);
+		return (error_message("Malloc fail in cub struct!"), panic(cub), NULL);
 	cub->map.cub = cub;
 	cub->start_game = false;
 	cub->has_bullet = true;
@@ -31,10 +32,10 @@ void	init_mlx(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
-		return(error_message("MLX connection failed!"), panic(cub));
-	cub->mlx_window = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
-	if (!cub->mlx_window)
-		return(error_message("MLX window creation failed!"), panic(cub));
+		return (error_message("MLX connection failed!"), panic(cub));
+	cub->mlx_win = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3d");
+	if (!cub->mlx_win)
+		return (error_message("MLX window creation failed!"), panic(cub));
 	init_new_image(cub, &cub->image, WIDTH, HEIGHT);
 }
 
@@ -56,7 +57,7 @@ void	define_initial_rotation(t_cub *cub)
 		cub->rotation = 24;
 	}
 	if (cub->player_char == 'W')
-	{	
+	{
 		cub->player_angle_rad = 3 * PI / 2;
 		cub->rotation = 36;
 	}

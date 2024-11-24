@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/24 17:18:09 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:15:34 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	ray_casting_bonus(t_cub *cub)
 {
+	int		ray_id;
+	t_ray	*ray;
+
+	ray_id = -1;
 	if (!cub->start_game)
 		return (0);
-	int ray_id = -1;
 	while (++ray_id < WIDTH)
 	{
-		t_ray *ray;
-
 		ray = calculate_ray(cub, ray_id);
 		while (42)
 		{
@@ -35,7 +36,7 @@ int	ray_casting_bonus(t_cub *cub)
 	}
 	minimap(cub);
 	draw_gun(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image.img, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_win, cub->image.img, 0, 0);
 	return (1);
 }
 
@@ -59,7 +60,7 @@ void	init_gun(t_cub *cub)
 	//init_image_xpm(cub, &cub->door[0], "./textures/door.xpm");
 }
 
-t_image *define_gun_sprite(t_cub *cub)
+t_image	*define_gun_sprite(t_cub *cub)
 {
 	t_image	*sprite;
 
@@ -81,15 +82,15 @@ t_image *define_gun_sprite(t_cub *cub)
 
 void	draw_gun(t_cub *cub)
 {
-	t_image *gun_sprite;
-	t_image resized_gun;
+	t_image	*gun_sprite;
+	t_image	resized_gun;
 	int		gun_x;
 	int		gun_y;
 	int		color;
-	
+
 	gun_sprite = define_gun_sprite(cub);
-	init_new_image(cub, &resized_gun, WIDTH / 5, HEIGHT/ 2.5);
-	resize_image(gun_sprite, &resized_gun, WIDTH / 5, HEIGHT/ 2.5);
+	init_new_image(cub, &resized_gun, WIDTH / 5, HEIGHT / 2.5);
+	resize_image(gun_sprite, &resized_gun, WIDTH / 5, HEIGHT / 2.5);
 	gun_x = -1;
 	while (++gun_x < resized_gun.width)
 	{
@@ -99,7 +100,8 @@ void	draw_gun(t_cub *cub)
 			color = get_color_from_pixel(&resized_gun, gun_x, gun_y);
 			if ((color & 0xFF000000) != 0x00000000)
 				continue ;
-			my_mlx_pixel_put(&cub->image, WIDTH/2 + gun_x, gun_y + (HEIGHT - HEIGHT / 2.5), color);
+			my_mlx_pixel_put(&cub->image, WIDTH / 2 + gun_x, gun_y
+				+ (HEIGHT - HEIGHT / 2.5), color);
 		}
 	}
 	mlx_destroy_image(cub->mlx_ptr, resized_gun.img);

@@ -6,28 +6,27 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 17:18:13 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:18:13 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub_bonus.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_cub *cub;
-	
+	t_cub	*cub;
+
 	cub = init_cub_struct();
-	cub->map.fd = open(argv[1], O_RDONLY);//fecha no parsing
+	cub->map.fd = open(argv[1], O_RDONLY);
 	if (cub->map.fd < 0)
 	{
 		free(cub);
 		return (printf("ERROR!\nfd < 0!\n"));
 	}
-	//ate aqui pra checagem de input
 	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map.fd > 0)
 	{
 		if (parsing(cub, argv[1]))
-			return (EXIT_FAILURE);//free_parsing(cub));
+			return (EXIT_FAILURE);
 		init_mlx(cub);
 		init_textures(cub);
 		init_gun(cub);
@@ -35,10 +34,10 @@ int main(int argc, char **argv)
 	}
 	else
 		return (printf("ERROR!\nINVALID INPUT!\n"));
-	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
-	mlx_hook(cub->mlx_window, MotionNotify, PointerMotionMask, handle_mouse_move, cub);
+	mlx_hook(cub->mlx_win, 2, (1L << 0), handle_input, cub);
+	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
-	mlx_mouse_hook(cub->mlx_window, handle_mouse, cub);
+	mlx_mouse_hook(cub->mlx_win, handle_mouse, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
@@ -53,9 +52,9 @@ int	handle_mouse_move(int x, int y, t_cub *cub)
 		cub->rotation += 48;
 	if (cub->rotation == 48)
 		cub->rotation = 0;
-	cub->player_angle_rad = cub->rotation * (PI/24);
+	cub->player_angle_rad = cub->rotation * (PI / 24);
 	cub->player_dir.x = sin(cub->player_angle_rad);
-	cub->player_dir.y = - cos(cub->player_angle_rad);
+	cub->player_dir.y = -cos(cub->player_angle_rad);
 	cub->plane.x = cos(cub->player_angle_rad) * 0.66;
 	cub->plane.y = sin(cub->player_angle_rad) * 0.66;
 	cub->mouse_x = x;
