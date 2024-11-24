@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 18:18:13 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:53:16 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ int	main(int argc, char **argv)
 int	handle_mouse_move(int x, int y, t_cub *cub)
 {
 	(void)y;
-	if (x > cub->mouse_x)
+	if (x - 3 > cub->mouse_x)
+	{
 		cub->rotation++;
-	if (x < cub->mouse_x)
+		cub->mouse_x = x + 3;
+	}
+	if (x + 3 < cub->mouse_x)
+	{
 		cub->rotation--;
+		cub->mouse_x = x - 3;
+	}
 	if (cub->rotation < 0)
 		cub->rotation += 48;
 	if (cub->rotation == 48)
@@ -57,7 +63,6 @@ int	handle_mouse_move(int x, int y, t_cub *cub)
 	cub->player_dir.y = -cos(cub->player_angle_rad);
 	cub->plane.x = cos(cub->player_angle_rad) * 0.66;
 	cub->plane.y = sin(cub->player_angle_rad) * 0.66;
-	cub->mouse_x = x;
 	return (0);
 }
 
