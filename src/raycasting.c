@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 16:09:51 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:15:36 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	ray_casting(t_cub *cub)
 {
+	int		ray_id;
+	t_ray	*ray;
+
+	ray_id = -1;
 	if (!cub->start_game)
 		return (0);
-	int ray_id = -1;
 	while (++ray_id < WIDTH)
 	{
-		t_ray *ray;
-
 		ray = calculate_ray(cub, ray_id);
 		while (42)
 		{
@@ -33,52 +34,68 @@ int	ray_casting(t_cub *cub)
 		draw_textures(cub, ray);
 		free(ray);
 	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_window, cub->image.img, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_win, cub->image.img, 0, 0);
 	return (1);
-	//mlx_destroy_image(cub->mlx_ptr, cub->image->img);
 }
 
-t_ray	*calculate_ray(t_cub * cub, int ray_id)
+/*
+camera_x -> varia de -1 a 1
+dir -> define o valor x e y no vetor de direcao de cada raio
+map_x -> define o quadrado do mapa onde o player esta
+*/
+t_ray	*calculate_ray(t_cub *cub, int ray_id)
 {
-	t_ray *ray;
+	t_ray	*ray;
 
 	ray = ft_calloc(sizeof(t_ray), 1);
 	if (!ray)
 		return (error_message("Malloc failed in ray struct"), panic(cub), NULL);
 	ray->cub = cub;
 	ray->id = ray_id;
-	ray->camera_x = 2 * (ray->id / (double)WIDTH) - 1; // camera_x varia de -1 a 1
-	ray->direction.x = cub->player_dir.x + cub->plane.x * ray->camera_x; // define o valor de x no vetor de direcao de cada raio
-	ray->direction.y = cub->player_dir.y + cub->plane.y * ray->camera_x; // define o valor de y no vetor de direcao de cada raio
-	ray->map_x = (int)cub->player_position.x; // define o quadrado do mapa onde o player esta
+	ray->camera_x = 2 * (ray->id / (double)WIDTH) - 1;
+	ray->dir.x = cub->player_dir.x + cub->plane.x * ray->camera_x;
+	ray->dir.y = cub->player_dir.y + cub->plane.y * ray->camera_x;
+	ray->map_x = (int)cub->player_position.x;
 	ray->map_y = (int)cub->player_position.y;
 	calculate_deltas(ray);
 	return (ray);
 }
 
+/*
+delta_x -> distance traveled to walk 1 unit in X axis
+delta_y -> distance traveled to walk 1 unit in Y axis
+if step_x = 1 -> the next step will be to the right
+if step_x = -1 -> the next step will be to the left
+side_x -> calculate the distance from the player position until the first
+	intersection in X axis to the right or left
+if step_y = 1 -> the next step will be down
+if step_y = -1 -> the next step will be up
+side_y -> calculate the distance from the player position until the first
+	intersection in Y axis down or up
+*/
 void	calculate_deltas(t_ray *ray)
 {
-	if (ray->direction.x == 0)
-		ray->delta_x= 1e30;
+	if (ray->dir.x == 0)
+		ray->delta_x = 1e30;
 	else
-		ray->delta_x = sqrt(1 + pow((ray->direction.y/ray->direction.x), 2)); // distance traveled to walk 1 unit in X axis;
-	if (ray->direction.y == 0)
+		ray->delta_x = sqrt(1 + pow((ray->dir.y / ray->dir.x), 2));
+	if (ray->dir.y == 0)
 		ray->delta_y = 1e30;
 	else
-		ray->delta_y = sqrt(1 + pow((ray->direction.x/ray->direction.y), 2)); // ditance traveled to walk 1 unit in Y axis;
-	ray->step_x = 1; // the next step will be to the right;
-	ray->side_x = (ray->map_x + 1 - ray->cub->player_position.x) * ray->delta_x; //calculate the distance from the player position until the first intersection in X axis to the right;
-	if (ray->direction.x < 0) 
+		ray->delta_y = sqrt(1 + pow((ray->dir.x / ray->dir.y), 2));
+	ray->step_x = 1;
+	ray->side_x = (ray->map_x + 1 - ray->cub->player_position.x) * ray->delta_x;
+	if (ray->dir.x < 0)
 	{
-		ray->step_x = -1; // the next step will be to the left;
-		ray->side_x = (ray->cub->player_position.x - ray->map_x) * ray->delta_x; // calculate the distance from the player position until the first intersection in X axis to the left;
+		ray->step_x = -1;
+		ray->side_x = (ray->cub->player_position.x - ray->map_x) * ray->delta_x;
 	}
-	ray->step_y = 1; // the next step will be down;
-	ray->side_y = (ray->map_y + 1 - ray->cub->player_position.y) * ray->delta_y;// calculate the distance from the player position until the first intersection in Y axis down;
-	if (ray->direction.y < 0) 
+	ray->step_y = 1;
+	ray->side_y = (ray->map_y + 1 - ray->cub->player_position.y) * ray->delta_y;
+	if (ray->dir.y < 0)
 	{
-		ray->step_y = -1; // the next step will be up;
-		ray->side_y = (ray->cub->player_position.y - ray->map_y) * ray->delta_y; // calculate the distance from the player position until the first intersection in Y axis up;
+		ray->step_y = -1;
+		ray->side_y = (ray->cub->player_position.y - ray->map_y) * ray->delta_y;
 	}
 }
 
@@ -88,23 +105,23 @@ void	increment_to_next_intersection(t_ray *ray)
 	{
 		ray->side_x += ray->delta_x;
 		ray->map_x += ray->step_x;
-		ray->side_colision = true; // cruza linha verical
+		ray->side_colision = true;
 	}
 	else
 	{
 		ray->side_y += ray->delta_y;
 		ray->map_y += ray->step_y;
-		ray->side_colision = false; //cruza linha horizontal
+		ray->side_colision = false;
 	}
 }
 
 void	calculate_wall_distance(t_ray *ray)
 {
 	if (ray->side_colision == 1)
-		ray->wall_distance = (ray->map_x - ray->cub->player_position.x + (1 - ray->step_x) / 2)
-			/ ray->direction.x;
+		ray->wall_distance = (ray->map_x - ray->cub->player_position.x
+				+ (1 - ray->step_x) / 2) / ray->dir.x;
 	else
-		ray->wall_distance = (ray->map_y - ray->cub->player_position.y + (1 - ray->step_y) / 2)
-			/ ray->direction.y;
-	ray->line_height = (int) (HEIGHT / ray->wall_distance);
+		ray->wall_distance = (ray->map_y - ray->cub->player_position.y
+				+ (1 - ray->step_y) / 2) / ray->dir.y;
+	ray->line_height = (int)(HEIGHT / ray->wall_distance);
 }

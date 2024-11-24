@@ -19,10 +19,10 @@ OBJ_DIR = ./objs/
 SRC = main.c utils.c raycasting.c init.c move_player.c\
 		draw.c rotate.c parsing/parsing.c parsing/color.c\
 		frees.c parsing/map.c parsing/texture.c\
-		parsing/map_walls.c
+		parsing/map_walls.c utils_image.c
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 BONUS_DIR = ./bonus/
-BONUS_SRC = utils.c raycasting.c parsing/color.c draw.c\
+BONUS_SRC = utils.c utils_image.c raycasting.c parsing/color.c draw.c\
 		parsing/map_walls.c init.c move_player.c rotate.c\
 		frees.c parsing/parsing.c parsing/map.c parsing/texture.c\
 		bonus/minimap.c bonus/main_bonus.c bonus/gun.c

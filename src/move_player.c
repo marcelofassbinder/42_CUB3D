@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:54:50 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/18 15:36:11 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:05:14 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	move_player(int key, t_cub *cub)
 {
-	int quadrant;
-	
+	int	quadrant;
+
 	quadrant = check_quadrant(cub->player_angle_rad);
 	if (key == KEY_W)
 		return (move_player_up(cub, quadrant));
@@ -98,7 +98,7 @@ void	move_player_left(t_cub *cub, int quadrant)
 	}
 	if (quadrant == 2)
 	{
-		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
+		new_pos.x += MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
 		new_pos.y -= MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
 	}
 	if (quadrant == 3)
@@ -127,7 +127,7 @@ void	move_player_right(t_cub *cub, int quadrant)
 	}
 	if (quadrant == 2)
 	{
-		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2 );
+		new_pos.x -= MOVE_SPEED * sin(cub->player_angle_rad - PI / 2);
 		new_pos.y += MOVE_SPEED * cos(cub->player_angle_rad - PI / 2);
 	}
 	if (quadrant == 3)
