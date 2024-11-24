@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 16:58:04 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:44:00 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cub *init_cub_struct(void)
 	cub->has_bullet = true;
 	cub->shot = 0;
 	cub->reload = 50;
+	cub->mouse_x = 0;
 	return (cub);
 }
 

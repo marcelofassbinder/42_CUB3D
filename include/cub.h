@@ -11,6 +11,7 @@
 # include <stdbool.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
+# include <X11/X.h>//MotionNotify (mouse movement)
 # include <fcntl.h>//open
 
 #define WIDTH 1240
@@ -116,7 +117,7 @@ typedef struct			s_cub {
 	int					shot;
 	bool				start_game;
 	bool				has_bullet;
-	
+	int					mouse_x;//para o movimento do mouse no bonus
 }						t_cub;
 
 //init.c

@@ -1,7 +1,8 @@
 SRC_DIR = ./src/
-SRC = src/main.c src/utils.c src/raycasting.c src/init.c src/move_player.c src/draw.c src/rotate.c src/parsing/parsing.c\
-		src/parsing/map.c src/parsing/texture.c src/frees.c\
-		src/parsing/color.c src/parsing/map_walls.c
+SRC = src/main.c src/utils.c src/raycasting.c src/init.c src/move_player.c\
+		src/draw.c src/rotate.c src/parsing/parsing.c src/parsing/color.c\
+		src/frees.c src/parsing/map.c src/parsing/texture.c\
+		src/parsing/map_walls.c
 OBJ = $(SRC:.c=.o)
 MLX_FLAGS = -Linclude/minilibx-linux -lmlx -L/usr/lib -Iinclude/minilibx-linux -lXext -lX11 -lm -lz
 LIBFT_LIB = include/libft/libft.a
@@ -10,9 +11,10 @@ GNL_LIB = include/gnl/gnl.a
 GNL_DIR = include/gnl
 MLX_LIB = include/minilibx-linux
 BONUS_DIR = ./bonus/
-BONUS_SRC = bonus/minimap.c bonus/main_bonus.c src/utils.c src/raycasting.c src/init.c src/move_player.c src/draw.c src/rotate.c src/parsing/parsing.c\
-		src/parsing/map.c src/parsing/texture.c src/frees.c\
-		src/parsing/color.c src/parsing/map_walls.c
+BONUS_SRC = bonus/minimap.c bonus/main_bonus.c src/utils.c src/raycasting.c\
+		src/init.c src/move_player.c src/draw.c src/rotate.c src/frees.c\
+		src/parsing/parsing.c src/parsing/map.c src/parsing/texture.c\
+		src/parsing/color.c src/parsing/map_walls.c bonus/gun.c
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 CC = cc
 C_FLAGS = -Wall -Werror -Wextra -g
