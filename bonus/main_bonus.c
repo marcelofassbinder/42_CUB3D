@@ -3,58 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 16:56:51 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:57:33 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_bonus.h"
-
-
-int	handle_mouse(int key, int x, int y, t_cub *cub)
-{
-	(void) x;
-	(void) y;
-	if (key == 1)
-	{
-		if (cub->reload == 50 && cub->has_bullet)
-		{
-			cub->shot = 1;
-			cub->has_bullet = false;
-		}
-	}
-	else if (key == 3)
-	{
-		if (cub->shot == 0 && !cub->has_bullet)
-		{
-			cub->reload = 51;
-			cub->has_bullet = true;
-		}
-	}
-	return (1);
-}
-
-void	init_gun(t_cub *cub)
-{
-	init_image_xpm(cub, &cub->gun[0], "./textures/gun1.xpm");
-	init_image_xpm(cub, &cub->gun[1], "./textures/gun2.xpm");
-	init_image_xpm(cub, &cub->gun[2], "./textures/gun3.xpm");
-	init_image_xpm(cub, &cub->gun[3], "./textures/gun4.xpm");
-	init_image_xpm(cub, &cub->gun[4], "./textures/gun5.xpm");
-	init_image_xpm(cub, &cub->gun[5], "./textures/r1.xpm");
-	init_image_xpm(cub, &cub->gun[6], "./textures/r2.xpm");
-	init_image_xpm(cub, &cub->gun[7], "./textures/r3.xpm");
-	init_image_xpm(cub, &cub->gun[8], "./textures/r4.xpm");
-	init_image_xpm(cub, &cub->gun[9], "./textures/r5.xpm");
-	init_image_xpm(cub, &cub->gun[10], "./textures/r6.xpm");
-	init_image_xpm(cub, &cub->gun[11], "./textures/r7.xpm");
-	init_image_xpm(cub, &cub->gun[12], "./textures/r8.xpm");
-	init_image_xpm(cub, &cub->gun[13], "./textures/r9.xpm");
-	init_image_xpm(cub, &cub->gun[14], "./textures/r10.xpm");
-	//init_image_xpm(cub, &cub->door[0], "./textures/door.xpm");
-}
 
 int main(int argc, char **argv)
 {
@@ -80,7 +36,51 @@ int main(int argc, char **argv)
 	else
 		return (printf("ERROR!\nINVALID INPUT!\n"));
 	mlx_hook(cub->mlx_window, 2, (1L<<0), handle_input, cub);
+	mlx_hook(cub->mlx_window, MotionNotify, PointerMotionMask, handle_mouse_move, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_mouse_hook(cub->mlx_window, handle_mouse, cub);
 	mlx_loop(cub->mlx_ptr);
+}
+
+int	handle_mouse_move(int x, int y, t_cub *cub)
+{
+	(void)y;
+	if (x > cub->mouse_x)
+		cub->rotation++;
+	if (x < cub->mouse_x)
+		cub->rotation--;
+	if (cub->rotation < 0)
+		cub->rotation += 48;
+	if (cub->rotation == 48)
+		cub->rotation = 0;
+	cub->player_angle_rad = cub->rotation * (PI/24);
+	cub->player_dir.x = sin(cub->player_angle_rad);
+	cub->player_dir.y = - cos(cub->player_angle_rad);
+	cub->plane.x = cos(cub->player_angle_rad) * 0.66;
+	cub->plane.y = sin(cub->player_angle_rad) * 0.66;
+	cub->mouse_x = x;
+	return (0);
+}
+
+int	handle_mouse(int key, int x, int y, t_cub *cub)
+{
+	(void) x;
+	(void) y;
+	if (key == 1)
+	{
+		if (cub->reload == 50 && cub->has_bullet)
+		{
+			cub->shot = 1;
+			cub->has_bullet = false;
+		}
+	}
+	else if (key == 3)
+	{
+		if (cub->shot == 0 && !cub->has_bullet)
+		{
+			cub->reload = 51;
+			cub->has_bullet = true;
+		}
+	}
+	return (1);
 }
