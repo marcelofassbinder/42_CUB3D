@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/23 17:05:38 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:09:00 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	map_size_valid_char(char **file, int i)
 				&& file[i][j] != '\n' && file[i][j] != '1'
 				&& file[i][j] != '0' && file[i][j] != 'N'
 				&& file[i][j] != 'S' && file[i][j] != 'E'
-				&& file[i][j] != 'W')
+				&& file[i][j] != 'W' && file[i][j] != 'D')
 				return (0);
 			if (j == 0 && file[i][j] == '\n')
 				save_start++;

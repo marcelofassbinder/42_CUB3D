@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 16:45:06 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:18:10 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ray_casting_bonus(t_cub *cub)
 		while (42)
 		{
 			increment_to_next_intersection(ray);
-			if (cub->map.map_array[ray->map_y][ray->map_x] == WALL)
+			if (cub->map.map_array[ray->map_y][ray->map_x] == WALL || cub->map.map_array[ray->map_y][ray->map_x] == 'D')
 				break ;
 		}
 		calculate_wall_distance(ray);
@@ -101,6 +101,8 @@ int	minimap(t_cub *cub)
 				draw_element_minimap(cub, x, y, 0x48116E);
 			else if (cub->map.map_array[y][x] == '0' || ft_strchr("NSWE", cub->map.map_array[y][x]))
 				draw_element_minimap(cub, x, y, 0xEBE9FC);
+			else if (cub->map.map_array[y][x] == 'D')
+				draw_element_minimap(cub, x, y, 0xFF0000);
 			x++;
 		}
 		y++;

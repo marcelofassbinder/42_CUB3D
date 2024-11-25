@@ -6,13 +6,13 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/18 18:38:51 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:09:00 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-int	init_texture_color(t_cub *cub)
+int	init_texture_color_names(t_cub *cub)
 {
 	int		i;
 	char	**file;
@@ -126,10 +126,6 @@ int	is_valid_colors(t_cub *cub)
 		if (cub->map.c_rgb[i] > 255 || cub->map.f_rgb[i] > 255)
 			return (printf("Error!\nNumber > 255\n"), false);
 	cub->map.c_hex = rgb_to_hex(cub->map.c_rgb);
-	//printf("c_hex -> %x\n", cub->map.c_hex);
-	//printf("c_hex -> %i\n", cub->map.c_hex);
 	cub->map.f_hex = rgb_to_hex(cub->map.f_rgb);
-	//printf("f_hex -> %x\n", cub->map.f_hex);
-	//printf("f_hex -> %i\n", cub->map.f_hex);
 	return (true);
 }
