@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:02:49 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/23 17:28:21 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:04:15 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 {
-	int floor;
-	int ceiling;
+	int	floor;
+	int	ceiling;
 
 	ray->pix_start = (HEIGHT / 2) - (ray->line_height / 2);
 	if (ray->pix_start < 0)
@@ -31,51 +31,64 @@ void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 		my_mlx_pixel_put(&cub->image, ray->id, floor, cub->map.f_hex);
 }
 
+/* @return
+0 -> N
+1 -> E
+2 -> S
+3 -> W
+*/
 int	define_texture_orientation(t_cub *cub, t_ray *ray)
 {
 	if (cub->map.map_array[ray->map_y][ray->map_x] == 'D')
-		return(4);
+		return (4);
 	if (ray->side_colision)
 	{
-		if (ray->direction.x > 0)
-			return (1); // E
+		if (ray->dir.x > 0)
+			return (1);
 		else
-			return (3);// W
+			return (3);
 	}
 	else
 	{
-		if (ray->direction.y < 0)
-			return (0); // N
+		if (ray->dir.y < 0)
+			return (0);
 		else
-			return (2); // S
+			return (2);
 	}
 }
 
+/*
+ wall_x -> the exact point that the wall was hit
+ step -> how much to increase in y axis inside the texture,
+ 	every iteration of the loop
+ tex_y -> the y coordinate in the texture
+ tex_x -> the x coordinate in the texture
+ */
 void	draw_textures(t_cub *cub, t_ray *ray)
 {
-	double	wall_x; // the exact point that wall was hit
-	double	step; // how much to increase in y axis inside the texture, every iteration of the loop 
-	double	tex_y; // the y coordinate in the texture
-	int		tex_x; // the x coordinate in the texture
-	int		tex_color;
-	int		tex_index;
-	
+	t_coordinate	tex;
+	double			wall_x;
+	double			step;
+	int				tex_color;
+	int				tex_index;
+
 	tex_index = define_texture_orientation(cub, ray);
 	if (ray->side_colision)
-		wall_x = cub->player_position.y + (ray->wall_distance * ray->direction.y);
+		wall_x = cub->player_position.y + (ray->wall_distance * ray->dir.y);
 	else
-		wall_x = cub->player_position.x + (ray->wall_distance * ray->direction.x);
+		wall_x = cub->player_position.x + (ray->wall_distance * ray->dir.x);
 	wall_x -= floor(wall_x);
-	tex_x = (int) (wall_x * cub->textures.images[tex_index].width);
-	if ((ray->side_colision && ray->direction.x < 0) || (ray->side_colision == 0 && ray->direction.y > 0))
-		tex_x = cub->textures.images[tex_index].width - tex_x - 1;
+	tex.x = (int)(wall_x * cub->textures.images[tex_index].width);
+	if ((ray->side_colision && ray->dir.x < 0) || (ray->side_colision == 0
+			&& ray->dir.y > 0))
+		tex.x = cub->textures.images[tex_index].width - (int)tex.x - 1;
 	step = 1.0 * cub->textures.images[tex_index].height / ray->line_height;
-	tex_y = (ray->pix_start - HEIGHT / 2 + ray->line_height / 2) * step;
-	while(ray->pix_start < ray->pix_end)
+	tex.y = (ray->pix_start - HEIGHT / 2 + ray->line_height / 2) * step;
+	while (ray->pix_start < ray->pix_end)
 	{
-		tex_color = get_color_from_pixel(&cub->textures.images[tex_index], tex_x, (int)tex_y);
-		my_mlx_pixel_put(&cub->image, ray->id, ray->pix_start, tex_color);
-		tex_y += step;
-		ray->pix_start++;
+		tex_color = get_color_from_pixel(&cub->textures.images[tex_index],
+				(int)tex.x, (int)tex.y);
+		my_mlx_pixel_put(&cub->image, ray->id, ray->pix_start++, tex_color);
+		tex.y += step;
 	}
 }

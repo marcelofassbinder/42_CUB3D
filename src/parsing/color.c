@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:07:20 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/18 15:44:09 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:22:54 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	has_three_numbers(char *str)
  * @brief Checks if a character is a digit, space, or tab.
  *
  * @param c The character to be checked.
- * @return Returns 2048 if the character is a digit, space, or tab. Otherwise, returns 0.
+ * @return Returns 2048 if the character is a digit, space, or tab.
+ * Otherwise, returns 0.
  */
 int	ft_isdigit_space_tab(int c)
 {
@@ -49,7 +50,7 @@ int	ft_isdigit_space_tab(int c)
 
 void	save_rgb(t_cub *cub)
 {
-	char **buf;
+	char	**buf;
 
 	buf = ft_split(cub->map.ceiling, ',');
 	cub->map.c_rgb[0] = ft_atoi(buf[0]);
@@ -60,11 +61,10 @@ void	save_rgb(t_cub *cub)
 	cub->map.f_rgb[0] = ft_atoi(buf[0]);
 	cub->map.f_rgb[1] = ft_atoi(buf[1]);
 	cub->map.f_rgb[2] = ft_atoi(buf[2]);
-	//printf("rgb -> %i %i %i\n", cub->map.c_rgb[0], cub->map.c_rgb[1], cub->map.c_rgb[2]);
 	free_matrix(buf);
 }
 
 int	rgb_to_hex(int rgb[3])
 {
-    return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
