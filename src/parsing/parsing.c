@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/23 15:16:31 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:07:34 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	parsing(t_cub *cub, char *argv)
 	cub->map.file = get_matrix_from_file(cub, argv);
 	if (!cub->map.file)//precisa dessa checagem?
 		return (printf("Error!\nEmpty file\n"));//criar funcao para msg de erro e frees
-	end_infos = init_texture_color(cub);
+	end_infos = init_texture_color_names(cub);
 	if (!is_valid_textures(cub))
 		return (EXIT_FAILURE);//printf("Error!\nInvalid texture\n"));
 	//varificar se tem alguma linha escrita a mais

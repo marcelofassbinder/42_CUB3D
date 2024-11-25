@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:02:49 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/18 19:45:59 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:28:21 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 		my_mlx_pixel_put(&cub->image, ray->id, floor, cub->map.f_hex);
 }
 
-int	define_texture_orientation(t_ray *ray)
+int	define_texture_orientation(t_cub *cub, t_ray *ray)
 {
+	if (cub->map.map_array[ray->map_y][ray->map_x] == 'D')
+		return(4);
 	if (ray->side_colision)
 	{
 		if (ray->direction.x > 0)
@@ -58,7 +60,7 @@ void	draw_textures(t_cub *cub, t_ray *ray)
 	int		tex_color;
 	int		tex_index;
 	
-	tex_index = define_texture_orientation(ray);
+	tex_index = define_texture_orientation(cub, ray);
 	if (ray->side_colision)
 		wall_x = cub->player_position.y + (ray->wall_distance * ray->direction.y);
 	else

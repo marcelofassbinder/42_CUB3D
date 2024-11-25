@@ -90,8 +90,8 @@ typedef struct			s_map {
 
 typedef struct 			s_text {
 
-	char 				*files[4];
-	t_image				images[4];
+	char 				*files[5];
+	t_image				images[5];
 
 }						t_text;
 
@@ -135,7 +135,7 @@ void	calculate_wall_distance(t_ray *ray);
 
 //draw.c
 void	draw_floor_ceiling(t_cub *cub, t_ray *ray);
-int		define_texture_orientation(t_ray *ray);
+int		define_texture_orientation(t_cub *cub, t_ray *ray);
 void	draw_textures(t_cub *cub, t_ray *ray);
 
 //move_player.c
@@ -169,7 +169,7 @@ int		count_lines(char *file);
 int		find_player_position(t_cub *cub);
 
 //parsing/texture.c
-int		init_texture_color(t_cub *cub);
+int		init_texture_color_names(t_cub *cub);
 char	*get_info(char *file, int flag);
 int		is_valid_textures(t_cub *cub);
 int		duplicate_texture_or_color(t_cub *cub);
