@@ -6,10 +6,9 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 09:49:08 by ismirand          #+#    #+#             */
-/*   Updated: 2024/10/28 14:15:00 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:28:20 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H

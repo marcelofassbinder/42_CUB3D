@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/23 17:09:00 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:46:21 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	init_texture_color_names(t_cub *cub)
 			cub->map.floor = get_info(file[i], 1);
 		else if (ft_strstr(file[i], "C ") && !cub->map.ceiling)
 			cub->map.ceiling = get_info(file[i], 1);
-		if (cub->textures.files[0] && cub->textures.files[1] &&
-				cub->textures.files[2] && cub->textures.files[3] &&
-					cub->map.floor && cub->map.ceiling)
+		if (cub->textures.files[0] && cub->textures.files[1]
+			&& cub->textures.files[2] && cub->textures.files[3]
+			&& cub->map.floor && cub->map.ceiling)
 			return (++i);
 	}
 	return (0);
@@ -45,11 +45,10 @@ char	*get_info(char *file, int flag)
 {
 	int		i;
 	char	*buf;
-	
+
 	i = 0;
 	while (file[i] == ' ' || file[i] == '\t')
 		i++;
-	//tem que analisar os casos de como pode vir escrito
 	i += flag;
 	buf = ft_strtrim(&file[i], " \n\t");
 	return (buf);
@@ -58,16 +57,12 @@ char	*get_info(char *file, int flag)
 int	is_valid_textures(t_cub *cub)
 {
 	int	fd;
-	
+
 	if (duplicate_texture_or_color(cub))
-	{
-		printf("Error!\nDuplicate texture or color\n");
-		return (false);
-	}
-	
+		return (error_message("Duplicate texture or color"), false);
 	if (!cub->textures.files[0] || !cub->textures.files[1]
 		|| !cub->textures.files[2] || !cub->textures.files[3])
-		return (printf("Error!\nMissing texture\n"), false);
+		return (error_message("Missing texture"), false);
 	fd = open(cub->textures.files[0], O_RDONLY);
 	if (fd < 0)
 		return (false);
@@ -100,11 +95,11 @@ int	duplicate_texture_or_color(t_cub *cub)
 			j = i;
 			while (file[++j])
 				if ((ft_strstr(file[i], "NO ") && ft_strstr(file[j], "NO "))
-				|| (ft_strstr(file[i], "SO ") && ft_strstr(file[j], "SO "))
-				|| (ft_strstr(file[i], "EA ") && ft_strstr(file[j], "EA "))
-				|| (ft_strstr(file[i], "WE ") && ft_strstr(file[j], "WE "))
-				|| (ft_strstr(file[i], "F ") && ft_strstr(file[j], "F "))
-				|| (ft_strstr(file[i], "C ") && ft_strstr(file[j], "C ")))
+					|| (ft_strstr(file[i], "SO ") && ft_strstr(file[j], "SO "))
+					|| (ft_strstr(file[i], "EA ") && ft_strstr(file[j], "EA "))
+					|| (ft_strstr(file[i], "WE ") && ft_strstr(file[j], "WE "))
+					|| (ft_strstr(file[i], "F ") && ft_strstr(file[j], "F "))
+					|| (ft_strstr(file[i], "C ") && ft_strstr(file[j], "C ")))
 					return (true);
 		}
 	}
@@ -117,14 +112,14 @@ int	is_valid_colors(t_cub *cub)
 
 	i = -1;
 	if (!cub->map.ceiling || !cub->map.floor)
-		return (printf("Error!\nMissing color\n"), false);
+		return (error_message("Missing color"), false);
 	if (!has_three_numbers(cub->map.ceiling)
 		|| !has_three_numbers(cub->map.floor))
-		return (printf("Error!\nInvalid color\n"), false);
+		return (error_message("Invalid color"), false);
 	save_rgb(cub);
 	while (++i <= 2)
 		if (cub->map.c_rgb[i] > 255 || cub->map.f_rgb[i] > 255)
-			return (printf("Error!\nNumber > 255\n"), false);
+			return (error_message("Number > 255"), false);
 	cub->map.c_hex = rgb_to_hex(cub->map.c_rgb);
 	cub->map.f_hex = rgb_to_hex(cub->map.f_rgb);
 	return (true);

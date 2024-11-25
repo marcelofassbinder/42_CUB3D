@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/23 17:09:00 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:46:21 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,24 @@ char	**extract_map(t_cub *cub, char **file, int y)
 	line_size = find_biggest_line(file);
 	map = ft_calloc(sizeof(char *), size + 1);
 	if (!map)
-		return (error_message("Malloc failed in map struct!"), panic(cub), NULL);
+		return (error_message("Malloc fail in map struct!"), panic(cub), NULL);
 	size = 0;
 	while (empty_line(file[y]))
 		y++;
 	while (file[y])
 	{
-		if (empty_line(file[y])/*  && file[y + 1] && !empty_line(file[y + 1]) */)
+		if (empty_line(file[y]))
 			return (printf("Error\nEmpty line on map\n"), NULL);
 		map[size] = get_map_line(file[y], line_size);
 		size++;
 		y++;
-		//printf("%s\n", map[size - 1]);
 	}
 	return (map);
 }
 
 //copies the line from the file to the map, taking out the '\n' in the end and
 //adding spaces as needed to fit the line size
-char *get_map_line(char *file, int size)
+char	*get_map_line(char *file, int size)
 {
 	char	*line;
 	int		i;
@@ -95,7 +94,7 @@ int	map_size_valid_char(char **file, int i)
 	while (file[++i])
 	{
 		j = -1;
-		while(file[i][++j])
+		while (file[i][++j])
 		{
 			if (file[i][j] != ' ' && file[i][j] != '\t'
 				&& file[i][j] != '\n' && file[i][j] != '1'
