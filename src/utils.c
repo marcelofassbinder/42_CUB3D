@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 20:27:42 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:50:42 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,33 @@ void	error_message(char *str)
 	write(STDERR_FILENO, "\n", 1);
 }
 
+/* char	next_position_char(t_cub *cub)
+{
+	int quadrant;
+
+	quadrant = check_quadrant(cub->player_angle_rad);
+	
+} */
+
 int	handle_input(int key, t_cub *cub)
 {
-	if (!cub->start_game && key == SPACE)
-		cub->start_game = true;
-	if (key == ESC)
+	if (key == SPACE)
 	{
-		panic(cub);
-		exit(0);
+		if (!cub->start_game)
+			cub->start_game = true;
+		else
+		{
+			if (!cub->door_is_open)
+				cub->door_is_open = true;
+			else
+				cub->door_is_open = false;
+		}
 	}
-	else if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
+	if (key == ESC)
+		close_window(cub);
+	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
 		move_player(key, cub);
-	else if (key == ARROW_LEFT || key == ARROW_RIGHT)
+	if (key == ARROW_LEFT || key == ARROW_RIGHT)
 		rotate_player(key, cub);
 	return (1);
 }

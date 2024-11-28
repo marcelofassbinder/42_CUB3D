@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/25 20:42:53 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:32:15 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ int	ray_casting_bonus(t_cub *cub)
 	ray_id = -1;
 	if (!cub->start_game)
 		return (0);
-	mlx_mouse_move(cub->mlx_ptr, cub->mlx_win, WIDTH / 2, \
-	HEIGHT / 2);
+	if (cub->fixed_mouse_center == true)
+		mlx_mouse_move(cub->mlx_ptr, cub->mlx_win, WIDTH / 2, \
+			HEIGHT / 2);
 	while (++ray_id < WIDTH)
 	{
 		ray = calculate_ray(cub, ray_id);
 		while (42)
 		{
 			increment_to_next_intersection(ray);
-			if (cub->map.map_array[ray->map_y][ray->map_x] == WALL || cub->map.map_array[ray->map_y][ray->map_x] == 'D')
+			if (cub->map.map_array[ray->map_y][ray->map_x] == WALL || (cub->map.map_array[ray->map_y][ray->map_x] == 'D' && !cub->door_is_open))
 				break ;
 		}
 		calculate_wall_distance(ray);

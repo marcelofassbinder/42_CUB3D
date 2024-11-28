@@ -64,7 +64,7 @@ $(MLX_DIR):
 $(OBJ_DIR)%.o: $(BONUS_DIR)%.c
 	@$(CC) $(C_FLAGS) -c $< -o $@
 
-$(NAME_BONUS) : $(BONUS_OBJ) $(LIBFT_LIB) $(GNL_LIB)
+$(NAME_BONUS) : $(MLX) $(BONUS_OBJ) $(LIBFT_LIB) $(GNL_LIB) 
 	@echo "$(CYAN)[!]$(RESET) Working on bonus ... "
 	@$(CC) $(C_FLAGS) $(BONUS_OBJ) $(LIBFT_LIB) $(GNL_LIB) $(MLX_FLAGS) -o $(NAME_BONUS) > /dev/null 2>&1
 	@echo "$(GREEN)[✔] CUB3D bonus ready!$(RESET)"
