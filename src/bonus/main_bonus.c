@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/25 19:50:17 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:31:44 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	main(int argc, char **argv)
 	cub = init_cub_struct();
 	cub->map.fd = open(argv[1], O_RDONLY);
 	if (cub->map.fd < 0)
-	{
-		free(cub);
-		return (printf("ERROR!\nfd < 0!\n"));
-	}
+		return (error_message("Invalid file!"), panic(cub), 1);
 	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map.fd > 0)
 	{
 		if (parsing(cub, argv[1]))
@@ -33,8 +30,9 @@ int	main(int argc, char **argv)
 		draw_initial_image(cub);
 	}
 	else
-		return (printf("ERROR!\nINVALID INPUT!\n"));
-	mlx_hook(cub->mlx_win, 2, (1L << 0), handle_input, cub);
+		return (error_message("Invalid input!"), panic(cub), 1);
+	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input, cub);
+	mlx_hook(cub->mlx_win, 17, 1L << 2, close_window, cub);
 	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_mouse_hook(cub->mlx_win, handle_mouse, cub);
@@ -76,6 +74,13 @@ int	handle_mouse(int key, int x, int y, t_cub *cub)
 			cub->reload = 41;
 			cub->has_bullet = true;
 		}
+	}
+	else if (key == 2)
+	{
+		if (cub->fixed_mouse_center == true)
+			cub->fixed_mouse_center = false;
+		else
+			cub->fixed_mouse_center = true;
 	}
 	return (1);
 }

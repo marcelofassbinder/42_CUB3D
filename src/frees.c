@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:35:17 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/24 20:01:35 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:10:35 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,14 @@ void	free_textures(t_cub *cub)
 		if (cub->textures.images[i].img)
 			mlx_destroy_image(cub->mlx_ptr, cub->textures.images[i].img);
 	}
+	if (cub->textures.images[4].img)
+		mlx_destroy_image(cub->mlx_ptr, cub->textures.images[4].img);
+}
+
+int close_window(t_cub *cub)
+{
+	printf("You closed the window.\n");
+	printf("Thanks for playing!.\n");
+	panic(cub);
+	return (0);
 }

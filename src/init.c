@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/25 20:26:13 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:49:48 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_cub	*init_cub_struct(void)
 	cub->reload = 40;
 	cub->mouse_x = WIDTH / 2;
 	cub->walk = 0;
+	cub->fixed_mouse_center = true;
+	cub->door_is_open = false;
 	return (cub);
 }
 
@@ -99,5 +101,5 @@ void	init_textures(t_cub *cub)
 	i = -1;
 	while (++i < 4)
 		init_image_xpm(cub, &cub->textures.images[i], cub->textures.files[i]);
-	init_image_xpm(cub, &cub->textures.images[4], "./textures/door.xpm");
+	init_image_xpm(cub, &cub->textures.images[4], "./textures/door_half.xpm");
 }

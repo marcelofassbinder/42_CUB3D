@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:28:57 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/25 20:40:55 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:31:47 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define SPACE XK_space
 
 # define WALL '1'
+# define DOOR 'D'
 # define MOVE_SPEED 0.1111111
 # define ROTATION_SPEED 0.25
 
@@ -123,10 +124,13 @@ typedef struct s_cub
 	int				minmap_square;
 	int				reload;
 	int				shot;
-	bool			start_game;
-	bool			has_bullet;
 	int				mouse_x;
 	int				walk;
+	bool			start_game;
+	bool			has_bullet;
+	bool			fixed_mouse_center;
+	bool			door_is_open;
+
 }	t_cub;
 
 //init.c
@@ -214,5 +218,8 @@ void			free_map_struct(t_map *map);
 void			free_gun(t_cub *cub);
 void			panic(t_cub *cub);
 void			free_textures(t_cub *cub);
+
+int 			close_window(t_cub *cub);
+
 
 #endif
