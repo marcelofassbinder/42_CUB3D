@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/25 15:46:21 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:35:05 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ char	**extract_map(t_cub *cub, char **file, int y)
 
 	size = map_size_valid_char(file, y);
 	if (!size)
-		return (printf("Error\nInvalid character in map\n"), NULL);
+		return (panic(cub, "Invalid character in map"), NULL);
 	cub->map.map_height = size;
 	line_size = find_biggest_line(file);
 	map = ft_calloc(sizeof(char *), size + 1);
 	if (!map)
-		return (error_message("Malloc fail in map struct!"), panic(cub), NULL);
+		return (panic(cub, "Malloc fail in map struct!"), NULL);
 	size = 0;
 	while (empty_line(file[y]))
 		y++;
 	while (file[y])
 	{
 		if (empty_line(file[y]))
-			return (printf("Error\nEmpty line on map\n"), NULL);
+			return (free_matrix(map), panic(cub, "Empty line on map"), NULL);
 		map[size] = get_map_line(file[y], line_size);
 		size++;
 		y++;

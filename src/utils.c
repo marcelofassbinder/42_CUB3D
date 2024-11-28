@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 18:50:42 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:29:23 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
-
-void	error_message(char *str)
-{
-	write(STDERR_FILENO, "Error!\n", 7);
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, "\n", 1);
-}
 
 /* char	next_position_char(t_cub *cub)
 {
@@ -94,4 +87,12 @@ char	*ft_strstr(char *str, char *to_find)
 		i++;
 	}
 	return (NULL);
+}
+
+int close_window(t_cub *cub)
+{
+	printf("You closed the window.\n");
+	printf("Thanks for playing!\n");
+	panic(cub, NULL);
+	return (0);
 }

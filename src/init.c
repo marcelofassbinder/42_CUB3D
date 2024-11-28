@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 18:49:48 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:23:04 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cub	*init_cub_struct(void)
 
 	cub = ft_calloc(sizeof(t_cub), 1);
 	if (!cub)
-		return (error_message("Malloc fail in cub struct!"), panic(cub), NULL);
+		return (panic(cub, "Malloc fail in init cub struct!"), NULL);
 	cub->map.cub = cub;
 	cub->start_game = false;
 	cub->has_bullet = true;
@@ -35,10 +35,10 @@ void	init_mlx(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
-		return (error_message("MLX connection failed!"), panic(cub));
+		return (panic(cub, "MLX connection failed!"));
 	cub->mlx_win = mlx_new_window(cub->mlx_ptr, WIDTH, HEIGHT, "cub3D");
 	if (!cub->mlx_win)
-		return (error_message("MLX window creation failed!"), panic(cub));
+		return (panic(cub, "MLX window creation failed!"));
 	init_new_image(cub, &cub->image, WIDTH, HEIGHT);
 }
 

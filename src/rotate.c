@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:58:47 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 18:31:44 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:39:14 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	change_player_position(t_coordinate *new_pos, t_cub *cub)
 
 void	walk_move(t_cub *cub)
 {
-	static int old_walk = 5;
+	static int	old_walk = 5;
 
 	if (cub->walk <= old_walk && cub->walk <= 5)
 		cub->walk ++;
