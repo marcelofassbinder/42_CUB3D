@@ -6,13 +6,13 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 19:14:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/24 19:32:57 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:47:46 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub.h"
 
-int	closed_by_walls(t_cub *cub, char **map)
+void	closed_by_walls(t_cub *cub, char **map)
 {
 	int	y;
 	int	x;
@@ -28,16 +28,16 @@ int	closed_by_walls(t_cub *cub, char **map)
 			if ((map[y][x] == ' ' || map[y][x] == '\t')
 				&& (!find_wall_up_down(cub, map, y, x)
 				|| !find_wall_horizontaly(map, y, x)))
-				return (false);
+				return (panic (cub, "Map not closed by walls"));
 			else if (((y == 0 || y == cub->map.map_height - 1)
 					&& (map[y][x] != '1' && map[y][x] != ' '
 				&& map[y][x] != '\t')) || ((x == 0
 				|| x == ft_strlen(map[y]) - 1) && (map[y][x] != '1'
 				&& map[y][x] != ' ' && map[y][x] != '\t')))
-				return (printf("Error\nMap not closed by walls\n"), false);
+				return (panic(cub, "Map not closed by walls"));
 		}
 	}
-	return (true);
+	return ;
 }
 
 int	find_wall_horizontaly(char **map, int y, int x)
@@ -52,7 +52,7 @@ int	find_wall_horizontaly(char **map, int y, int x)
 		else if (map[y][x] == '1')
 			break ;
 		else
-			return (printf("Error\nMap not closed by walls\n"), false);
+			return (false);
 	}
 	x = initial_x;
 	while (x >= 0 && map[y][x])
@@ -62,7 +62,7 @@ int	find_wall_horizontaly(char **map, int y, int x)
 		else if (map[y][x] == '1')
 			return (true);
 		else
-			return (printf("Error\nMap not closed by walls\n"), false);
+			return (false);
 	}
 	return (true);
 }
@@ -79,7 +79,7 @@ int	find_wall_up_down(t_cub *cub, char **map, int y, int x)
 		else if (map[y][x] == '1')
 			break ;
 		else
-			return (printf("Error\nMap not closed by walls\n"), false);
+			return (false);
 	}
 	y = initial_y;
 	while (y >= 0 && map[y][x])
@@ -89,7 +89,7 @@ int	find_wall_up_down(t_cub *cub, char **map, int y, int x)
 		else if (map[y][x] == '1')
 			return (true);
 		else
-			return (printf("Error\nMap not closed by walls\n"), false);
+			return (false);
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 19:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/24 20:26:38 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:24:31 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_image_xpm(t_cub *cub, t_image *i, char *path)
 {
 	i->img = mlx_xpm_file_to_image(cub->mlx_ptr, path, &i->width, &i->height);
 	if (!i->img)
-		return (error_message("Image creation failed!"), panic(cub));
+		return (panic(cub, "Image creation failed!"));
 	i->addr = mlx_get_data_addr(i->img, &i->bits_per_pixel,
 			&i->line_len, &i->endian);
 }
@@ -49,7 +49,7 @@ void	init_new_image(t_cub *cub, t_image *image, int width, int height)
 {
 	image->img = mlx_new_image(cub->mlx_ptr, width, height);
 	if (!image->img)
-		return (error_message("Image creation failed!"), panic(cub));
+		return (panic(cub, "Image creation failed!"));
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 			&image->line_len, &image->endian);
 	image->width = width;

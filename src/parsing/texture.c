@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:28:47 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/25 15:46:21 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:14:12 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,30 @@ char	*get_info(char *file, int flag)
 	return (buf);
 }
 
-int	is_valid_textures(t_cub *cub)
+void	is_valid_textures(t_cub *cub)
 {
 	int	fd;
 
-	if (duplicate_texture_or_color(cub))
-		return (error_message("Duplicate texture or color"), false);
+	duplicate_texture_or_color(cub);
 	if (!cub->textures.files[0] || !cub->textures.files[1]
 		|| !cub->textures.files[2] || !cub->textures.files[3])
-		return (error_message("Missing texture"), false);
+		return (panic(cub, "Missing texture"));
 	fd = open(cub->textures.files[0], O_RDONLY);
 	if (fd < 0)
-		return (false);
+		return (panic(cub, "North texture not valid"));
 	fd = open(cub->textures.files[1], O_RDONLY);
 	if (fd < 0)
-		return (false);
+		return (panic(cub, "East texture not valid"));
 	fd = open(cub->textures.files[2], O_RDONLY);
 	if (fd < 0)
-		return (false);
+		return (panic(cub, "South texture not valid"));
 	fd = open(cub->textures.files[3], O_RDONLY);
 	if (fd < 0)
-		return (false);
-	return (true);
+		return (panic(cub, "West texture not valid"));
+	return ;
 }
 
-int	duplicate_texture_or_color(t_cub *cub)
+void	duplicate_texture_or_color(t_cub *cub)
 {
 	char	**file;
 	int		i;
@@ -100,27 +99,27 @@ int	duplicate_texture_or_color(t_cub *cub)
 					|| (ft_strstr(file[i], "WE ") && ft_strstr(file[j], "WE "))
 					|| (ft_strstr(file[i], "F ") && ft_strstr(file[j], "F "))
 					|| (ft_strstr(file[i], "C ") && ft_strstr(file[j], "C ")))
-					return (true);
+					return (panic(cub, "Duplicate texture or color"));
 		}
 	}
-	return (false);
+	return ;
 }
 
-int	is_valid_colors(t_cub *cub)
+void	is_valid_colors(t_cub *cub)
 {
 	int	i;
 
 	i = -1;
 	if (!cub->map.ceiling || !cub->map.floor)
-		return (error_message("Missing color"), false);
+		return (panic(cub, "Missing color"));
 	if (!has_three_numbers(cub->map.ceiling)
 		|| !has_three_numbers(cub->map.floor))
-		return (error_message("Invalid color"), false);
+		return (panic(cub, "Invalid color"));
 	save_rgb(cub);
 	while (++i <= 2)
 		if (cub->map.c_rgb[i] > 255 || cub->map.f_rgb[i] > 255)
-			return (error_message("Number > 255"), false);
+			return (panic(cub, "Number > 255"));
 	cub->map.c_hex = rgb_to_hex(cub->map.c_rgb);
 	cub->map.f_hex = rgb_to_hex(cub->map.f_rgb);
-	return (true);
+	return ;
 }

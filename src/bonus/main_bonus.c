@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 18:31:44 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:10:35 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,16 @@ int	main(int argc, char **argv)
 	t_cub	*cub;
 
 	cub = init_cub_struct();
-	cub->map.fd = open(argv[1], O_RDONLY);
-	if (cub->map.fd < 0)
-		return (error_message("Invalid file!"), panic(cub), 1);
-	if (argc == 2 && find_extension(argv[1], ".cub") && cub->map.fd > 0)
+	if (argc == 2 && find_extension(argv[1], ".cub"))
 	{
-		if (parsing(cub, argv[1]))
-			return (EXIT_FAILURE);
+		parsing(cub, argv[1]);
 		init_mlx(cub);
 		init_textures(cub);
 		init_gun(cub);
 		draw_initial_image(cub);
 	}
 	else
-		return (error_message("Invalid input!"), panic(cub), 1);
+		return (panic(cub, "Invalid input!"), EXIT_FAILURE);
 	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input, cub);
 	mlx_hook(cub->mlx_win, 17, 1L << 2, close_window, cub);
 	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, cub);

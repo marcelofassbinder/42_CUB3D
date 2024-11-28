@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 20:55:37 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 20:15:36 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:24:03 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_ray	*calculate_ray(t_cub *cub, int ray_id)
 
 	ray = ft_calloc(sizeof(t_ray), 1);
 	if (!ray)
-		return (error_message("Malloc failed in ray struct"), panic(cub), NULL);
+		return (panic(cub, "Malloc failed in ray struct"), NULL);
 	ray->cub = cub;
 	ray->id = ray_id;
 	ray->camera_x = 2 * (ray->id / (double)WIDTH) - 1;

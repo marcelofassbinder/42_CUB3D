@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:35:17 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 18:10:35 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:29:09 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_gun(t_cub *cub)
 	}
 }
 
-void	panic(t_cub *cub)
+void	panic(t_cub *cub, char *str)
 {
 	if (!cub)
 		exit(EXIT_FAILURE);
@@ -65,6 +65,12 @@ void	panic(t_cub *cub)
 		free(cub->mlx_ptr);
 	}
 	free(cub);
+	if (str)
+	{
+		write(STDERR_FILENO, "Error!\n", 7);
+		write(STDERR_FILENO, str, ft_strlen(str));
+		write(STDERR_FILENO, "\n", 1);
+	}
 	exit(EXIT_FAILURE);
 }
 
@@ -82,12 +88,4 @@ void	free_textures(t_cub *cub)
 	}
 	if (cub->textures.images[4].img)
 		mlx_destroy_image(cub->mlx_ptr, cub->textures.images[4].img);
-}
-
-int close_window(t_cub *cub)
-{
-	printf("You closed the window.\n");
-	printf("Thanks for playing!.\n");
-	panic(cub);
-	return (0);
 }

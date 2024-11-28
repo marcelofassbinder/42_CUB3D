@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:28:57 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 18:31:47 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:29:58 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,9 @@ void			increment_to_next_intersection(t_ray *ray);
 void			calculate_wall_distance(t_ray *ray);
 
 //draw.c
-void	draw_floor_ceiling(t_cub *cub, t_ray *ray);
-int		define_texture_orientation(t_cub *cub, t_ray *ray);
-void	draw_textures(t_cub *cub, t_ray *ray);
+void			draw_floor_ceiling(t_cub *cub, t_ray *ray);
+int				define_texture_orientation(t_cub *cub, t_ray *ray);
+void			draw_textures(t_cub *cub, t_ray *ray);
 
 //move_player.c
 void			move_player(int key, t_cub *cub);
@@ -166,11 +166,11 @@ void			change_player_position(t_coordinate *new_pos, t_cub *cub);
 void			walk_move(t_cub *cub);
 
 //utils.c
-void			error_message(char *str);
 int				handle_input(int key, t_cub *cub);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 unsigned int	get_color_from_pixel(t_image *img, int x, int y);
 char			*ft_strstr(char *str, char *to_find);
+int 			close_window(t_cub *cub);
 
 //utils_image.c
 void			resize_image(t_image *src, t_image *dst, int new_width,
@@ -182,17 +182,17 @@ void			draw_initial_image(t_cub *cub);
 
 //parsing/parsing.c
 int				find_extension(char *map, char *ext);
-int				parsing(t_cub *cub, char *argv);
+void			parsing(t_cub *cub, char *argv);
 char			**get_matrix_from_file(t_cub *cub, char *file);
 int				count_lines(char *file);
-int				find_player_position(t_cub *cub);
+void			find_player_position(t_cub *cub);
 
 //parsing/texture.c
-int		init_texture_color_names(t_cub *cub);
-char	*get_info(char *file, int flag);
-int		is_valid_textures(t_cub *cub);
-int		duplicate_texture_or_color(t_cub *cub);
-int		is_valid_colors(t_cub *cub);
+int				init_texture_color_names(t_cub *cub);
+char			*get_info(char *file, int flag);
+void			is_valid_textures(t_cub *cub);
+void			duplicate_texture_or_color(t_cub *cub);
+void			is_valid_colors(t_cub *cub);
 
 //parsing/color.c
 int				has_three_numbers(char *str);
@@ -208,7 +208,7 @@ int				empty_line(char *line);
 int				map_size_valid_char(char **file, int i);
 
 //parsing/map_walls.c
-int				closed_by_walls(t_cub *cub, char **map);
+void			closed_by_walls(t_cub *cub, char **map);
 int				find_wall_horizontaly(char **map, int y, int x);
 int				find_wall_up_down(t_cub *cub, char **map, int y, int x);
 
@@ -216,10 +216,7 @@ int				find_wall_up_down(t_cub *cub, char **map, int y, int x);
 void			free_matrix(char **matrix);
 void			free_map_struct(t_map *map);
 void			free_gun(t_cub *cub);
-void			panic(t_cub *cub);
+void			panic(t_cub *cub, char *str);
 void			free_textures(t_cub *cub);
-
-int 			close_window(t_cub *cub);
-
 
 #endif
