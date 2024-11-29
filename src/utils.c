@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 18:50:42 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:59:47 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,74 @@ void	error_message(char *str)
 	write(STDERR_FILENO, "\n", 1);
 }
 
-/* char	next_position_char(t_cub *cub)
+char	next_position_char(t_cub *cub)
 {
-	int quadrant;
+	int 			quadrant;
+	char 			c;
+	t_coordinate	player;
 
+	player = cub->player_position;
 	quadrant = check_quadrant(cub->player_angle_rad);
-	
-} */
+	c = 0;
+	if (quadrant == 1)
+	{
+		if (player.x > player.y)
+		{
+			if (cub->map.map_array[(int)player.y][(int)player.x + 1])
+				c = cub->map.map_array[(int)player.y][(int)player.x + 1];
+		}
+		else if (player.x <= player.y)
+			if (cub->map.map_array[(int)player.y - 1][(int)player.x])
+				c = cub->map.map_array[(int)player.y - 1][(int)player.x];
+	}
+	else if (quadrant == 2)
+	{
+		if (player.x > player.y)
+		{
+			if (cub->map.map_array[(int)player.y][(int)player.x + 1])
+				c = cub->map.map_array[(int)player.y][(int)player.x + 1];
+		}
+		else if (player.x <= player.y)
+			if (cub->map.map_array[(int)player.y + 1][(int)player.x])
+				c = cub->map.map_array[(int)player.y + 1][(int)player.x];
+	}
+	else if (quadrant == 3)
+	{
+		if (player.x < player.y)
+		{
+			if (cub->map.map_array[(int)player.y][(int)player.x - 1])
+				c = cub->map.map_array[(int)player.y][(int)player.x - 1];
+		}
+		else if (player.x >= player.y)
+			if (cub->map.map_array[(int)player.y + 1][(int)player.x])
+				c = cub->map.map_array[(int)player.y + 1][(int)player.x];
+	}
+	else if (quadrant == 4)
+	{
+		if (player.x < player.y)
+		{
+			if (cub->map.map_array[(int)player.y][(int)player.x - 1])
+				c = cub->map.map_array[(int)player.y][(int)player.x - 1];
+		}
+		else if (player.x >= player.y)
+			if (cub->map.map_array[(int)player.y - 1][(int)player.x])
+				c = cub->map.map_array[(int)player.y - 1][(int)player.x];
+	}
+	return (c);
+}
 
 int	handle_input(int key, t_cub *cub)
 {
 	if (key == SPACE)
 	{
+		printf("next char is %c\n", next_position_char(cub));
 		if (!cub->start_game)
 			cub->start_game = true;
 		else
 		{
-			if (!cub->door_is_open)
+			if (!cub->door_is_open && next_position_char(cub) == DOOR)
 				cub->door_is_open = true;
-			else
+			else if (cub->door_is_open && next_position_char(cub) == DOOR)
 				cub->door_is_open = false;
 		}
 	}
