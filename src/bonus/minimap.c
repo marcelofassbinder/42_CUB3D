@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/30 16:17:13 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:55:20 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	minimap(t_cub *cub)
 		x = -1;
 		while (++x < ft_strlen(cub->map.map_array[y]))
 		{
-			if (cub->map.map_array[y][x] == '1')
+			if (cub->map.map_array[y][x] == WALL)
 				draw_element_minimap(cub, x, y, 0x48116E);
-			else if (cub->map.map_array[y][x] == '0'
+			else if (cub->map.map_array[y][x] == FLOOR
 				|| ft_strchr("NSWE", cub->map.map_array[y][x]))
 				draw_element_minimap(cub, x, y, 0xEBE9FC);
 			else if (cub->map.map_array[y][x] == C_DOOR)
@@ -111,8 +111,8 @@ void	draw_one_ray_minimap(t_cub *cub, t_coordinate *ray_vector)
 	{
 		ray.x = (cub->player_position.x + (i * ray_vector->x));
 		ray.y = (cub->player_position.y + (i * ray_vector->y));
-		if (cub->map.map_array[(int)ray.y][(int)ray.x] != '0'
-			&& cub->map.map_array[(int)ray.y][(int)ray.x] != 'd'
+		if (cub->map.map_array[(int)ray.y][(int)ray.x] != FLOOR
+			&& cub->map.map_array[(int)ray.y][(int)ray.x] != O_DOOR
 			&& cub->map.map_array[(int)ray.y][(int)ray.x] != cub->player_char)
 			break ;
 		my_mlx_pixel_put(&cub->image, (ray.x * cub->minmap_square),

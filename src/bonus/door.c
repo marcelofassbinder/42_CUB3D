@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:57:34 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:38:05 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:50:18 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub.h"
+#include "../../include/cub_bonus.h"
 
 bool	is_door(int y, int x, t_cub *cub)
 {
 	char	**map;
 
 	map = cub->map.map_array;
-	if (map[y][x] && (map[y][x] == C_DOOR
-		|| map[y][x] == O_DOOR))
+	if (map[y][x] && (map[y][x] == C_DOOR || map[y][x] == O_DOOR))
 		return (true);
 	return (false);
 }
 
-t_coordinate	is_close_to_door(t_cub *cub)
+t_coordinate	door_position(t_cub *cub)
 {
 	t_coordinate	pos;
 	char			**map;
@@ -54,13 +53,13 @@ int	handle_input_bonus(int key, t_cub *cub)
 {
 	t_coordinate	pos;
 
-	pos = is_close_to_door(cub);
+	pos = door_position(cub);
 	if (key == SPACE)
 	{
 		if (!cub->start_game)
 			cub->start_game = true;
 		else if (cub->start_game && pos.x != 0 && pos.y != 0)
-		{	
+		{
 			if (cub->map.map_array[(int)pos.y][(int)pos.x] == O_DOOR)
 				cub->map.map_array[(int)pos.y][(int)pos.x] = C_DOOR;
 			else

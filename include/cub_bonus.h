@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:40:06 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:34:25 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:54:52 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define CUB_BONUS_H
 
 # include "cub.h"
+
+# define LEFT_CLICK 1
+# define RIGHT_CLICK 3
+# define SCROLL 2
 
 //bonus/minimap.c
 int				minimap(t_cub *cub);
@@ -33,7 +37,7 @@ void			ray_casting_loop(t_cub *cub);
 
 //bonus/door.c
 bool			is_door(int y, int x, t_cub *cub);
-t_coordinate	is_close_to_door(t_cub *cub);
+t_coordinate	door_position(t_cub *cub);
 int				handle_input_bonus(int key, t_cub *cub);
 
 //bonus/mouse.c

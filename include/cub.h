@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:28:57 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:18:04 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:53:55 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@
 # define ESC XK_Escape
 # define SPACE XK_space
 
+// MAP DEFINES
 # define WALL '1'
+# define FLOOR '0'
 # define O_DOOR 'd'
 # define C_DOOR 'D'
+
+// PLAYER MOVEMENT DEFINES
 # define MOVE_SPEED 0.1111111
 # define ROTATION_SPEED 0.25
 
@@ -119,7 +123,6 @@ typedef struct s_cub
 	t_image			image;
 	t_image			initial;
 	t_image			gun[15];
-	//t_image			door[5];
 	t_text			textures;
 	int				rotation;
 	int				minmap_square;
@@ -127,6 +130,7 @@ typedef struct s_cub
 	int				shot;
 	int				mouse_x;
 	int				walk;
+	bool			is_bonus;
 	bool			start_game;
 	bool			has_bullet;
 	bool			fixed_mouse_center;
@@ -205,7 +209,7 @@ char			**extract_map(t_cub *cub, char **file, int y);
 char			*get_map_line(char *file, int size);
 int				find_biggest_line(char **map);
 int				empty_line(char *line);
-int				map_size_valid_char(char **file, int i);
+int				map_size_valid_char(char **file, int i, bool is_bonus);
 
 //parsing/map_walls.c
 void			closed_by_walls(t_cub *cub, char **map);

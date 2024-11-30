@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:01:09 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:02:52 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:49:43 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	handle_mouse(int key, int x, int y, t_cub *cub)
 {
 	(void) x;
 	(void) y;
-	if (key == 1 && cub->reload == 40 && cub->has_bullet)
+	if (key == LEFT_CLICK && cub->reload == 40 && cub->has_bullet)
 	{
 		cub->shot = 1;
 		cub->has_bullet = false;
 	}
-	else if (key == 3 && cub->shot == 0 && !cub->has_bullet)
+	else if (key == RIGHT_CLICK && cub->shot == 0 && !cub->has_bullet)
 	{
 		cub->reload = 41;
 		cub->has_bullet = true;
 	}
-	else if (key == 2)
+	else if (key == SCROLL)
 	{
 		if (cub->fixed_mouse_center == true)
 			cub->fixed_mouse_center = false;
