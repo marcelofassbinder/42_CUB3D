@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/30 16:01:23 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 19:00:45 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	cub = init_cub_struct();
 	if (argc == 2 && find_extension(argv[1], ".cub"))
 	{
+		cub->is_bonus = true;
 		parsing(cub, argv[1]);
 		init_mlx(cub);
 		init_textures(cub);
@@ -27,9 +28,10 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (panic(cub, "Invalid input!"), EXIT_FAILURE);
-	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input_bonus, cub);
-	mlx_hook(cub->mlx_win, 17, 1L << 2, close_window, cub);
-	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, cub);
+	mlx_hook(cub->mlx_win, KeyPress, KeyPressMask, handle_input_bonus, cub);
+	mlx_hook(cub->mlx_win, DestroyNotify, ButtonPressMask, close_window, cub);
+	mlx_hook(cub->mlx_win, MotionNotify, PointerMotionMask,
+		handle_mouse_move, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_mouse_hook(cub->mlx_win, handle_mouse, cub);
 	mlx_loop(cub->mlx_ptr);

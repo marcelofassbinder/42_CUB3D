@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/30 16:18:12 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:44:36 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cub	*init_cub_struct(void)
 	cub->mouse_x = WIDTH / 2;
 	cub->walk = 0;
 	cub->fixed_mouse_center = true;
+	cub->is_bonus = false;
 	return (cub);
 }
 
@@ -51,17 +52,17 @@ void	define_initial_rotation(t_cub *cub)
 	if (cub->player_char == 'E')
 	{
 		cub->player_angle_rad = PI / 2;
-		cub->rotation = 12;
+		cub->rotation = 24;
 	}
 	if (cub->player_char == 'S')
 	{
 		cub->player_angle_rad = PI;
-		cub->rotation = 24;
+		cub->rotation = 48;
 	}
 	if (cub->player_char == 'W')
 	{
 		cub->player_angle_rad = 3 * PI / 2;
-		cub->rotation = 36;
+		cub->rotation = 72;
 	}
 }
 

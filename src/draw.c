@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:02:49 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/25 20:04:15 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:01:18 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_floor_ceiling(t_cub *cub, t_ray *ray)
 */
 int	define_texture_orientation(t_cub *cub, t_ray *ray)
 {
-	if (cub->map.map_array[ray->map_y][ray->map_x] == 'D')
+	if (cub->map.map_array[ray->map_y][ray->map_x] == C_DOOR)
 		return (4);
 	if (ray->side_colision)
 	{

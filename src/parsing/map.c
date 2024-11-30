@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 14:22:29 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 20:35:05 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:46:49 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**extract_map(t_cub *cub, char **file, int y)
 	int		size;
 	int		line_size;
 
-	size = map_size_valid_char(file, y);
+	size = map_size_valid_char(file, y, cub->is_bonus);
 	if (!size)
 		return (panic(cub, "Invalid character in map"), NULL);
 	cub->map.map_height = size;
@@ -83,7 +83,7 @@ int	empty_line(char *line)
 	return (true);
 }
 
-int	map_size_valid_char(char **file, int i)
+int	map_size_valid_char(char **file, int i, bool is_bonus)
 {
 	int	j;
 	int	size;
@@ -97,11 +97,14 @@ int	map_size_valid_char(char **file, int i)
 		while (file[i][++j])
 		{
 			if (file[i][j] != ' ' && file[i][j] != '\t'
-				&& file[i][j] != '\n' && file[i][j] != '1'
-				&& file[i][j] != '0' && file[i][j] != 'N'
+				&& file[i][j] != '\n' && file[i][j] != WALL
+				&& file[i][j] != FLOOR && file[i][j] != 'N'
 				&& file[i][j] != 'S' && file[i][j] != 'E'
-				&& file[i][j] != 'W' && file[i][j] != 'D')
+				&& file[i][j] != 'W' && file[i][j] != C_DOOR)
 				return (0);
+			if (!is_bonus)
+				if (file[i][j] == C_DOOR)
+					return (0);
 			if (j == 0 && file[i][j] == '\n')
 				save_start++;
 		}

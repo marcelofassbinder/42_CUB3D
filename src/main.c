@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:46 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 20:27:30 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:57:55 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (panic(cub, "Invalid input!"), EXIT_FAILURE);
-	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input, cub);
-	mlx_hook(cub->mlx_win, 17, 1L << 2, close_window, cub);
+	mlx_hook(cub->mlx_win, KeyPress, KeyPressMask, handle_input, cub);
+	mlx_hook(cub->mlx_win, DestroyNotify, ButtonPressMask, close_window, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting, cub);
 	mlx_loop(cub->mlx_ptr);
 }
