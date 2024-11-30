@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 19:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 20:24:31 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:56:30 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,12 @@ void	draw_initial_image(t_cub *cub)
 	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_win, resized.img, 0, 0);
 	mlx_destroy_image(cub->mlx_ptr, cub->initial.img);
 	cub->initial = resized;
+}
+
+int close_window(t_cub *cub)
+{
+	printf("You closed the window.\n");
+	printf("Thanks for playing!\n");
+	panic(cub, NULL);
+	return (0);
 }

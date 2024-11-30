@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 18:40:05 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 20:10:35 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:01:23 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,10 @@ int	main(int argc, char **argv)
 	}
 	else
 		return (panic(cub, "Invalid input!"), EXIT_FAILURE);
-	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input, cub);
+	mlx_hook(cub->mlx_win, 2, 1L << 0, handle_input_bonus, cub);
 	mlx_hook(cub->mlx_win, 17, 1L << 2, close_window, cub);
 	mlx_hook(cub->mlx_win, 6, PointerMotionMask, handle_mouse_move, cub);
 	mlx_loop_hook(cub->mlx_ptr, &ray_casting_bonus, cub);
 	mlx_mouse_hook(cub->mlx_win, handle_mouse, cub);
 	mlx_loop(cub->mlx_ptr);
-}
-
-int	handle_mouse_move(int x, int y, t_cub *cub)
-{
-	(void)y;
-	if (x > cub->mouse_x)
-	{
-		cub->mouse_x = x;
-		rotate_player(ARROW_RIGHT, cub);
-	}
-	if (x < cub->mouse_x)
-	{
-		cub->mouse_x = x;
-		rotate_player(ARROW_LEFT, cub);
-	}
-	return (0);
-}
-
-int	handle_mouse(int key, int x, int y, t_cub *cub)
-{
-	(void) x;
-	(void) y;
-	if (key == 1)
-	{
-		if (cub->reload == 40 && cub->has_bullet)
-		{
-			cub->shot = 1;
-			cub->has_bullet = false;
-		}
-	}
-	else if (key == 3)
-	{
-		if (cub->shot == 0 && !cub->has_bullet)
-		{
-			cub->reload = 41;
-			cub->has_bullet = true;
-		}
-	}
-	else if (key == 2)
-	{
-		if (cub->fixed_mouse_center == true)
-			cub->fixed_mouse_center = false;
-		else
-			cub->fixed_mouse_center = true;
-	}
-	return (1);
 }
