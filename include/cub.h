@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:28:57 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:04:33 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:18:04 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ typedef struct s_cub
 	bool			start_game;
 	bool			has_bullet;
 	bool			fixed_mouse_center;
-	bool			door_is_open;
 
 }	t_cub;
 
@@ -179,7 +178,7 @@ void			init_image_xpm(t_cub *cub, t_image *i, char *path);
 void			init_new_image(t_cub *cub, t_image *image, int width,
 					int height);
 void			draw_initial_image(t_cub *cub);
-int 			close_window(t_cub *cub);
+int				close_window(t_cub *cub);
 
 //parsing/parsing.c
 int				find_extension(char *map, char *ext);

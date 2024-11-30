@@ -3,45 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 18:32:15 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:27:33 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub_bonus.h"
-
-int	ray_casting_bonus(t_cub *cub)
-{
-	int		ray_id;
-	t_ray	*ray;
-
-	ray_id = -1;
-	if (!cub->start_game)
-		return (0);
-	if (cub->fixed_mouse_center == true)
-		mlx_mouse_move(cub->mlx_ptr, cub->mlx_win, WIDTH / 2, \
-			HEIGHT / 2);
-	while (++ray_id < WIDTH)
-	{
-		ray = calculate_ray(cub, ray_id);
-		while (42)
-		{
-			increment_to_next_intersection(ray);
-			if (cub->map.map_array[ray->map_y][ray->map_x] == WALL || (cub->map.map_array[ray->map_y][ray->map_x] == 'D' && !cub->door_is_open))
-				break ;
-		}
-		calculate_wall_distance(ray);
-		draw_floor_ceiling(cub, ray);
-		draw_textures(cub, ray);
-		free(ray);
-	}
-	minimap(cub);
-	draw_gun(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->mlx_win, cub->image.img, 0, 0);
-	return (1);
-}
 
 void	init_gun(t_cub *cub)
 {
@@ -60,7 +29,6 @@ void	init_gun(t_cub *cub)
 	init_image_xpm(cub, &cub->gun[12], "./textures/r8.xpm");
 	init_image_xpm(cub, &cub->gun[13], "./textures/r9.xpm");
 	init_image_xpm(cub, &cub->gun[14], "./textures/r10.xpm");
-	//init_image_xpm(cub, &cub->door[0], "./textures/door.xpm");
 }
 
 t_image	*define_gun_sprite(t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 20:27:34 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:16:33 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**get_matrix_from_file(t_cub *cub, char *file)
 		matrix[i] = ft_strdup(line);
 		if (!matrix[i])
 			return ((free(line), free_matrix(matrix),
-				panic(cub, "Malloc fail in map matrix line!"), NULL));
+					panic(cub, "Malloc fail in map matrix line!"), NULL));
 		free(line);
 		i++;
 	}
