@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:57:54 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 20:23:04 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 14:26:14 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ void	init_textures(t_cub *cub)
 	i = -1;
 	while (++i < 4)
 		init_image_xpm(cub, &cub->textures.images[i], cub->textures.files[i]);
-	init_image_xpm(cub, &cub->textures.images[4], "./textures/door_half.xpm");
+	init_image_xpm(cub, &cub->textures.images[4], "./textures/door.xpm");
 }

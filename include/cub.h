@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 20:28:57 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/28 20:29:58 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:04:33 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define SPACE XK_space
 
 # define WALL '1'
-# define DOOR 'D'
+# define O_DOOR 'd'
+# define C_DOOR 'D'
 # define MOVE_SPEED 0.1111111
 # define ROTATION_SPEED 0.25
 
@@ -170,15 +171,15 @@ int				handle_input(int key, t_cub *cub);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 unsigned int	get_color_from_pixel(t_image *img, int x, int y);
 char			*ft_strstr(char *str, char *to_find);
-int 			close_window(t_cub *cub);
 
-//utils_image.c
+//image.c
 void			resize_image(t_image *src, t_image *dst, int new_width,
 					int new_height);
 void			init_image_xpm(t_cub *cub, t_image *i, char *path);
 void			init_new_image(t_cub *cub, t_image *image, int width,
 					int height);
 void			draw_initial_image(t_cub *cub);
+int 			close_window(t_cub *cub);
 
 //parsing/parsing.c
 int				find_extension(char *map, char *ext);

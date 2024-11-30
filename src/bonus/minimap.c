@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/24 18:21:18 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:10:48 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int	minimap(t_cub *cub)
 			else if (cub->map.map_array[y][x] == '0'
 				|| ft_strchr("NSWE", cub->map.map_array[y][x]))
 				draw_element_minimap(cub, x, y, 0xEBE9FC);
+			else if (cub->map.map_array[y][x] == C_DOOR)
+				draw_element_minimap(cub, x, y, 0xFF0000);
+			else if (cub->map.map_array[y][x] == O_DOOR)
+				draw_element_minimap(cub, x, y, 0xBEFF98);
 			x++;
 		}
 		y++;
@@ -110,6 +114,7 @@ void	draw_one_ray_minimap(t_cub *cub, t_coordinate *ray_vector)
 		ray.x = (cub->player_position.x + (i * ray_vector->x));
 		ray.y = (cub->player_position.y + (i * ray_vector->y));
 		if (cub->map.map_array[(int)ray.y][(int)ray.x] != '0'
+			&& cub->map.map_array[(int)ray.y][(int)ray.x] != 'd'
 			&& cub->map.map_array[(int)ray.y][(int)ray.x] != cub->player_char)
 			break ;
 		my_mlx_pixel_put(&cub->image, (ray.x * cub->minmap_square),

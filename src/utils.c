@@ -6,34 +6,16 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:22:14 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 20:29:23 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:06:15 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-/* char	next_position_char(t_cub *cub)
-{
-	int quadrant;
-
-	quadrant = check_quadrant(cub->player_angle_rad);
-	
-} */
-
 int	handle_input(int key, t_cub *cub)
 {
-	if (key == SPACE)
-	{
-		if (!cub->start_game)
-			cub->start_game = true;
-		else
-		{
-			if (!cub->door_is_open)
-				cub->door_is_open = true;
-			else
-				cub->door_is_open = false;
-		}
-	}
+	if (key == SPACE && !cub->start_game)
+		cub->start_game = true;
 	if (key == ESC)
 		close_window(cub);
 	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
@@ -87,12 +69,4 @@ char	*ft_strstr(char *str, char *to_find)
 		i++;
 	}
 	return (NULL);
-}
-
-int close_window(t_cub *cub)
-{
-	printf("You closed the window.\n");
-	printf("Thanks for playing!\n");
-	panic(cub, NULL);
-	return (0);
 }
