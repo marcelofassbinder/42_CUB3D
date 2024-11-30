@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:58:47 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/28 20:39:14 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:27:22 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ void	change_player_position(t_coordinate *new_pos, t_cub *cub)
 	if (possible_new_pos && possible_new_pos != WALL
 		&& possible_new_pos_x != WALL && possible_new_pos_y != WALL)
 	{
-		if (!cub->door_is_open)
-			if (possible_new_pos == DOOR)
-				return ;
+		if (possible_new_pos == C_DOOR)
+			return ;
 		cub->player_position.x = new_pos->x;
 		cub->player_position.y = new_pos->y;
 		walk_move(cub);

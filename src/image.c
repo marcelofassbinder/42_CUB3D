@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_image.c                                      :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 19:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 15:56:30 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:16:16 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_initial_image(t_cub *cub)
 	cub->initial = resized;
 }
 
-int close_window(t_cub *cub)
+int	close_window(t_cub *cub)
 {
 	printf("You closed the window.\n");
 	printf("Thanks for playing!\n");

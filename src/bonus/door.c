@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:57:34 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:06:33 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:38:05 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_door(int y, int x, t_cub *cub)
 {
-	char **map;
+	char	**map;
 
 	map = cub->map.map_array;
 	if (map[y][x] && (map[y][x] == C_DOOR
@@ -23,48 +23,48 @@ bool	is_door(int y, int x, t_cub *cub)
 	return (false);
 }
 
-t_coordinate	*is_close_to_door(t_cub *cub)
+t_coordinate	is_close_to_door(t_cub *cub)
 {
 	t_coordinate	pos;
 	char			**map;
-	
+
 	map = cub->map.map_array;
 	pos.x = cub->player_position.x;
 	pos.y = cub->player_position.y;
 	if (is_door((int)pos.y, (int)(pos.x + 1), cub))
-		return (&(t_coordinate){pos.x + 1,pos.y});
+		return ((t_coordinate){pos.x + 1, pos.y});
 	if (is_door((int)(pos.y - 1), (int)(pos.x + 1), cub))
-		return (&(t_coordinate){pos.x + 1,pos.y - 1});
+		return ((t_coordinate){pos.x + 1, pos.y - 1});
 	if (is_door((int)(pos.y + 1), (int)(pos.x + 1), cub))
-		return (&(t_coordinate){pos.x + 1,pos.y + 1});
+		return ((t_coordinate){pos.x + 1, pos.y + 1});
 	if (is_door((int)(pos.y), (int)(pos.x - 1), cub))
-		return (&(t_coordinate){pos.x - 1,pos.y});
+		return ((t_coordinate){pos.x - 1, pos.y});
 	if (is_door((int)(pos.y - 1), (int)(pos.x - 1), cub))
-		return (&(t_coordinate){pos.x - 1,pos.y - 1});
+		return ((t_coordinate){pos.x - 1, pos.y - 1});
 	if (is_door((int)(pos.y + 1), (int)(pos.x - 1), cub))
-		return (&(t_coordinate){pos.x - 1,pos.y + 1});
+		return ((t_coordinate){pos.x - 1, pos.y + 1});
 	if (is_door((int)(pos.y + 1), (int)(pos.x), cub))
-		return (&(t_coordinate){pos.x,pos.y + 1});
+		return ((t_coordinate){pos.x, pos.y + 1});
 	if (is_door((int)(pos.y - 1), (int)(pos.x), cub))
-		return (&(t_coordinate){pos.x,pos.y - 1});
-	return (NULL);
+		return ((t_coordinate){pos.x, pos.y - 1});
+	return ((t_coordinate){0, 0});
 }
 
 int	handle_input_bonus(int key, t_cub *cub)
 {
-	t_coordinate	*pos;
-	
+	t_coordinate	pos;
+
 	pos = is_close_to_door(cub);
 	if (key == SPACE)
 	{
 		if (!cub->start_game)
 			cub->start_game = true;
-		else if (cub->start_game && pos)
-		{
-			if (cub->map.map_array[(int)pos->y][(int)pos->x] == O_DOOR)
-				cub->map.map_array[(int)pos->y][(int)pos->x] = C_DOOR;
+		else if (cub->start_game && pos.x != 0 && pos.y != 0)
+		{	
+			if (cub->map.map_array[(int)pos.y][(int)pos.x] == O_DOOR)
+				cub->map.map_array[(int)pos.y][(int)pos.x] = C_DOOR;
 			else
-				cub->map.map_array[(int)pos->y][(int)pos->x] = O_DOOR;
+				cub->map.map_array[(int)pos.y][(int)pos.x] = O_DOOR;
 		}
 	}
 	if (key == ESC)

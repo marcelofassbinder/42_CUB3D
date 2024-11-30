@@ -6,7 +6,7 @@
 /*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 13:56:06 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/30 16:10:48 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:17:13 by ismirand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	minimap(t_cub *cub)
 	int	y;
 
 	cub->minmap_square = WIDTH / 125;
-	y = 0;
-	while (y < cub->map.map_height)
+	y = -1;
+	while (++y < cub->map.map_height)
 	{
-		x = 0;
-		while (x < ft_strlen(cub->map.map_array[y]))
+		x = -1;
+		while (++x < ft_strlen(cub->map.map_array[y]))
 		{
 			if (cub->map.map_array[y][x] == '1')
 				draw_element_minimap(cub, x, y, 0x48116E);
@@ -33,9 +33,7 @@ int	minimap(t_cub *cub)
 				draw_element_minimap(cub, x, y, 0xFF0000);
 			else if (cub->map.map_array[y][x] == O_DOOR)
 				draw_element_minimap(cub, x, y, 0xBEFF98);
-			x++;
 		}
-		y++;
 	}
 	draw_player_minimap(cub);
 	draw_rays_minimap(cub);

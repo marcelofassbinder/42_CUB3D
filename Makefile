@@ -26,7 +26,7 @@ BONUS_SRC = utils.c image.c raycasting.c parsing/color.c draw.c\
 		parsing/map_walls.c init.c move_player.c rotate.c\
 		frees.c parsing/parsing.c parsing/map.c parsing/texture.c\
 		bonus/minimap.c bonus/main_bonus.c bonus/gun.c bonus/door.c\
-		bonus/mouse.c
+		bonus/mouse.c bonus/raycasting.c
 BONUS_OBJ = $(addprefix $(OBJ_DIR), $(BONUS_SRC:.c=.o))
 CC = cc
 C_FLAGS = -Wall -Werror -Wextra -g
