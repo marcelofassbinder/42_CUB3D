@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:59:10 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:27:33 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:20:34 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	init_gun(t_cub *cub)
 {
-	init_image_xpm(cub, &cub->gun[0], "./textures/gun1.xpm");
-	init_image_xpm(cub, &cub->gun[1], "./textures/gun2.xpm");
-	init_image_xpm(cub, &cub->gun[2], "./textures/gun3.xpm");
-	init_image_xpm(cub, &cub->gun[3], "./textures/gun4.xpm");
-	init_image_xpm(cub, &cub->gun[4], "./textures/gun5.xpm");
-	init_image_xpm(cub, &cub->gun[5], "./textures/r1.xpm");
-	init_image_xpm(cub, &cub->gun[6], "./textures/r2.xpm");
-	init_image_xpm(cub, &cub->gun[7], "./textures/r3.xpm");
-	init_image_xpm(cub, &cub->gun[8], "./textures/r4.xpm");
-	init_image_xpm(cub, &cub->gun[9], "./textures/r5.xpm");
-	init_image_xpm(cub, &cub->gun[10], "./textures/r6.xpm");
-	init_image_xpm(cub, &cub->gun[11], "./textures/r7.xpm");
-	init_image_xpm(cub, &cub->gun[12], "./textures/r8.xpm");
-	init_image_xpm(cub, &cub->gun[13], "./textures/r9.xpm");
-	init_image_xpm(cub, &cub->gun[14], "./textures/r10.xpm");
+	init_image_xpm(cub, &cub->gun[0], "./textures/gun/gun1.xpm");
+	init_image_xpm(cub, &cub->gun[1], "./textures/gun/gun2.xpm");
+	init_image_xpm(cub, &cub->gun[2], "./textures/gun/gun3.xpm");
+	init_image_xpm(cub, &cub->gun[3], "./textures/gun/gun4.xpm");
+	init_image_xpm(cub, &cub->gun[4], "./textures/gun/gun5.xpm");
+	init_image_xpm(cub, &cub->gun[5], "./textures/gun/r1.xpm");
+	init_image_xpm(cub, &cub->gun[6], "./textures/gun/r2.xpm");
+	init_image_xpm(cub, &cub->gun[7], "./textures/gun/r3.xpm");
+	init_image_xpm(cub, &cub->gun[8], "./textures/gun/r4.xpm");
+	init_image_xpm(cub, &cub->gun[9], "./textures/gun/r5.xpm");
+	init_image_xpm(cub, &cub->gun[10], "./textures/gun/r6.xpm");
+	init_image_xpm(cub, &cub->gun[11], "./textures/gun/r7.xpm");
+	init_image_xpm(cub, &cub->gun[12], "./textures/gun/r8.xpm");
+	init_image_xpm(cub, &cub->gun[13], "./textures/gun/r9.xpm");
+	init_image_xpm(cub, &cub->gun[14], "./textures/gun/r10.xpm");
 }
 
 t_image	*define_gun_sprite(t_cub *cub)

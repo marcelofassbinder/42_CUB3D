@@ -1,12 +1,12 @@
-NO      ./textures/gremio.xpm
+NO      ./textures/gremio/gremio.xpm
 
-SO 		./textures/gremio.xpm
-WE 		./textures/gremio.xpm
+SO 		./textures/gremio/mi.xpm
+WE 		./textures/gremio/gero.xpm
 
-EA     ./textures/gremio.xpm
+EA     ./textures/gremio/suarez.xpm
 
 
-F       0,0,0
+F 		0,0,0
 
 C 		0,0,153
 
@@ -27,4 +27,5 @@ C 		0,0,153
 11111111 1111111 11111111111
 1111111
 1000001
+1111011
 1111111
