@@ -6,7 +6,7 @@
 /*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 14:02:49 by mfassbin          #+#    #+#             */
-/*   Updated: 2024/11/30 17:01:18 by mfassbin         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:07:26 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	draw_textures(t_cub *cub, t_ray *ray)
 		tex.x = cub->textures.images[tex_index].width - (int)tex.x - 1;
 	step = 1.0 * cub->textures.images[tex_index].height / ray->line_height;
 	tex.y = (ray->pix_start - HEIGHT / 2 + ray->line_height / 2) * step;
-	while (ray->pix_start < ray->pix_end)
+	while (ray->pix_start <= ray->pix_end)
 	{
 		tex_color = get_color_from_pixel(&cub->textures.images[tex_index],
 				(int)tex.x, (int)tex.y);

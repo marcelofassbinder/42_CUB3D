@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ismirand <ismirand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfassbin <mfassbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:35:54 by ismirand          #+#    #+#             */
-/*   Updated: 2024/11/30 16:16:33 by ismirand         ###   ########.fr       */
+/*   Updated: 2024/11/30 19:25:17 by mfassbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	find_player_position(t_cub *cub)
 				if (cub->player_char)
 					return (panic(cub, "Duplicate player position"));
 				cub->player_char = map[y][x];
-				cub->player_position.x = x;
-				cub->player_position.y = y;
+				cub->player_position.x = x + 0.5;
+				cub->player_position.y = y + 0.5;
 			}
 		}
 	}
