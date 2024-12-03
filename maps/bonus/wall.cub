@@ -5,9 +5,9 @@ WE 		./textures/walls/bluewall.xpm
 
 EA     ./textures/walls/greenwall.xpm
 
-C       0,0,51
+C      255,0,255
 
-F 		160,160, 160
+F 		0,255,0
 
 
         1111111111111111111111111

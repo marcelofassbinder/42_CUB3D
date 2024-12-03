@@ -4,9 +4,9 @@ WE ./textures/brick/grey_brick.xpm
 EA ./textures/brick/purple_brick.xpm
 
 
-F       0, 124, 45
+C       0,0,51
 
-C 		102, 178, 255
+F 		64,64,64
 
 
         1111111111111111111111111
