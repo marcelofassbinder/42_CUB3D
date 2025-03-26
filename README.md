@@ -13,7 +13,7 @@ MANDATORY
 
 <div align=center>
  
-![cub3d_demonstration](textures/so_long_m.gif "so_long demonstration")
+![cub3d_demonstration](gif/cub.gif "cub3d")
 
 </div>
 
@@ -23,7 +23,7 @@ BONUS
 
 <div align=center>
  
-![cub_bonus](textures/so_long.gif "so_long bonus")
+![cub_bonus](gif/cub_bonus.gif "cub3d bonus")
 
 </div>
 # About ✍
