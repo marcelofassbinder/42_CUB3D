@@ -66,7 +66,75 @@ C 225,30,0
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 ```
+
 # How to play 🎮
+The player starts at the spawn position ``N``, ``S``, ``W`` or ``E`` with the corresponding orientation and can walk through the map, using the following buttons:
 
+### Movement
+- ``W`` - Moves the player front.
+- ``A`` - Moves the player to the left.
+- ``S`` - Moves the player back.
+- ``D`` - Moves the player to the right.
 
+### Rotation
+- ``⬅️`` - Rotates the player to the right (clockwise).
+- ``➡️`` - Rotates the player to the left (counterclockwise).
 
+### Window management
+- ``ESC`` or click ❌ - Closes the window.
+
+### Bonus Buttons
+- ``Backspace`` - Opens/closes the door.
+- ``Left mouse button`` - Fires the shotgun. 
+- ``Right mouse button`` - Reloads the shotgun. 
+- ``Move mouse cursor to the right`` - Rotates the player to the right (clockwise).
+- ``Move mouse cursor to the left`` - Rotates the player to the left (counterclockwise).
+
+# Bonus ⭐
+For the bonus section, we were required to add some extra features as:
+- A minimap system.
+- Doors which can open and close.
+- Adding some sprite animation (shotgun and reload)
+- Rotate the point of view with the mouse.
+  
+# Usage 🖥️
+To install and play Cub3D, follow these steps:
+- First, make sure you have the following dependencies installed in your machine: GCC (GNU Compiler Collection), X11 libraries and development headers and Minilibx: a simple X-Window (X11R6)
+- Clone the repository:
+```bash
+git clone git@github.com:marcelofassbinder/42_CUB3D.git
+```
+- Navigate to the project directory and run ``make`` to compile the program:
+```bash
+cd 42_CUB3D
+make
+```
+- Run the program providing a valid map, for example:
+```bash
+./cub3D maps/mandatory/game.cub
+```
+You can replace the ```maps/mandatory/game.cub``` for any valid map of your choice. The program will read the input and start the game. Good luck!
+
+- To enjoy the bonus part, follow:
+```bash
+make bonus
+```
+- Run the program providing a valid map, for example:
+```bash
+./cub3D_bonus maps/bonus/game.cub
+```
+You can replace the ```maps/bonus/game.cub``` for any valid map of your choice. The program will read the input and start the game. Good luck!
+
+# Grade  <p><img height="30px" src="https://img.shields.io/badge/-125%20%2F%20100-success" /></p>
+
+# Norminette 💂🏻
+At 42 School, we need to follow some strict rules when writing our code. These rules are described in the Norm and checked by the formidable `norminette`. Here are some of them:
+```
+- No for, do...while, switch, case, goto, ternary operators and variable-length arrays are allowed
+- Each function must be maximum 25 lines
+- One single variable declaration per line
+- You can’t declare more than 5 variables per function
+- You can't write more than 5 functions per file
+...
+```
+[Click here](https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf) to review the complete Norm document.
